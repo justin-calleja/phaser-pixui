@@ -1,0 +1,21 @@
+Phaser PixUI — NOTICE
+
+This repository: https://github.com/skhoroshavin/phaser-pixui
+
+--------------------------------------------------------------------------------
+1) Project copyright & license
+--------------------------------------------------------------------------------
+
+Copyright (c) 2026 Sergei Khoroshavin
+
+The source code in this repository is licensed under the MIT License.
+See the file "LICENSE" at the repository root for the full license text.
+
+--------------------------------------------------------------------------------
+2) Example art assets
+--------------------------------------------------------------------------------
+
+The example project included in this repository uses pixel art assets credited
+to Gabriel Lima (aka "tiopalada"). The repository README states these assets are
+CC0 and may be used for any purpose; attribution to the author is appreciated.
+See the file "example/public/assets/LICENSE" in this repository for details.

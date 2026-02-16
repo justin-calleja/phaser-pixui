@@ -41,11 +41,11 @@ export class Component {
     get zoom() { return this._zoom }
 
     get localX() { return this._cfg.x ?? 0 }
-    set localX(x) { this._cfg.x = x; this.updatePosition() }
+    set localX(x) { this._set('x', x) }
     get localY() { return this._cfg.y ?? 0 }
-    set localY(y) { this._cfg.y = y; this.updatePosition() }
-    setWidth(v: number) { this._cfg.width = v; this.updatePosition() }
-    setHeight(v: number) { this._cfg.height = v; this.updatePosition() }
+    set localY(y) { this._set('y', y) }
+    setWidth(width: number) { this._set('width', width) }
+    setHeight(height: number) { this._set('height', height) }
 
     updatePosition() {
         this._calcPosition()
@@ -82,5 +82,12 @@ export class Component {
             x: anchor.x + localX - offset.x,
             y: anchor.y + localY - offset.y
         }
+    }
+
+    private _set<K extends 'x' | 'y' | 'width' | 'height'>(key: K, value: number) {
+        const current = this._cfg[key]
+        if (current !== undefined && Math.abs(current - value) < 1) return
+        this._cfg[key] = value
+        this.updatePosition()
     }
 }

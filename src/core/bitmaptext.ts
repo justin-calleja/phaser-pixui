@@ -15,15 +15,19 @@ export class BitmapText extends Renderable<Phaser.GameObjects.BitmapText> {
         super(scene, cfg, scene.make.bitmapText({
             font: cfg.font,
             size: cfg.size,
-            text: cfg.text,
             visible: cfg.visible ?? true,
         }));
 
-        if (cfg.align) this.align = cfg.align;
+        if (cfg.align) this.align = cfg.align
+        if (cfg.text) this.text = cfg.text
     }
 
     get text() { return this.internal.text }
-    set text(value: string) { this.internal.text = value; this.updatePosition() }
+    set text(value: string) {
+        this.internal.text = value;
+        this.setWidth(this.internal.width)
+        this.setHeight(this.internal.height);
+    }
 
     get align(): TextAlign { return this.internal.align }
     set align(value: TextAlign) { this.internal.align = value }

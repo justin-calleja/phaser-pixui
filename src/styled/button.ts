@@ -36,6 +36,9 @@ export class Button extends StyledComponent {
             texture: theme.resources.texture,
             frame: style.frameDown!,
         })
+        if (!this._buttonUp.scalableX) this.setWidth(this._buttonUp.width);
+        if (!this._buttonUp.scalableY) this.setHeight(this._buttonUp.height);
+
         if (style.frameHover) {
             this._buttonHover = this.insert.image({
                 texture: theme.resources.texture,
@@ -52,7 +55,7 @@ export class Button extends StyledComponent {
         if (cfg.text) {
             this._buttonText = this.insert.bitmapText({
                 text: cfg.text,
-                align: TextAlign.Middle,
+                align: TextAlign.Center,
                 font: style.fontName!,
                 size: style.fontSize,
             })

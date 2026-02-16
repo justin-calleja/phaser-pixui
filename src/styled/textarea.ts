@@ -29,13 +29,13 @@ export class TextArea extends StyledComponent {
         const textFactory =
             align == TextAlign.Left ? this.insert.topLeft :
             align == TextAlign.Right ? this.insert.topRight :
-                this.insert.topLeft
+                this.insert.center
 
         this._text = textFactory.bitmapText({
             text: cfg.text,
-            align: cfg.textAlign ?? style.defaultAlign,
-            x: paddingX,
-            y: paddingY,
+            align: align,
+            x: align == TextAlign.Center ? 0 : paddingX,
+            y: align == TextAlign.Center ? 0 : paddingY,
             font: style.fontName!,
             size: style.fontSize,
             tint: resolveColor(style.fontTint, theme.palette),

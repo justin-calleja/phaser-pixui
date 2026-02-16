@@ -58,6 +58,16 @@ export class StyledMultiFactory extends StyledFactory {
         this.bottomRight = new StyledFactory({scene, container, theme, originX: OriginX.Right, originY: OriginY.Bottom})
     }
 
+    readonly center: StyledFactory
+    readonly left: StyledFactory
+    readonly right: StyledFactory
+    readonly top: StyledFactory
+    readonly bottom: StyledFactory
+    readonly topLeft: StyledFactory
+    readonly topRight: StyledFactory
+    readonly bottomLeft: StyledFactory
+    readonly bottomRight: StyledFactory
+
     at(originX: OriginX, originY: OriginY) {
         switch(originX) {
             case OriginX.Center: switch (originY) {
@@ -77,14 +87,4 @@ export class StyledMultiFactory extends StyledFactory {
             }
         }
     }
-
-    readonly center: StyledFactory
-    readonly left: StyledFactory
-    readonly right: StyledFactory
-    readonly top: StyledFactory
-    readonly bottom: StyledFactory
-    readonly topLeft: StyledFactory
-    readonly topRight: StyledFactory
-    readonly bottomLeft: StyledFactory
-    readonly bottomRight: StyledFactory
 }

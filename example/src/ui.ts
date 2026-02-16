@@ -65,7 +65,7 @@ export class Ui extends UiScene
                             fontTint: "dark",
                             paddingX: 30,
                             paddingY: 8,
-                            defaultAlign: TextAlign.Middle
+                            defaultAlign: TextAlign.Center,
                         }
                     }
                 }
@@ -110,7 +110,7 @@ export class Ui extends UiScene
         this.insert.top.textArea({
             style: 'header_scroll',
             y: 64,
-            width: 192,
+            width: 256,
             height: 32,
             text: 'Phaser-PixUI demo',
         })

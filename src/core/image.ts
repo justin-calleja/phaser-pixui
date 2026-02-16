@@ -10,21 +10,26 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
     constructor(scene: Scene, cfg: ImageConfig) {
         const frame = scene.textures.getFrame(cfg.texture, cfg.frame)
         const isScalable = frame.scale9 || frame.is3Slice
+
+        // @ts-ignore
+        const fixedWidth = !isScalable || (frame.customData.scale9Borders.w == frame.width) ? frame.width : undefined
+        // @ts-ignore
+        const fixedHeight = !isScalable || (frame.customData.scale9Borders.h == frame.height) ? frame.height : undefined
+
+        cfg = {
+            ...cfg,
+            width: cfg.width ?? fixedWidth,
+            height: cfg.height ?? fixedHeight,
+        }
         const renderable = isScalable ?
             Image._createNineSlice(scene, cfg) :
             Image._createSprite(scene,cfg)
-
         super(scene, cfg, renderable)
-        // @ts-ignore
-        this.scalableX = isScalable && frame.customData.scale9Borders.w < frame.width
-        // @ts-ignore
-        this.scalableY = isScalable && frame.customData.scale9Borders.h < frame.height
+        this.scalableX = fixedWidth === undefined
+        this.scalableY = fixedHeight === undefined
     }
     readonly scalableX: boolean
     readonly scalableY: boolean
-
-    get width() { return this.scalableX ? super.width : this.internal.width }
-    get height() { return this.scalableY ? super.height : this.internal.height }
 
     protected afterReposition() {
         super.afterReposition();

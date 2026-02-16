@@ -85,6 +85,16 @@ export class ComponentMultiFactory extends ComponentFactory {
         this.bottomRight = new ComponentFactory({scene, container, originX: OriginX.Right, originY: OriginY.Bottom,})
     }
 
+    readonly center: ComponentFactory
+    readonly left: ComponentFactory
+    readonly right: ComponentFactory
+    readonly top: ComponentFactory
+    readonly bottom: ComponentFactory
+    readonly topLeft: ComponentFactory
+    readonly topRight: ComponentFactory
+    readonly bottomLeft: ComponentFactory
+    readonly bottomRight: ComponentFactory
+
     at(originX: OriginX, originY: OriginY) {
         switch(originX) {
             case OriginX.Center: switch (originY) {
@@ -104,14 +114,4 @@ export class ComponentMultiFactory extends ComponentFactory {
             }
         }
     }
-
-    readonly center: ComponentFactory
-    readonly left: ComponentFactory
-    readonly right: ComponentFactory
-    readonly top: ComponentFactory
-    readonly bottom: ComponentFactory
-    readonly topLeft: ComponentFactory
-    readonly topRight: ComponentFactory
-    readonly bottomLeft: ComponentFactory
-    readonly bottomRight: ComponentFactory
 }

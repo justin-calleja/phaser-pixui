@@ -1,4 +1,10 @@
-.idea
+.idea/
+.vscode/
 node_modules/
 dist/
 dist.zip
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+coverage/

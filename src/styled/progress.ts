@@ -12,7 +12,7 @@ export class Progress extends StyledComponent {
         const style = findStyle('Progress', cfg.style, theme.progress)
 
         this._bar = this.insert.left.image({
-            texture: theme.resources.texture,
+            texture: theme.resources.atlas,
             frame: style.bar!,
             x: style.paddingX!,
             width: -2*style.paddingX!,
@@ -20,7 +20,7 @@ export class Progress extends StyledComponent {
             originX: OriginX.Left,
         })
         this._frame = this.insert.image({
-            texture: theme.resources.texture,
+            texture: theme.resources.atlas,
             frame: style.frame!,
         })
         this._paddingX = style.paddingX!

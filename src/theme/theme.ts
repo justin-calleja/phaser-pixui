@@ -8,8 +8,11 @@ type Texture = Phaser.Textures.Texture;
 export type ThemeConfig = {
     resources: {
         basePath?: string;
-        texture: string;
-        fonts: string[];
+        atlas: string;
+        fonts: {
+            atlas: string;
+            names: string[];
+        };
     }
 
     palette: Palette;

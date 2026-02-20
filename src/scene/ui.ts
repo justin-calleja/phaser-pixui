@@ -22,9 +22,9 @@ export class UiScene extends ResponsiveScene
     preload() {
         const res = this.theme.resources
         this.load.setPath(res.basePath)
-        this.load.atlas(res.texture, res.texture + '.png', res.texture + '.atlas')
-        for (const font of res.fonts) {
-            this.load.bitmapFont(font)
+        this.load.atlas(res.atlas, res.atlas+'.png', res.atlas+'.atlas')
+        for (const font of res.fonts.names) {
+            this.load.bitmapFont(font, res.fonts.atlas+'.png', font+'.bmfont')
         }
     }
 
@@ -33,7 +33,7 @@ export class UiScene extends ResponsiveScene
 
     create() {
         super.create()
-        initTheme(this.theme, this.textures.get(this.theme.resources.texture))
+        initTheme(this.theme, this.textures.get(this.theme.resources.atlas))
         this.game.scale.on("resize", this._updateRoot, this)
     }
 

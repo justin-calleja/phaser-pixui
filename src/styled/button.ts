@@ -29,11 +29,11 @@ export class Button extends StyledComponent {
         })
 
         this._buttonUp = this.insert.image({
-            texture: theme.resources.texture,
+            texture: theme.resources.atlas,
             frame: style.frameUp!,
         })
         this._buttonDown = this.insert.image({
-            texture: theme.resources.texture,
+            texture: theme.resources.atlas,
             frame: style.frameDown!,
         })
         if (!this._buttonUp.scalableX) this.setWidth(this._buttonUp.width);
@@ -41,13 +41,13 @@ export class Button extends StyledComponent {
 
         if (style.frameHover) {
             this._buttonHover = this.insert.image({
-                texture: theme.resources.texture,
+                texture: theme.resources.atlas,
                 frame: style.frameHover,
             })
         }
         if (style.frameDisabled) {
             this._buttonDisabled = this.insert.image({
-                texture: theme.resources.texture,
+                texture: theme.resources.atlas,
                 frame: style.frameDisabled,
             })
         }

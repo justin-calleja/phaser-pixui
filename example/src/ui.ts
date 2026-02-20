@@ -18,8 +18,11 @@ export class Ui extends UiScene
             theme: {
                 resources: {
                     basePath: "assets",
-                    texture: "mana_soul",
-                    fonts: ["mana_roots", "mana_trunk", "mana_branches"]
+                    atlas: "mana_soul",
+                    fonts: {
+                        atlas: "fonts",
+                        names: ["mana_roots", "mana_trunk", "mana_branches"]
+                    }
                 },
 
                 palette: {

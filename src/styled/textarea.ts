@@ -16,7 +16,7 @@ export class TextArea extends StyledComponent {
 
         if (style.frame) {
             this.insert.image({
-                texture: theme.resources.texture,
+                texture: theme.resources.atlas,
                 frame: style.frame,
                 visible: this.visible,
             })

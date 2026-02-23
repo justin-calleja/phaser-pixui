@@ -30,19 +30,34 @@ jobs:
       - name: Publish
         run: npm publish
 
-#  publish-itch:
-#    name: Publish to Itch.io
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Release to itch.io
-#        uses: XanatosX/butler-publish-itchio-action@fb0a6f13954b75e8fbcfb703dbdb8626452efaba
-#        env:
-#          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
-#          CHANNEL: ${{ matrix.os }}
-#          ITCH_GAME: phaser-pixui
-#          ITCH_USER: skhoroshavin
-#          VERSION: ${{ github.ref_name }}
+  publish-itch:
+    name: Publish to Itch.io
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Build phaser-pixui
+        run: npm ci && npm run build
+
+      - name: Build example
+        run: |
+          cd example
+          npm ci
+          npm run build
+
+      - name: Publish to itch.io
+        uses: XanatosX/butler-publish-itchio-action@fb0a6f13954b75e8fbcfb703dbdb8626452efaba
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: web
+          ITCH_GAME: phaser-pixui
+          ITCH_USER: skhoroshavin
+          PACKAGE: example/dist
+          VERSION: ${{ github.ref_name }}

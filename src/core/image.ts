@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import { Renderable, RenderableConfig } from "./renderable.ts";
+import {frameDimensions} from "../util/frame.ts";
 
 export type ImageConfig = {
     texture: string,
@@ -8,25 +9,22 @@ export type ImageConfig = {
 
 export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObjects.NineSlice> {
     constructor(scene: Scene, cfg: ImageConfig) {
-        const frame = scene.textures.getFrame(cfg.texture, cfg.frame)
-        const isScalable = frame.scale9 || frame.is3Slice
-
-        // @ts-ignore
-        const fixedWidth = !isScalable || (frame.customData.scale9Borders.w == frame.width) ? frame.width : undefined
-        // @ts-ignore
-        const fixedHeight = !isScalable || (frame.customData.scale9Borders.h == frame.height) ? frame.height : undefined
+        const frame = frameDimensions(scene.textures.getFrame(cfg.texture, cfg.frame))
+        const fixedWidth = frame.scalableX ? undefined : frame.width
+        const fixedHeight = frame.scalableY ? undefined : frame.height
 
         cfg = {
             ...cfg,
             width: cfg.width ?? fixedWidth,
             height: cfg.height ?? fixedHeight,
         }
-        const renderable = isScalable ?
+
+        const renderable = frame.scalableX || frame.scalableY ?
             Image._createNineSlice(scene, cfg) :
             Image._createSprite(scene,cfg)
         super(scene, cfg, renderable)
-        this.scalableX = fixedWidth === undefined
-        this.scalableY = fixedHeight === undefined
+        this.scalableX = frame.scalableX
+        this.scalableY = frame.scalableY
     }
     readonly scalableX: boolean
     readonly scalableY: boolean
@@ -35,6 +33,9 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
         super.afterReposition();
         if (this.scalableX) this.internal.width = this.width
         if (this.scalableY) this.internal.height = this.height
+        if (this.scalableX || this.scalableY) {
+            console.log(this.internal.frame.name, this.width, this.height)
+        }
     }
 
     private static _createSprite(scene: Scene, cfg: ImageConfig) {

@@ -1,6 +1,7 @@
 import {FontStyle, initFontStyle} from "./font.ts";
 import {StyleList, ThemeConfig} from "./theme.ts";
 import {Shape} from "../core/interactive.ts";
+import {frameDimensions} from "../util/frame.ts";
 
 type Texture = Phaser.Textures.Texture;
 
@@ -46,15 +47,13 @@ export function initButtonStyle(base: StyleList<ButtonStyle>, theme: ThemeConfig
 function initAtlasFrames(style: ButtonStyle, atlas: Texture) {
     if (!style.frame) return
 
-    const frame = (name: string) => atlas.has(name) ? name : undefined
-    style.frameUp ??= frame(`${style.frame}_up`)
-    style.frameDown ??= frame(`${style.frame}_down`)
-    style.frameHover ??= frame(`${style.frame}_hover`)
-    style.frameDisabled ??= frame(`${style.frame}_disabled`)
+    const frameName = (name: string) => atlas.has(name) ? name : undefined
+    style.frameUp ??= frameName(`${style.frame}_up`)
+    style.frameDown ??= frameName(`${style.frame}_down`)
+    style.frameHover ??= frameName(`${style.frame}_hover`)
+    style.frameDisabled ??= frameName(`${style.frame}_disabled`)
 
-    const frameObj = atlas.get(style.frameUp)
-    const customData = frameObj.customData as { scale9Borders?: {w: number, h: number} } | undefined
-    const scale9 = customData?.scale9Borders
-    if (!scale9 || scale9.w == frameObj.width) style.defaultWidth ??= frameObj.width
-    if (!scale9 || scale9.h == frameObj.height) style.defaultHeight ??= frameObj.height
+    const frame = frameDimensions(atlas.get(style.frameUp))
+    if (!frame.scalableX) style.defaultWidth ??= frame.width
+    if (!frame.scalableY) style.defaultHeight ??= frame.height
 }

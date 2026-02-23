@@ -8,7 +8,7 @@
     "build": "tsc && vite build --config vite/config.prod.mjs"
   },
   "devDependencies": {
-    "pixel-tools": "^0.8.11",
+    "pixel-tools": "^0.8.17",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   },

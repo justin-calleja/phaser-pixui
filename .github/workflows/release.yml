@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish-npm:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Build
+        run: npm ci && npm run build
+
+      - name: Publish
+        run: npm publish
+
+#  publish-itch:
+#    name: Publish to Itch.io
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Release to itch.io
+#        uses: XanatosX/butler-publish-itchio-action@fb0a6f13954b75e8fbcfb703dbdb8626452efaba
+#        env:
+#          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+#          CHANNEL: ${{ matrix.os }}
+#          ITCH_GAME: phaser-pixui
+#          ITCH_USER: skhoroshavin
+#          VERSION: ${{ github.ref_name }}

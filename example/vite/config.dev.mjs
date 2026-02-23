@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 import { runAssetPipeline } from './asset-pipeline.mjs';
+import pkg from '../../package.json' with { type: 'json' };
 
 export default defineConfig({
     base: './',
+    define: {
+        'PHASER_PIXUI_VERSION': JSON.stringify(pkg.version),
+    },
     server: {
         port: 8080,
         open: true,

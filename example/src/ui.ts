@@ -107,7 +107,7 @@ export class Ui extends UiScene
             x: 4, y: 88,
             font: 'mana_branches',
             tint: resolveColor('dark', this.theme.palette),
-            text: 'Phaser PixUI v0.1.1',
+            text: `Phaser PixUI v${PHASER_PIXUI_VERSION}`,
         })
 
         this.insert.top.textArea({

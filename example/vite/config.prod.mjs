@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite';
 import { runAssetPipeline } from './asset-pipeline.mjs';
+import pkg from '../../package.json' with { type: 'json' };
 
 export default defineConfig({
     base: './',
     logLevel: 'warning',
+    define: {
+        'PHASER_PIXUI_VERSION': JSON.stringify(pkg.version),
+    },
     resolve: {
         dedupe: ['phaser'],
     },

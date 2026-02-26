@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite/config.dev.mjs",
-    "build": "tsc && vite build --config vite/config.prod.mjs"
+    "build": "tsc && vite build --config vite/config.prod.mjs",
+    "preview": "vite preview --config vite/config.prod.mjs"
   },
   "devDependencies": {
     "pixel-tools": "^0.9.2",

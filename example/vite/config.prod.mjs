@@ -24,7 +24,7 @@ export default defineConfig({
             }
         }
     },
-    server: {
+    preview: {
         port: 8080
     },
     plugins: [

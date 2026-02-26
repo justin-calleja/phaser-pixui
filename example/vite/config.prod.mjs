@@ -12,18 +12,6 @@ export default defineConfig({
     resolve: {
         dedupe: ['phaser'],
     },
-    build: {
-        minify: 'terser',
-        terserOptions: {
-            compress: {
-                passes: 2
-            },
-            mangle: true,
-            format: {
-                comments: false
-            }
-        }
-    },
     preview: {
         port: 8080
     },

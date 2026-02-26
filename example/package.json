@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "phaser": "^4.0.0-rc.6",
-    "phaser-pixui": "file:..",
-    "terser": "^5.46.0"
+    "phaser-pixui": "file:.."
   }
 }

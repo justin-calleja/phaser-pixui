@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
-import path from 'path';
-import { runAssetPipeline } from './asset-pipeline.mjs';
+import { processAssetsDev } from 'pixel-tools';
+import { assetsConfig } from './assets.mjs';
 import pkg from '../../package.json' with { type: 'json' };
 
 export default defineConfig({
@@ -13,23 +13,6 @@ export default defineConfig({
         open: true,
     },
     plugins: [
-        {
-            name: 'asset-pipeline-watcher',
-            configureServer(server) {
-                const assetDir = path.resolve(server.config.root, 'assets')
-                server.watcher.add(assetDir);
-
-                const update = (filePath) => {
-                    if (filePath.includes('/public/assets/')) return
-                    console.log(`Asset changed: ${filePath}`)
-                    runAssetPipeline()
-                    server.ws.send({ type: 'full-reload' })
-                }
-
-                server.watcher.on('change', update)
-                server.watcher.on('add', update)
-                server.watcher.on('unlink', update)
-            }
-        }
+        processAssetsDev(assetsConfig),
     ]
 });

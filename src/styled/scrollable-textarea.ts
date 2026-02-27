@@ -42,8 +42,8 @@ export class ScrollableTextArea extends TextArea {
         this.scrollToEnd()
     }
 
-    get maxScrollPosition() { return this._scroller.maxScrollPosition }
-    scrollTo(pos: number) { this._scroller.scrollTo(pos) }
+    get maxScrollPosition() { return this._scroller.maxScrollPositionY }
+    scrollTo(pos: number) { this._scroller.scrollTo(0, pos) }
     scrollToStart() { this._scroller.scrollToStart() }
     scrollToEnd() { this._scroller.scrollToEnd() }
 

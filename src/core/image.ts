@@ -33,9 +33,6 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
         super.afterReposition();
         if (this.scalableX) this.internal.width = this.width
         if (this.scalableY) this.internal.height = this.height
-        if (this.scalableX || this.scalableY) {
-            console.log(this.internal.frame.name, this.width, this.height)
-        }
     }
 
     private static _createSprite(scene: Scene, cfg: ImageConfig) {

@@ -1,18 +1,18 @@
-import {Origin, OriginX, OriginY} from "../util/origin.ts";
-import {Scene} from "phaser";
-import {Container} from "./container.ts";
-import {Interactive, InteractiveConfig} from "./interactive.ts";
-import {BitmapText, BitmapTextConfig} from "./bitmaptext.ts";
-import {Image, ImageConfig} from "./image.ts";
-import {Clickable, ClickableConfig} from "./clickable.ts";
-import {ComponentConfig} from "./component.ts";
-import {Mask} from "./renderable.ts";
-import {Scrollable, ScrollableConfig} from "./scrollable.ts";
-import {Rectangle, RectangleConfig} from "./rectangle.ts";
+import { Origin, OriginX, OriginY } from "../util/origin.ts"
+import { Scene } from "phaser"
+import { Container } from "./container.ts"
+import { Interactive, InteractiveConfig } from "./interactive.ts"
+import { BitmapText, BitmapTextConfig } from "./bitmaptext.ts"
+import { Image, ImageConfig } from "./image.ts"
+import { Clickable, ClickableConfig } from "./clickable.ts"
+import { ComponentConfig } from "./component.ts"
+import { Mask } from "./renderable.ts"
+import { Scrollable, ScrollableConfig } from "./scrollable.ts"
+import { Rectangle, RectangleConfig } from "./rectangle.ts"
 
 export type ComponentFactoryConfig = Origin & {
-    scene: Scene,
-    container: Container,
+    scene: Scene
+    container: Container
 }
 
 export class ComponentFactory {
@@ -73,16 +73,66 @@ export class ComponentFactory {
 
 export class ComponentMultiFactory extends ComponentFactory {
     constructor(scene: Scene, container: Container) {
-        super({scene, container, originX: OriginX.Center, originY: OriginY.Center})
-        this.center = new ComponentFactory({scene, container, originX: OriginX.Center, originY: OriginY.Center,})
-        this.left = new ComponentFactory({scene, container, originX: OriginX.Left, originY: OriginY.Center,})
-        this.right = new ComponentFactory({scene, container, originX: OriginX.Right, originY: OriginY.Center,})
-        this.top = new ComponentFactory({scene, container, originX: OriginX.Center, originY: OriginY.Top,})
-        this.bottom = new ComponentFactory({scene, container, originX: OriginX.Center, originY: OriginY.Bottom,})
-        this.topLeft = new ComponentFactory({scene, container, originX: OriginX.Left, originY: OriginY.Top,})
-        this.topRight = new ComponentFactory({scene, container, originX: OriginX.Right, originY: OriginY.Top,})
-        this.bottomLeft = new ComponentFactory({scene, container, originX: OriginX.Left, originY: OriginY.Bottom,})
-        this.bottomRight = new ComponentFactory({scene, container, originX: OriginX.Right, originY: OriginY.Bottom,})
+        super({
+            scene,
+            container,
+            originX: OriginX.Center,
+            originY: OriginY.Center,
+        })
+        this.center = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Center,
+            originY: OriginY.Center,
+        })
+        this.left = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Left,
+            originY: OriginY.Center,
+        })
+        this.right = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Right,
+            originY: OriginY.Center,
+        })
+        this.top = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Center,
+            originY: OriginY.Top,
+        })
+        this.bottom = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Center,
+            originY: OriginY.Bottom,
+        })
+        this.topLeft = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Left,
+            originY: OriginY.Top,
+        })
+        this.topRight = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Right,
+            originY: OriginY.Top,
+        })
+        this.bottomLeft = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Left,
+            originY: OriginY.Bottom,
+        })
+        this.bottomRight = new ComponentFactory({
+            scene,
+            container,
+            originX: OriginX.Right,
+            originY: OriginY.Bottom,
+        })
     }
 
     readonly center: ComponentFactory
@@ -96,22 +146,34 @@ export class ComponentMultiFactory extends ComponentFactory {
     readonly bottomRight: ComponentFactory
 
     at(originX: OriginX, originY: OriginY) {
-        switch(originX) {
-            case OriginX.Center: switch (originY) {
-                case OriginY.Center: return this.center
-                case OriginY.Top: return this.top
-                case OriginY.Bottom: return this.bottom
-            }
-            case OriginX.Left: switch (originY) {
-                case OriginY.Center: return this.left
-                case OriginY.Top: return this.topLeft
-                case OriginY.Bottom: return this.bottomLeft
-            }
-            case OriginX.Right: switch (originY) {
-                case OriginY.Center: return this.right
-                case OriginY.Top: return this.topRight
-                case OriginY.Bottom: return this.bottomRight
-            }
+        switch (originX) {
+            case OriginX.Center:
+                switch (originY) {
+                    case OriginY.Center:
+                        return this.center
+                    case OriginY.Top:
+                        return this.top
+                    case OriginY.Bottom:
+                        return this.bottom
+                }
+            case OriginX.Left:
+                switch (originY) {
+                    case OriginY.Center:
+                        return this.left
+                    case OriginY.Top:
+                        return this.topLeft
+                    case OriginY.Bottom:
+                        return this.bottomLeft
+                }
+            case OriginX.Right:
+                switch (originY) {
+                    case OriginY.Center:
+                        return this.right
+                    case OriginY.Top:
+                        return this.topRight
+                    case OriginY.Bottom:
+                        return this.bottomRight
+                }
         }
     }
 }

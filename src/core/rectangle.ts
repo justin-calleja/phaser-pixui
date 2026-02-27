@@ -1,14 +1,13 @@
-import { Scene } from "phaser";
-import { Component, ComponentConfig } from "./component.ts";
-
+import { Scene } from "phaser"
+import { Component, ComponentConfig } from "./component.ts"
 
 export type RectangleConfig = ComponentConfig & {
-    fillColor?: number,
-    fillAlpha?: number,
-    borderColor?: number,
-    borderAlpha?: number,
-    borderWidth?: number,
-};
+    fillColor?: number
+    fillAlpha?: number
+    borderColor?: number
+    borderAlpha?: number
+    borderWidth?: number
+}
 
 export class Rectangle extends Component {
     constructor(scene: Scene, cfg?: RectangleConfig) {
@@ -24,24 +23,49 @@ export class Rectangle extends Component {
         this._updateStroke()
     }
 
-    get fillColor(): number | undefined { return this._fillColor; }
-    set fillColor(value: number | undefined) { this._fillColor = value; this._updateFill() }
+    get fillColor(): number | undefined {
+        return this._fillColor
+    }
+    set fillColor(value: number | undefined) {
+        this._fillColor = value
+        this._updateFill()
+    }
     private _fillColor?: number
 
-    get fillAlpha(): number { return this._fillAlpha; }
-    set fillAlpha(value: number) { this._fillAlpha = value; this._updateFill() }
+    get fillAlpha(): number {
+        return this._fillAlpha
+    }
+    set fillAlpha(value: number) {
+        this._fillAlpha = value
+        this._updateFill()
+    }
     private _fillAlpha: number
 
-    get borderColor(): number | undefined { return this._borderColor }
-    set borderColor(value: number | undefined) { this._borderColor = value; this._updateStroke() }
+    get borderColor(): number | undefined {
+        return this._borderColor
+    }
+    set borderColor(value: number | undefined) {
+        this._borderColor = value
+        this._updateStroke()
+    }
     private _borderColor?: number
 
-    get borderAlpha(): number { return this._borderAlpha }
-    set borderAlpha(value: number) { this._borderAlpha = value; this._updateStroke() }
+    get borderAlpha(): number {
+        return this._borderAlpha
+    }
+    set borderAlpha(value: number) {
+        this._borderAlpha = value
+        this._updateStroke()
+    }
     private _borderAlpha: number
 
-    get borderWidth(): number { return this._borderWidth; }
-    set borderWidth(value: number) { this._borderWidth = value; this._updateStroke() }
+    get borderWidth(): number {
+        return this._borderWidth
+    }
+    set borderWidth(value: number) {
+        this._borderWidth = value
+        this._updateStroke()
+    }
     private _borderWidth: number
 
     protected afterReposition() {

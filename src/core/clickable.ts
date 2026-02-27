@@ -1,29 +1,38 @@
-import {Interactive, InteractiveConfig} from "./interactive.ts";
-import {Scene} from "phaser";
+import { Interactive, InteractiveConfig } from "./interactive.ts"
+import { Scene } from "phaser"
 
 export type ClickableConfig = {
-   onClick?: () => void,
+    onClick?: () => void
 } & InteractiveConfig
 
 export enum ClickableState {
-    Default, Hovered, Pressed, Disabled
+    Default,
+    Hovered,
+    Pressed,
+    Disabled,
 }
 
 export class Clickable extends Interactive {
     constructor(scene: Scene, cfg: ClickableConfig = {}) {
-        super(scene, cfg);
+        super(scene, cfg)
 
         this._onClick = cfg.onClick
 
-        this.events.on('pointerdown', this._onPointerDown, this);
-        this.events.on('pointerout', this._onPointerOut, this);
-        this.events.on('pointerup', this._onPointerUp, this);
-        this.events.on('pointerover', this._onPointerOver, this);
+        this.events.on("pointerdown", this._onPointerDown, this)
+        this.events.on("pointerout", this._onPointerOut, this)
+        this.events.on("pointerup", this._onPointerUp, this)
+        this.events.on("pointerover", this._onPointerOver, this)
     }
 
-    get state(): ClickableState { return this.enabled ? this._state : ClickableState.Disabled }
-    get hovered() { return this.state == ClickableState.Hovered }
-    get pressed() { return this.state == ClickableState.Pressed }
+    get state(): ClickableState {
+        return this.enabled ? this._state : ClickableState.Disabled
+    }
+    get hovered() {
+        return this.state == ClickableState.Hovered
+    }
+    get pressed() {
+        return this.state == ClickableState.Pressed
+    }
     private _state: ClickableState = ClickableState.Default
 
     update() {

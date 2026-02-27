@@ -6,13 +6,13 @@
   nineslice: { x: 30, y: 13, w: 38, h: 9 }
 - name: progress_curly
   image: ui/20250421barA-Sheet.png
-  nineslice: {x: 22, y: 4, w: 51, h: 3}
+  nineslice: { x: 22, y: 4, w: 51, h: 3 }
 - name: bar_green
   image: ui/bar_green.png
-  nineslice: {x: 2, y: 2, w: 4, h: 4}
+  nineslice: { x: 2, y: 2, w: 4, h: 4 }
 - name: button
   image: ui/20250421manaSoulButtonB-Sheet.png
-  nineslice: {x: 10, y: 0, w: 70, h: 22}
+  nineslice: { x: 10, y: 0, w: 70, h: 22 }
   spritesheet:
     sprite_width: 96
     sprite_height: 22

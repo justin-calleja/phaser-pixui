@@ -1,25 +1,25 @@
-import {findStyle, resolveColor, ThemeConfig} from "../theme/theme.ts";
-import {Scene} from "phaser";
-import {BitmapText} from "../core/bitmaptext.ts";
-import {StyledComponent, StyledComponentConfig} from "./styled.ts";
-import {Clickable, ClickableState} from "../core/clickable.ts";
-import {Image} from "../core/image.ts";
-import {TextAlign} from "../util/align.ts";
+import { findStyle, resolveColor, ThemeConfig } from "../theme/theme.ts"
+import { Scene } from "phaser"
+import { BitmapText } from "../core/bitmaptext.ts"
+import { StyledComponent, StyledComponentConfig } from "./styled.ts"
+import { Clickable, ClickableState } from "../core/clickable.ts"
+import { Image } from "../core/image.ts"
+import { TextAlign } from "../util/align.ts"
 
 export type ButtonConfig = {
-    enabled?: boolean,
-    text?: string,
-    onClick: () => void,
+    enabled?: boolean
+    text?: string
+    onClick: () => void
 } & StyledComponentConfig
 
 export class Button extends StyledComponent {
     constructor(scene: Scene, theme: ThemeConfig, cfg: ButtonConfig) {
-        const style = findStyle('Button', cfg.style, theme.button)
+        const style = findStyle("Button", cfg.style, theme.button)
         super(scene, theme, {
             width: cfg.width ?? style.defaultWidth,
             height: cfg.height ?? style.defaultHeight,
-            ...cfg
-        });
+            ...cfg,
+        })
 
         this._clickable = this.insert.clickable({
             shape: style.shape,
@@ -36,8 +36,8 @@ export class Button extends StyledComponent {
             texture: theme.resources.atlas,
             frame: style.frameDown!,
         })
-        if (!this._buttonUp.scalableX) this.setWidth(this._buttonUp.width);
-        if (!this._buttonUp.scalableY) this.setHeight(this._buttonUp.height);
+        if (!this._buttonUp.scalableX) this.setWidth(this._buttonUp.width)
+        if (!this._buttonUp.scalableY) this.setHeight(this._buttonUp.height)
 
         if (style.frameHover) {
             this._buttonHover = this.insert.image({
@@ -59,17 +59,25 @@ export class Button extends StyledComponent {
                 font: style.fontName!,
                 size: style.fontSize,
             })
-            
+
             this._defaultTint = resolveColor(style.fontTint, theme.palette)
             this._disabledTint = resolveColor(style.fontTintDisabled, theme.palette)
         }
     }
 
-    get visible() { return this._clickable.visible }
-    set visible(value: boolean) { this._clickable.visible = value }
+    get visible() {
+        return this._clickable.visible
+    }
+    set visible(value: boolean) {
+        this._clickable.visible = value
+    }
 
-    get enabled() { return this._clickable.enabled }
-    set enabled(value: boolean) { this._clickable.enabled = value }
+    get enabled() {
+        return this._clickable.enabled
+    }
+    set enabled(value: boolean) {
+        this._clickable.enabled = value
+    }
 
     update() {
         super.update()
@@ -108,19 +116,17 @@ export class Button extends StyledComponent {
     }
 
     protected afterReposition() {
-        super.afterReposition();
+        super.afterReposition()
         this._clickable.setHeight(this._buttonUp.height)
     }
 
     private _setVisible(obj: Image | null) {
-        this._buttonUp.visible = this.visible && (obj == this._buttonUp)
-        this._buttonDown.visible = this.visible && (obj == this._buttonDown)
-        if (this._buttonHover)
-            this._buttonHover.visible = this.visible && (obj == this._buttonHover)
+        this._buttonUp.visible = this.visible && obj == this._buttonUp
+        this._buttonDown.visible = this.visible && obj == this._buttonDown
+        if (this._buttonHover) this._buttonHover.visible = this.visible && obj == this._buttonHover
         if (this._buttonDisabled)
-            this._buttonDisabled.visible = this.visible && (obj == this._buttonDisabled)
-        if (this._buttonText)
-            this._buttonText.visible = this.visible
+            this._buttonDisabled.visible = this.visible && obj == this._buttonDisabled
+        if (this._buttonText) this._buttonText.visible = this.visible
     }
 
     private readonly _clickable: Clickable

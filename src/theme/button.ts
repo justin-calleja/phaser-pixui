@@ -1,20 +1,20 @@
-import {FontStyle, initFontStyle} from "./font.ts";
-import {StyleList, ThemeConfig} from "./theme.ts";
-import {Shape} from "../core/interactive.ts";
-import {frameDimensions} from "../util/frame.ts";
+import { FontStyle, initFontStyle } from "./font.ts"
+import { StyleList, ThemeConfig } from "./theme.ts"
+import { Shape } from "../core/interactive.ts"
+import { frameDimensions } from "../util/frame.ts"
 
-type Texture = Phaser.Textures.Texture;
+type Texture = Phaser.Textures.Texture
 
 export type ButtonStyle = {
-    frame?: string,
-    frameUp?: string,
-    frameDown?: string,
-    frameHover?: string,
-    frameDisabled?: string,
-    defaultWidth?: number,
-    defaultHeight?: number,
-    shape?: Shape,
-    fontTintDisabled?: string,
+    frame?: string
+    frameUp?: string
+    frameDown?: string
+    frameHover?: string
+    frameDisabled?: string
+    defaultWidth?: number
+    defaultHeight?: number
+    shape?: Shape
+    fontTintDisabled?: string
 } & FontStyle
 
 export function initButtonStyle(base: StyleList<ButtonStyle>, theme: ThemeConfig, atlas: Texture) {
@@ -23,7 +23,7 @@ export function initButtonStyle(base: StyleList<ButtonStyle>, theme: ThemeConfig
     if (base.frameDown === undefined) console.error(`Base button doesn't have frameDown defined`)
     base.frameHover ??= base.frameUp
     base.frameDisabled ??= base.frameUp
-    base.shape ??= 'rect'
+    base.shape ??= "rect"
     initFontStyle(base, theme)
     base.fontTintDisabled ??= base.fontTint
 
@@ -47,7 +47,7 @@ export function initButtonStyle(base: StyleList<ButtonStyle>, theme: ThemeConfig
 function initAtlasFrames(style: ButtonStyle, atlas: Texture) {
     if (!style.frame) return
 
-    const frameName = (name: string) => atlas.has(name) ? name : undefined
+    const frameName = (name: string) => (atlas.has(name) ? name : undefined)
     style.frameUp ??= frameName(`${style.frame}_up`)
     style.frameDown ??= frameName(`${style.frame}_down`)
     style.frameHover ??= frameName(`${style.frame}_hover`)

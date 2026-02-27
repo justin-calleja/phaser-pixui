@@ -79,7 +79,7 @@ for the full license text.
 The example project included in this repository uses pixel art assets created
 by Gabriel Lima aka [tiopalada](https://tiopalada.itch.io). Big thanks to him
 for creating beautiful pixel art and putting it into the public domain. Asset pages
-([Mana Soul GUI](https://tiopalada.itch.io/tiny-rpg-mana-soul-gui), 
+([Mana Soul GUI](https://tiopalada.itch.io/tiny-rpg-mana-soul-gui),
 [Tiny RPG Font Kit II](https://tiopalada.itch.io/tiny-rpg-font-kit-ii) and
 demo version of [Tiny RPG Battle Kit I](https://tiopalada.itch.io/tiny-rpg-battle-kit-1),
 the latter was the source of the backgound image) state these assets are CC0

@@ -1,4 +1,3 @@
-
 export enum TextAlign {
     Left = 0,
     Center = 1,

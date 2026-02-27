@@ -1,36 +1,43 @@
-import {Component, ComponentConfig} from "./component.ts";
-import {Scene} from "phaser";
+import { Component, ComponentConfig } from "./component.ts"
+import { Scene } from "phaser"
 
-type Transform = Phaser.GameObjects.Components.Transform;
-type Origin = Phaser.GameObjects.Components.Origin;
-type Visible = Phaser.GameObjects.Components.Visible;
-type Filters = Phaser.GameObjects.Components.Filters;
-type Rectangle = Phaser.GameObjects.Rectangle;
+type Transform = Phaser.GameObjects.Components.Transform
+type Origin = Phaser.GameObjects.Components.Origin
+type Visible = Phaser.GameObjects.Components.Visible
+type Filters = Phaser.GameObjects.Components.Filters
+type Rectangle = Phaser.GameObjects.Rectangle
 
 export type RenderableConfig = ComponentConfig & {
-    tint?: number,
-};
-
-export interface Tint {
-    isTinted: boolean;
-    tint: number;
-    setTint(color: number): void;
-    clearTint(): void;
+    tint?: number
 }
 
-export class Renderable<Internal extends Transform & Origin & Visible & Filters & Tint>
-extends Component {
+export interface Tint {
+    isTinted: boolean
+    tint: number
+    setTint(color: number): void
+    clearTint(): void
+}
+
+export class Renderable<
+    Internal extends Transform & Origin & Visible & Filters & Tint,
+> extends Component {
     constructor(scene: Scene, cfg: RenderableConfig | undefined, internal: Internal) {
-        super(scene, cfg);
-        this.internal = internal;
-        this.tint = cfg?.tint;
+        super(scene, cfg)
+        this.internal = internal
+        this.tint = cfg?.tint
     }
-    readonly internal: Internal;
+    readonly internal: Internal
 
-    get visible() { return this.internal.visible }
-    set visible(value: boolean) { this.internal.visible = value }
+    get visible() {
+        return this.internal.visible
+    }
+    set visible(value: boolean) {
+        this.internal.visible = value
+    }
 
-    get tint(): number | undefined { return this.internal.isTinted ? this.internal.tint : undefined }
+    get tint(): number | undefined {
+        return this.internal.isTinted ? this.internal.tint : undefined
+    }
     set tint(value: number | undefined) {
         if (value === undefined) this.internal.clearTint()
         else this.internal.setTint(value)
@@ -52,7 +59,7 @@ extends Component {
 
 export class Mask extends Component {
     constructor(scene: Scene, cfg?: ComponentConfig) {
-        super(scene, cfg);
+        super(scene, cfg)
         this._internal = scene.add.rectangle()
         this._internal.setFillStyle(0)
         this._internal.setVisible(false)

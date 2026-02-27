@@ -20,7 +20,9 @@
     "example:install": "cd example && npm install",
     "test": "playwright test",
     "test:update": "playwright test --update-snapshots",
-    "test:install": "playwright install chromium && npm run example:install"
+    "test:install": "playwright install chromium && npm run example:install",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "repository": {
     "type": "git",
@@ -52,6 +54,7 @@
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.3.2",
+    "prettier": "3.8.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }

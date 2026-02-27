@@ -1,13 +1,13 @@
-import { Game, Scale } from 'phaser';
-import { Ui } from './ui.ts';
-import {GameWorld} from "./game.ts";
+import { Game, Scale } from "phaser"
+import { Ui } from "./ui.ts"
+import { GameWorld } from "./game.ts"
 
-const { ScaleModes } = Scale;
+const { ScaleModes } = Scale
 
-const dpr = window.devicePixelRatio || 1;
+const dpr = window.devicePixelRatio || 1
 
 const config: Phaser.Types.Core.GameConfig = {
-    parent: 'game-container',
+    parent: "game-container",
     autoFocus: true,
     pixelArt: true,
     scale: {
@@ -15,23 +15,21 @@ const config: Phaser.Types.Core.GameConfig = {
         width: window.innerWidth * dpr,
         height: window.innerHeight * dpr,
         zoom: 1 / dpr,
-        autoCenter: Scale.CENTER_BOTH
+        autoCenter: Scale.CENTER_BOTH,
     },
-    scene: [
-        Ui,
-        GameWorld
-    ]
-};
+    scene: [Ui, GameWorld],
+}
 
 const StartGame = (parent: string) => {
-    const game = new Game({ ...config, parent });
+    const game = new Game({ ...config, parent })
 
-    window.addEventListener('resize', () =>
-        game.scale.resize(window.innerWidth * dpr, window.innerHeight * dpr))
+    window.addEventListener("resize", () =>
+        game.scale.resize(window.innerWidth * dpr, window.innerHeight * dpr),
+    )
 
     return game
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    StartGame('game-container');
-});
+document.addEventListener("DOMContentLoaded", () => {
+    StartGame("game-container")
+})

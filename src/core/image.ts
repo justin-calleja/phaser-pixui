@@ -1,11 +1,11 @@
-import { Scene } from "phaser";
-import { Renderable, RenderableConfig } from "./renderable.ts";
-import {frameDimensions} from "../util/frame.ts";
+import { Scene } from "phaser"
+import { Renderable, RenderableConfig } from "./renderable.ts"
+import { frameDimensions } from "../util/frame.ts"
 
 export type ImageConfig = {
-    texture: string,
-    frame: string,
-} & RenderableConfig;
+    texture: string
+    frame: string
+} & RenderableConfig
 
 export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObjects.NineSlice> {
     constructor(scene: Scene, cfg: ImageConfig) {
@@ -19,9 +19,10 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
             height: cfg.height ?? fixedHeight,
         }
 
-        const renderable = frame.scalableX || frame.scalableY ?
-            Image._createNineSlice(scene, cfg) :
-            Image._createSprite(scene,cfg)
+        const renderable =
+            frame.scalableX || frame.scalableY
+                ? Image._createNineSlice(scene, cfg)
+                : Image._createSprite(scene, cfg)
         super(scene, cfg, renderable)
         this.scalableX = frame.scalableX
         this.scalableY = frame.scalableY
@@ -30,7 +31,7 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
     readonly scalableY: boolean
 
     protected afterReposition() {
-        super.afterReposition();
+        super.afterReposition()
         if (this.scalableX) this.internal.width = this.width
         if (this.scalableY) this.internal.height = this.height
     }

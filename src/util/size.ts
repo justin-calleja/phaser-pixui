@@ -1,4 +1,3 @@
-
 // Describes size of component, either absolute or relative to parent
 export type RelativeSize = {
     // Positive indicates absolute width, zero or negative indicates width
@@ -24,7 +23,7 @@ export function calcSize(s: RelativeSize, parent: Size): Size {
 }
 
 function absDimension(value: number | undefined, parent: number): number {
-    if (value === undefined) value = 0;
-    if (value > 0) return value;
-    return parent + value;
+    if (value === undefined) value = 0
+    if (value > 0) return value
+    return parent + value
 }

@@ -1,38 +1,52 @@
-import {Scene} from "phaser";
-import {Renderable, RenderableConfig} from "./renderable.ts";
-import {TextAlign} from "../util/align.ts";
+import { Scene } from "phaser"
+import { Renderable, RenderableConfig } from "./renderable.ts"
+import { TextAlign } from "../util/align.ts"
 
 export type BitmapTextConfig = {
-    font: string,
-    size?: number,
-    align?: TextAlign,
-    text?: string,
-} & RenderableConfig;
+    font: string
+    size?: number
+    align?: TextAlign
+    text?: string
+} & RenderableConfig
 
 export class BitmapText extends Renderable<Phaser.GameObjects.BitmapText> {
     constructor(scene: Scene, cfg: BitmapTextConfig) {
-        super(scene, cfg, scene.make.bitmapText({
-            font: cfg.font,
-            size: cfg.size,
-            visible: cfg.visible ?? true,
-        }));
+        super(
+            scene,
+            cfg,
+            scene.make.bitmapText({
+                font: cfg.font,
+                size: cfg.size,
+                visible: cfg.visible ?? true,
+            }),
+        )
 
         if (cfg.align) this.align = cfg.align
         if (cfg.text) this.text = cfg.text
     }
 
-    get text() { return this.internal.text }
+    get text() {
+        return this.internal.text
+    }
     set text(value: string) {
-        this.internal.text = value;
+        this.internal.text = value
         this.setWidth(this.internal.width)
-        this.setHeight(this.internal.height);
+        this.setHeight(this.internal.height)
     }
 
-    get align(): TextAlign { return this.internal.align }
-    set align(value: TextAlign) { this.internal.align = value }
+    get align(): TextAlign {
+        return this.internal.align
+    }
+    set align(value: TextAlign) {
+        this.internal.align = value
+    }
 
-    get width() { return this.internal.width }
-    get height() { return this.internal.height }
+    get width() {
+        return this.internal.width
+    }
+    get height() {
+        return this.internal.height
+    }
 
     protected afterReposition() {
         this.internal.setOrigin(0, 0)

@@ -1,22 +1,22 @@
-import {findStyle, ThemeConfig} from "../theme/theme.ts";
-import {Scene} from "phaser";
-import {StyledComponent, StyledComponentConfig} from "./styled.ts";
-import {OriginX} from "../util/origin.ts";
-import {Image} from "../core/image.ts";
+import { findStyle, ThemeConfig } from "../theme/theme.ts"
+import { Scene } from "phaser"
+import { StyledComponent, StyledComponentConfig } from "./styled.ts"
+import { OriginX } from "../util/origin.ts"
+import { Image } from "../core/image.ts"
 
 export type ProgressConfig = StyledComponentConfig
 
 export class Progress extends StyledComponent {
     constructor(scene: Scene, theme: ThemeConfig, cfg: ProgressConfig) {
-        super(scene, theme, cfg);
-        const style = findStyle('Progress', cfg.style, theme.progress)
+        super(scene, theme, cfg)
+        const style = findStyle("Progress", cfg.style, theme.progress)
 
         this._bar = this.insert.left.image({
             texture: theme.resources.atlas,
             frame: style.bar!,
             x: style.paddingX!,
-            width: -2*style.paddingX!,
-            height: -2*style.paddingY!,
+            width: -2 * style.paddingX!,
+            height: -2 * style.paddingY!,
             originX: OriginX.Left,
         })
         this._frame = this.insert.image({
@@ -26,9 +26,14 @@ export class Progress extends StyledComponent {
         this._paddingX = style.paddingX!
     }
 
-    get value() { return this._value }
-    set value(value: number) { this._value = value; this._updateBar() }
-    private _value = 0;
+    get value() {
+        return this._value
+    }
+    set value(value: number) {
+        this._value = value
+        this._updateBar()
+    }
+    private _value = 0
 
     update() {
         super.update()
@@ -43,5 +48,5 @@ export class Progress extends StyledComponent {
 
     private _bar: Image
     private _frame: Image
-    private readonly _paddingX;
+    private readonly _paddingX
 }

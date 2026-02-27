@@ -1,13 +1,12 @@
-
-import {FontStyle, initFontStyle} from "./font.ts";
-import {StyleList, ThemeConfig} from "./theme.ts";
-import {TextAlign} from "../util/align.ts";
+import { FontStyle, initFontStyle } from "./font.ts"
+import { StyleList, ThemeConfig } from "./theme.ts"
+import { TextAlign } from "../util/align.ts"
 
 export type TextAreaStyle = {
-    frame?: string,
-    paddingX?: number,
-    paddingY?: number,
-    defaultAlign?: TextAlign,
+    frame?: string
+    paddingX?: number
+    paddingY?: number
+    defaultAlign?: TextAlign
 } & FontStyle
 
 export function initTextAreaStyle(base: StyleList<TextAreaStyle>, theme: ThemeConfig) {

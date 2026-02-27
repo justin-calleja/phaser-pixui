@@ -1,0 +1,7 @@
+dist
+node_modules
+package-lock.json
+example/dist
+example/node_modules
+test-results
+e2e/screenshots

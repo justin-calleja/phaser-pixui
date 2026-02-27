@@ -1,8 +1,7 @@
-
 export type FontStyle = {
-    fontName?: string,
-    fontSize?: number,
-    fontTint?: string,
+    fontName?: string
+    fontSize?: number
+    fontTint?: string
 }
 
 export function initBaseFontStyle(style: FontStyle) {

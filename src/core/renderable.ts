@@ -47,7 +47,7 @@ export class Renderable<
         if (!this.internal.filters) {
             this.internal.enableFilters()
         }
-        // @ts-ignore
+        // @ts-expect-error: Phaser filters might not have internal property depending on version/types
         this.internal.filters?.internal.addMask(mask._internal)
     }
 

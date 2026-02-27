@@ -175,7 +175,7 @@ export class Ui extends UiScene {
             const dpr = window.devicePixelRatio || 1
             const game = this.scene.get<GameWorld>("game-world")
             this.log(
-                `Canvas ${window.innerWidth * dpr}x${window.innerHeight * dpr}, UI ${this.viewport.width}x${this.viewport.height}, game ${game.viewport.width}x${game.viewport.height}`,
+                `Canvas ${window.innerWidth * dpr}x${window.innerHeight * dpr}, UI ${this.viewport.width}x${this.viewport.height}, game ${game.viewport.width}x${game.viewport.height}`
             )
         })
     }

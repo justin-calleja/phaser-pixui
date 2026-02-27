@@ -39,7 +39,7 @@ export type StyleList<StyleType extends object> = StyleType & {
 export function findStyle<StyleType extends object>(
     type: string,
     name: string | undefined,
-    list: StyleList<StyleType>,
+    list: StyleList<StyleType>
 ): StyleType {
     if (name === undefined) return list
     if (list.styles === undefined) {
@@ -48,7 +48,7 @@ export function findStyle<StyleType extends object>(
     }
     if (!(name in list.styles!)) {
         console.warn(
-            `${type} style '${name} not found, available are: ${Object.keys(list.styles!).join(",")}`,
+            `${type} style '${name} not found, available are: ${Object.keys(list.styles!).join(",")}`
         )
         return list
     }

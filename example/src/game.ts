@@ -24,7 +24,7 @@ export class GameWorld extends ResponsiveScene {
         const placeBackground = () => {
             background.setPosition(
                 Math.floor(this.viewport.width / 2),
-                Math.floor(this.viewport.height / 2),
+                Math.floor(this.viewport.height / 2)
             )
         }
         placeBackground()

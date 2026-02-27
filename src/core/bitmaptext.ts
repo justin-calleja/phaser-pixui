@@ -18,7 +18,7 @@ export class BitmapText extends Renderable<Phaser.GameObjects.BitmapText> {
                 font: cfg.font,
                 size: cfg.size,
                 visible: cfg.visible ?? true,
-            }),
+            })
         )
 
         if (cfg.align) this.align = cfg.align

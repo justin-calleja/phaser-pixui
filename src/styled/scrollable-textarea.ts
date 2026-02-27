@@ -1,3 +1,4 @@
+import { Mask } from "../core/renderable.ts"
 import { findStyle, ThemeConfig } from "../theme/theme.ts"
 import { Scene } from "phaser"
 import { Scrollable } from "../core/scrollable.ts"
@@ -64,5 +65,5 @@ export class ScrollableTextArea extends TextArea {
     }
 
     private readonly _scroller: Scrollable
-    private readonly _mask: any
+    private readonly _mask: Mask
 }

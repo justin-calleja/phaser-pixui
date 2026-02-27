@@ -144,36 +144,4 @@ export class ComponentMultiFactory extends ComponentFactory {
     readonly topRight: ComponentFactory
     readonly bottomLeft: ComponentFactory
     readonly bottomRight: ComponentFactory
-
-    at(originX: OriginX, originY: OriginY) {
-        switch (originX) {
-            case OriginX.Center:
-                switch (originY) {
-                    case OriginY.Center:
-                        return this.center
-                    case OriginY.Top:
-                        return this.top
-                    case OriginY.Bottom:
-                        return this.bottom
-                }
-            case OriginX.Left:
-                switch (originY) {
-                    case OriginY.Center:
-                        return this.left
-                    case OriginY.Top:
-                        return this.topLeft
-                    case OriginY.Bottom:
-                        return this.bottomLeft
-                }
-            case OriginX.Right:
-                switch (originY) {
-                    case OriginY.Center:
-                        return this.right
-                    case OriginY.Top:
-                        return this.topRight
-                    case OriginY.Bottom:
-                        return this.bottomRight
-                }
-        }
-    }
 }

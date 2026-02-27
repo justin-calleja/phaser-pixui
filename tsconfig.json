@@ -34,6 +34,13 @@
     },
     "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "e2e/**/*.ts",
+    "playwright.config.ts",
+    "example/src/**/*.ts",
+    "tsup.config.ts",
+    "eslint.config.mjs"
+  ],
   "exclude": ["node_modules", "dist"]
 }

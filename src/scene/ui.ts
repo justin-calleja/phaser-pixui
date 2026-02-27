@@ -45,7 +45,7 @@ export class UiScene extends ResponsiveScene {
                 originY: OriginY.Top,
                 ...this.viewport,
             },
-            this.zoom,
+            this.zoom
         )
     }
     private readonly _root: Container

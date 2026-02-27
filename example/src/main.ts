@@ -24,7 +24,7 @@ const StartGame = (parent: string) => {
     const game = new Game({ ...config, parent })
 
     window.addEventListener("resize", () =>
-        game.scale.resize(window.innerWidth * dpr, window.innerHeight * dpr),
+        game.scale.resize(window.innerWidth * dpr, window.innerHeight * dpr)
     )
 
     return game

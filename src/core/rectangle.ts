@@ -1,6 +1,7 @@
 import { Scene } from "phaser";
 import { Component, ComponentConfig } from "./component.ts";
 
+
 export type RectangleConfig = ComponentConfig & {
     fillColor?: number,
     fillAlpha?: number,
@@ -44,7 +45,7 @@ export class Rectangle extends Component {
     private _borderWidth: number
 
     protected afterReposition() {
-        super.afterReposition()
+        this._internal.setOrigin(this.originX, this.originY)
         this._internal.setPosition(this.x, this.y)
         this._internal.setSize(this.width, this.height)
     }

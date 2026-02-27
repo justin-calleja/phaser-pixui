@@ -2,6 +2,7 @@ import {Component, ComponentConfig} from "./component.ts";
 import {Scene} from "phaser";
 
 type Transform = Phaser.GameObjects.Components.Transform;
+type Origin = Phaser.GameObjects.Components.Origin;
 type Visible = Phaser.GameObjects.Components.Visible;
 type Filters = Phaser.GameObjects.Components.Filters;
 type Rectangle = Phaser.GameObjects.Rectangle;
@@ -17,7 +18,7 @@ export interface Tint {
     clearTint(): void;
 }
 
-export class Renderable<Internal extends Transform & Visible & Filters & Tint>
+export class Renderable<Internal extends Transform & Origin & Visible & Filters & Tint>
 extends Component {
     constructor(scene: Scene, cfg: RenderableConfig | undefined, internal: Internal) {
         super(scene, cfg);
@@ -44,6 +45,7 @@ extends Component {
     }
 
     protected afterReposition() {
+        this.internal.setOrigin(this.originX, this.originY)
         this.internal.setPosition(this.x, this.y)
     }
 }
@@ -57,6 +59,7 @@ export class Mask extends Component {
     }
 
     protected afterReposition() {
+        this._internal.setOrigin(this.originX, this.originY)
         this._internal.setPosition(this.x, this.y)
         this._internal.setSize(this.width, this.height)
     }

@@ -1,6 +1,5 @@
 import {Scene} from "phaser";
 import {Renderable, RenderableConfig} from "./renderable.ts";
-import {OriginX, OriginY} from "../util/origin.ts";
 import {TextAlign} from "../util/align.ts";
 
 export type BitmapTextConfig = {
@@ -36,23 +35,8 @@ export class BitmapText extends Renderable<Phaser.GameObjects.BitmapText> {
     get height() { return this.internal.height }
 
     protected afterReposition() {
-        super.afterReposition()
-
-        let x: number
-        switch (this.originX) {
-            case OriginX.Center: x = this.x - Math.floor(this.width / 2); break;
-            case OriginX.Left: x = this.left; break;
-            case OriginX.Right: x = this.right - this.width; break;
-        }
-
-        let y: number
-        switch (this.originY) {
-            case OriginY.Center: y = this.y - Math.floor(this.height / 2); break;
-            case OriginY.Top: y = this.top; break;
-            case OriginY.Bottom: y = this.bottom - this.height; break;
-        }
-
-        this.internal.setPosition(x, y)
+        this.internal.setOrigin(0, 0)
+        this.internal.setPosition(this.left, this.top)
         this.internal.setMaxWidth(super.width)
     }
 }

@@ -1,6 +1,6 @@
 import {calcSize, RelativeSize, Size} from "../util/size.ts";
 import {Position, RelativePosition} from "../util/position.ts";
-import {calcOrigin, calcOriginOffsetFromCenter, Origin, OriginConfig, OriginX, OriginY} from "../util/origin.ts";
+import {calcOrigin, Origin, OriginConfig, OriginX, OriginY} from "../util/origin.ts";
 import {Scene} from "phaser";
 
 export type ComponentConfig = RelativePosition & RelativeSize & OriginConfig & {
@@ -30,14 +30,14 @@ export class Component {
 
     get x() { return this._position.x }
     get y() { return this._position.y }
-    get left() { return this._position.x - Math.floor(this._size.width/2) }
-    get right() { return this._position.x + Math.floor(this._size.width/2) }
-    get top() { return this._position.y - Math.floor(this._size.height/2) }
-    get bottom() { return this._position.y + Math.floor(this._size.height/2) }
+    get left() { return this._position.x - Math.floor(this._origin.originX * this._size.width) }
+    get right() { return this.left + this._size.width }
+    get top() { return this._position.y - Math.floor(this._origin.originY * this._size.height) }
+    get bottom() { return this.top + this._size.height }
     get width() { return this._size.width }
     get height() { return this._size.height }
-    get originX() { return this._anchor.originX }
-    get originY() { return this._anchor.originY }
+    get originX() { return this._origin.originX }
+    get originY() { return this._origin.originY }
     get zoom() { return this._zoom }
 
     get localX() { return this._cfg.x ?? 0 }
@@ -70,17 +70,17 @@ export class Component {
     private _zoom = 1
     private _position!: Position;
     private _size!: Size;
+    private _origin: Origin = { originX: OriginX.Center, originY: OriginY.Center }
 
     private _calcPosition() {
         const anchor = this._anchor;
         this._size = calcSize(this._cfg, anchor);
-        const origin = calcOrigin(this._cfg, anchor);
-        const offset = calcOriginOffsetFromCenter(this._size, origin);
-        const localX = (this._cfg.x ?? 0) * (offset.x > 0 ? -1 : 1)
-        const localY = (this._cfg.y ?? 0) * (offset.y > 0 ? -1 : 1)
+        this._origin = calcOrigin(this._cfg, anchor);
+        const localX = (this._cfg.x ?? 0) * (this._origin.originX === OriginX.Right ? -1 : 1)
+        const localY = (this._cfg.y ?? 0) * (this._origin.originY === OriginY.Bottom ? -1 : 1)
         this._position = {
-            x: anchor.x + localX - offset.x,
-            y: anchor.y + localY - offset.y
+            x: anchor.x + localX,
+            y: anchor.y + localY,
         }
     }
 

@@ -1,5 +1,5 @@
 import {Anchor, Component, ComponentConfig} from "./component.ts";
-import {calcOriginOffsetFromCenter, Origin, OriginX, OriginY} from "../util/origin.ts";
+import {Origin, OriginX, OriginY} from "../util/origin.ts";
 import {Scene} from "phaser";
 import {ComponentMultiFactory} from "./factory.ts";
 
@@ -11,8 +11,8 @@ export class Container extends Component {
     readonly insert: ComponentMultiFactory
 
     attach(components: Component | Component[], originX?: OriginX, originY?: OriginY) {
-        if (!originX) { originX = OriginX.Center }
-        if (!originY) { originY = OriginY.Center }
+        originX ??= OriginX.Center
+        originY ??= OriginY.Center
         const anchor = this._calcAnchor(originX, originY)
         if (Array.isArray(components)) {
             this._children.push(...components.map(c => ({originX, originY, component: c})))
@@ -38,10 +38,14 @@ export class Container extends Component {
     }
 
     private _calcAnchor(originX: OriginX, originY: OriginY): Anchor {
-        const offset = calcOriginOffsetFromCenter(this, {originX, originY})
+        const x = originX === OriginX.Left ? this.left :
+                  originX === OriginX.Right ? this.right :
+                  this.left + Math.floor(this.width / 2);
+        const y = originY === OriginY.Top ? this.top :
+                  originY === OriginY.Bottom ? this.bottom :
+                  this.top + Math.floor(this.height / 2);
         return {
-            x: this.x + offset.x,
-            y: this.y + offset.y,
+            x, y,
             width: this.width,
             height: this.height,
             originX, originY,

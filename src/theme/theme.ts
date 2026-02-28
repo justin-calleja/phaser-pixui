@@ -2,6 +2,7 @@ import { FontStyle, initBaseFontStyle } from "./font.ts"
 import { ButtonStyle, initButtonStyle } from "./button.ts"
 import { initTextAreaStyle, TextAreaStyle } from "./textarea.ts"
 import { ProgressStyle, initProgressStyle } from "./progress.ts"
+import { FrameStyle, initFrameStyle } from "./frame.ts"
 
 type Texture = Phaser.Textures.Texture
 
@@ -20,6 +21,7 @@ export type ThemeConfig = {
     button: StyleList<ButtonStyle>
     progress: StyleList<ProgressStyle>
     textArea: StyleList<TextAreaStyle>
+    frame: StyleList<FrameStyle>
 } & FontStyle
 
 export type Palette = {
@@ -60,4 +62,5 @@ export function initTheme(theme: ThemeConfig, atlas: Texture) {
     initButtonStyle(theme.button, theme, atlas)
     initProgressStyle(theme.progress)
     initTextAreaStyle(theme.textArea, theme)
+    initFrameStyle(theme.frame)
 }

@@ -56,6 +56,16 @@ export class Ui extends UiScene {
                 },
 
                 textArea: {
+                    styles: {
+                        header_scroll: {
+                            fontName: "mana_trunk",
+                            fontTint: "dark",
+                            defaultAlign: TextAlign.Center,
+                        },
+                    },
+                },
+
+                frame: {
                     frame: "frame_light",
                     paddingX: 12,
                     paddingY: 14,
@@ -63,11 +73,8 @@ export class Ui extends UiScene {
                     styles: {
                         header_scroll: {
                             frame: "header_scroll",
-                            fontName: "mana_trunk",
-                            fontTint: "dark",
                             paddingX: 30,
                             paddingY: 8,
-                            defaultAlign: TextAlign.Center,
                         },
                     },
                 },
@@ -78,11 +85,12 @@ export class Ui extends UiScene {
     create() {
         super.create()
         this.scene.bringToTop("ui")
-        this._logArea = this.insert.bottom.scrollableTextArea({
+        const logFrame = this.insert.bottom.frame({
             y: 2,
             width: -4,
             height: 84,
         })
+        this._logArea = logFrame.insert.scrollableTextArea({})
 
         const progress = this.insert.bottom.progress({
             y: 108,
@@ -111,11 +119,14 @@ export class Ui extends UiScene {
             text: `Phaser PixUI v${PHASER_PIXUI_VERSION}`,
         })
 
-        this.insert.top.textArea({
+        const headerFrame = this.insert.top.frame({
             style: "header_scroll",
             y: 64,
             width: 256,
             height: 32,
+        })
+        headerFrame.insert.textArea({
+            style: "header_scroll",
             text: "Phaser-PixUI demo",
         })
 

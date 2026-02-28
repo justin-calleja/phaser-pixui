@@ -19,14 +19,14 @@ export type InteractiveConfig = {
 export type Shape = "rect" | "diamond" | "ellipse"
 
 export class Interactive extends Component {
-    constructor(scene: Scene, cfg: InteractiveConfig) {
+    constructor(scene: Scene, cfg?: InteractiveConfig) {
         super(scene, cfg)
 
-        this._enabled = cfg.enabled ?? true
-        this._draggable = cfg.draggable ?? false
-        this._onUpdate = cfg.onUpdate
+        this._enabled = cfg?.enabled ?? true
+        this._draggable = cfg?.draggable ?? false
+        this._onUpdate = cfg?.onUpdate
 
-        switch (cfg.shape ?? "rect") {
+        switch (cfg?.shape ?? "rect") {
             case "rect":
                 this._hitRect = new Rectangle()
                 break

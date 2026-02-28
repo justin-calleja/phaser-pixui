@@ -1,5 +1,5 @@
 import { Mask } from "../core/renderable.ts"
-import { findStyle, ThemeConfig } from "../theme/theme.ts"
+import { ThemeConfig } from "../theme/theme.ts"
 import { Scene } from "phaser"
 import { Scrollable } from "../core/scrollable.ts"
 import { TextArea, TextAreaConfig } from "./textarea.ts"
@@ -10,26 +10,13 @@ export class ScrollableTextArea extends TextArea {
     constructor(scene: Scene, theme: ThemeConfig, cfg: ScrollableTextAreaConfig) {
         super(scene, theme, cfg)
 
-        const style = findStyle("TextArea", cfg.style, theme.textArea)
-        const paddingX = style.paddingX!
-        const paddingY = style.paddingY!
-        const paddedWidth = -2 * paddingX
-        const paddedHeight = -2 * paddingY
-
-        // Apply mask to the text element
-        this._mask = this.insert.mask({
-            width: paddedWidth,
-            height: paddedHeight,
-        })
+        this._mask = this.insert.mask()
         this._text.setMask(this._mask)
 
-        // Initialize scrollable functionality
         this._scroller = this.insert.scrollable({
-            width: paddedWidth,
-            height: paddedHeight,
             onScroll: (_, y) => {
                 if (!this._text) return
-                this._text.localY = paddingY - y
+                this._text.localY = -y
             },
         })
 

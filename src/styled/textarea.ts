@@ -14,17 +14,6 @@ export class TextArea extends StyledComponent {
         super(scene, theme, cfg)
         const style = findStyle("TextArea", cfg.style, theme.textArea)
 
-        if (style.frame) {
-            this.insert.image({
-                texture: theme.resources.atlas,
-                frame: style.frame,
-                visible: this.visible,
-            })
-        }
-
-        const paddingX = style.paddingX!
-        const paddingY = style.paddingY!
-
         const align = cfg.textAlign ?? style.defaultAlign ?? TextAlign.Left
         const textFactory =
             align == TextAlign.Left
@@ -36,8 +25,6 @@ export class TextArea extends StyledComponent {
         this._text = textFactory.bitmapText({
             text: cfg.text,
             align: align,
-            x: align == TextAlign.Center ? 0 : paddingX,
-            y: align == TextAlign.Center ? 0 : paddingY,
             font: style.fontName!,
             size: style.fontSize,
             tint: resolveColor(style.fontTint, theme.palette),

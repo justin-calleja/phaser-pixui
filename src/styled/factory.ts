@@ -4,6 +4,7 @@ import { TextArea, TextAreaConfig } from "./textarea.ts"
 import { ScrollableTextArea, ScrollableTextAreaConfig } from "./scrollable-textarea.ts"
 import { ComponentFactory, ComponentFactoryConfig } from "../core/factory.ts"
 import { Progress, ProgressConfig } from "./progress.ts"
+import { Frame, FrameConfig } from "./frame.ts"
 import { Scene } from "phaser"
 import { Container } from "../core/container.ts"
 import { OriginX, OriginY } from "../util/origin.ts"
@@ -21,26 +22,32 @@ export class StyledFactory extends ComponentFactory {
 
     button(cfg: ButtonConfig): Button {
         const button = new Button(this.scene, this.theme, cfg)
-        this.container.attach(button, this.originX, this.originY)
+        this._container.attach(button, this.originX, this.originY)
         return button
     }
 
     progress(cfg: ProgressConfig): Progress {
         const progress = new Progress(this.scene, this.theme, cfg)
-        this.container.attach(progress, this.originX, this.originY)
+        this._container.attach(progress, this.originX, this.originY)
         return progress
     }
 
     textArea(cfg: TextAreaConfig): TextArea {
         const textArea = new TextArea(this.scene, this.theme, cfg)
-        this.container.attach(textArea, this.originX, this.originY)
+        this._container.attach(textArea, this.originX, this.originY)
         return textArea
     }
 
     scrollableTextArea(cfg: ScrollableTextAreaConfig): ScrollableTextArea {
         const scrollableTextArea = new ScrollableTextArea(this.scene, this.theme, cfg)
-        this.container.attach(scrollableTextArea, this.originX, this.originY)
+        this._container.attach(scrollableTextArea, this.originX, this.originY)
         return scrollableTextArea
+    }
+
+    frame(cfg: FrameConfig): Frame {
+        const frame = new Frame(this.scene, this.theme, cfg)
+        this._container.attach(frame, this.originX, this.originY)
+        return frame
     }
 }
 

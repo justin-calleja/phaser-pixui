@@ -18,55 +18,62 @@ export type ComponentFactoryConfig = Origin & {
 export class ComponentFactory {
     constructor(cfg: ComponentFactoryConfig) {
         this.scene = cfg.scene
-        this.container = cfg.container
+        this._container = cfg.container
         this.originX = cfg.originX
         this.originY = cfg.originY
     }
 
     readonly scene: Scene
-    readonly container: Container
     readonly originX: OriginX
     readonly originY: OriginY
 
-    interactive(cfg: InteractiveConfig = {}): Interactive {
+    protected readonly _container: Container
+
+    container(cfg?: ComponentConfig): Container {
+        const container = new Container(this.scene, cfg)
+        this._container.attach(container, this.originX, this.originY)
+        return container
+    }
+
+    interactive(cfg?: InteractiveConfig): Interactive {
         const interactive = new Interactive(this.scene, cfg)
-        this.container.attach(interactive, this.originX, this.originY)
+        this._container.attach(interactive, this.originX, this.originY)
         return interactive
     }
 
-    clickable(cfg: ClickableConfig = {}): Clickable {
+    clickable(cfg?: ClickableConfig): Clickable {
         const clickable = new Clickable(this.scene, cfg)
-        this.container.attach(clickable, this.originX, this.originY)
+        this._container.attach(clickable, this.originX, this.originY)
         return clickable
     }
 
     scrollable(cfg: ScrollableConfig): Scrollable {
         const scrollable = new Scrollable(this.scene, cfg)
-        this.container.attach(scrollable, this.originX, this.originY)
+        this._container.attach(scrollable, this.originX, this.originY)
         return scrollable
     }
 
     rectangle(cfg?: RectangleConfig): Rectangle {
         const rectangle = new Rectangle(this.scene, cfg)
-        this.container.attach(rectangle, this.originX, this.originY)
+        this._container.attach(rectangle, this.originX, this.originY)
         return rectangle
     }
 
     image(cfg: ImageConfig): Image {
         const image = new Image(this.scene, cfg)
-        this.container.attach(image, this.originX, this.originY)
+        this._container.attach(image, this.originX, this.originY)
         return image
     }
 
     bitmapText(cfg: BitmapTextConfig): BitmapText {
         const text = new BitmapText(this.scene, cfg)
-        this.container.attach(text, this.originX, this.originY)
+        this._container.attach(text, this.originX, this.originY)
         return text
     }
 
     mask(cfg?: ComponentConfig): Mask {
         const mask = new Mask(this.scene, cfg)
-        this.container.attach(mask, this.originX, this.originY)
+        this._container.attach(mask, this.originX, this.originY)
         return mask
     }
 }

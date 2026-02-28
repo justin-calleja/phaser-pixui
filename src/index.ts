@@ -16,6 +16,7 @@ export * from "./styled/button"
 export * from "./styled/progress"
 export * from "./styled/textarea"
 export * from "./styled/scrollable-textarea"
+export * from "./styled/frame"
 export * from "./styled/factory"
 
 // Scene components
@@ -28,6 +29,7 @@ export * from "./theme/button"
 export * from "./theme/font"
 export * from "./theme/progress"
 export * from "./theme/textarea"
+export * from "./theme/frame"
 
 // Utilities
 export * from "./util/align"

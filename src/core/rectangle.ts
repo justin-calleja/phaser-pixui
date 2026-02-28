@@ -75,7 +75,7 @@ export class Rectangle extends Component {
     }
 
     private _updateFill() {
-        if (this._fillColor != undefined && this._fillAlpha > 0) {
+        if (this._fillColor !== undefined && this._fillAlpha > 0) {
             this._internal.setFillStyle(this._fillColor, this._fillAlpha)
         } else {
             this._internal.setFillStyle()
@@ -83,7 +83,7 @@ export class Rectangle extends Component {
     }
 
     private _updateStroke() {
-        if (this._borderColor != undefined && this._borderWidth > 0 && this._borderAlpha > 0) {
+        if (this._borderColor !== undefined && this._borderWidth > 0 && this._borderAlpha > 0) {
             this._internal.setStrokeStyle(this._borderWidth, this._borderColor, this._borderAlpha)
         } else {
             this._internal.setStrokeStyle()

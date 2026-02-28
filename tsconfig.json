@@ -29,9 +29,6 @@
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "allowImportingTsExtensions": true
   },
   "include": [

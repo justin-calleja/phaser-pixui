@@ -1,7 +1,7 @@
 import { ThemeConfig, initTheme } from '../theme/theme.ts'
 import { ResponsiveScene, ResponsiveSceneConfig } from './responsive.ts'
 import { OriginX, OriginY } from '../util/origin.ts'
-import { Container } from '../core/container.ts'
+import { StyledComponent } from '../styled/styled.ts'
 import { StyledMultiFactory } from '../styled/factory.ts'
 
 export type UiSceneConfig = ResponsiveSceneConfig & {
@@ -13,9 +13,10 @@ export class UiScene extends ResponsiveScene {
         super(cfg)
 
         this.theme = cfg.theme
-        this._root = new Container(this)
+
+        const factory = new StyledMultiFactory(this, this.theme)
+        this._root = new StyledComponent(this, factory, this.theme)
         this._updateRoot()
-        this.insert = new StyledMultiFactory(this, this._root, this.theme)
     }
 
     preload() {
@@ -28,12 +29,17 @@ export class UiScene extends ResponsiveScene {
     }
 
     readonly theme: ThemeConfig
-    readonly insert: StyledMultiFactory
+    get insert() {
+        return this._root.insert
+    }
 
     create() {
         super.create()
         initTheme(this.theme, this.textures.get(this.theme.resources.atlas))
-        this.game.scale.on('resize', this._updateRoot, this)
+        this.events.once('create', () => {
+            this.game.scale.refresh()
+            this.game.scale.on('resize', this._updateRoot, this)
+        })
     }
 
     private _updateRoot() {
@@ -48,5 +54,5 @@ export class UiScene extends ResponsiveScene {
             this.zoom
         )
     }
-    private readonly _root: Container
+    private readonly _root: StyledComponent
 }

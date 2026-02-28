@@ -5,7 +5,7 @@ export type FontStyle = {
 }
 
 export function initBaseFontStyle(style: FontStyle) {
-    if (style.fontName == undefined) {
+    if (style.fontName === undefined) {
         console.error(`Base font doesn't have fontName defined`)
     }
 }

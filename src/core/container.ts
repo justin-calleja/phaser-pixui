@@ -1,27 +1,32 @@
 import { Anchor, Component, ComponentConfig } from './component.ts'
 import { Origin, OriginX, OriginY } from '../util/origin.ts'
 import { Scene } from 'phaser'
-import { ComponentMultiFactory } from './factory.ts'
 
-export class Container extends Component {
-    constructor(scene: Scene, cfg?: ComponentConfig) {
+export interface WithContainer {
+    setContainer(container: Container<this>): void
+}
+
+export class Container<MultiFactory extends WithContainer> extends Component {
+    constructor(scene: Scene, factory: MultiFactory, cfg?: ComponentConfig) {
         super(scene, cfg)
-        this.insert = new ComponentMultiFactory(scene, this)
+        this.insert = factory
+        factory.setContainer(this)
     }
-    readonly insert: ComponentMultiFactory
+
+    readonly insert: MultiFactory
 
     attach(components: Component | Component[], originX?: OriginX, originY?: OriginY) {
         originX ??= OriginX.Center
         originY ??= OriginY.Center
+        if (!Array.isArray(components)) components = [components]
+        for (const c of components) {
+            this._children.push({ originX, originY, component: c })
+        }
+
+        if (!this._initialized) return
         const anchor = this._calcAnchor(originX, originY)
-        if (Array.isArray(components)) {
-            this._children.push(...components.map((c) => ({ originX, originY, component: c })))
-            for (const c of components) {
-                c.reposition(anchor, this.zoom)
-            }
-        } else {
-            this._children.push({ originX, originY, component: components })
-            components.reposition(anchor, this.zoom)
+        for (const c of components) {
+            c.reposition(anchor, this.zoom)
         }
     }
     forEach(f: (c: Component) => void) {

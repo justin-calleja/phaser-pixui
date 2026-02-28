@@ -28,10 +28,10 @@ export class Clickable extends Interactive {
         return this.enabled ? this._state : ClickableState.Disabled
     }
     get hovered() {
-        return this.state == ClickableState.Hovered
+        return this.state === ClickableState.Hovered
     }
     get pressed() {
-        return this.state == ClickableState.Pressed
+        return this.state === ClickableState.Pressed
     }
     private _state: ClickableState = ClickableState.Default
 
@@ -64,7 +64,7 @@ export class Clickable extends Interactive {
     }
 
     private _setState(state: ClickableState) {
-        if (this._state == state) return
+        if (this._state === state) return
         this._state = state
         this.update()
     }

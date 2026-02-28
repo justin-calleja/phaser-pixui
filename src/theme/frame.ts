@@ -1,4 +1,4 @@
-import { StyleList } from './theme.ts'
+import type { StyleList } from './theme.ts'
 
 export type FrameStyle = {
     frame?: string

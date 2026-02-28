@@ -5,6 +5,7 @@ import { StyledComponent, StyledComponentConfig } from './styled.ts'
 import { Clickable, ClickableState } from '../core/clickable.ts'
 import { Image } from '../core/image.ts'
 import { TextAlign } from '../util/align.ts'
+import type { StyledMultiFactory } from './factory.ts'
 
 export type ButtonConfig = {
     enabled?: boolean
@@ -13,9 +14,9 @@ export type ButtonConfig = {
 } & StyledComponentConfig
 
 export class Button extends StyledComponent {
-    constructor(scene: Scene, theme: ThemeConfig, cfg: ButtonConfig) {
+    constructor(scene: Scene, factory: StyledMultiFactory, theme: ThemeConfig, cfg: ButtonConfig) {
         const style = findStyle('Button', cfg.style, theme.button)
-        super(scene, theme, {
+        super(scene, factory, theme, {
             width: cfg.width ?? style.defaultWidth,
             height: cfg.height ?? style.defaultHeight,
             ...cfg,
@@ -121,11 +122,11 @@ export class Button extends StyledComponent {
     }
 
     private _setVisible(obj: Image | null) {
-        this._buttonUp.visible = this.visible && obj == this._buttonUp
-        this._buttonDown.visible = this.visible && obj == this._buttonDown
-        if (this._buttonHover) this._buttonHover.visible = this.visible && obj == this._buttonHover
+        this._buttonUp.visible = this.visible && obj === this._buttonUp
+        this._buttonDown.visible = this.visible && obj === this._buttonDown
+        if (this._buttonHover) this._buttonHover.visible = this.visible && obj === this._buttonHover
         if (this._buttonDisabled)
-            this._buttonDisabled.visible = this.visible && obj == this._buttonDisabled
+            this._buttonDisabled.visible = this.visible && obj === this._buttonDisabled
         if (this._buttonText) this._buttonText.visible = this.visible
     }
 

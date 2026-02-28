@@ -11,13 +11,13 @@ export * from './core/scrollable'
 export * from './core/factory'
 
 // Styled components
-export * from './styled/styled'
 export * from './styled/button'
+export * from './styled/styled.ts'
+export * from './styled/factory'
+export * from './styled/frame'
 export * from './styled/progress'
 export * from './styled/textarea'
 export * from './styled/scrollable-textarea'
-export * from './styled/frame'
-export * from './styled/factory'
 
 // Scene components
 export * from './scene/ui'

@@ -1,5 +1,5 @@
 import { FontStyle, initFontStyle } from './font.ts'
-import { StyleList, ThemeConfig } from './theme.ts'
+import type { StyleList, ThemeConfig } from './theme.ts'
 import { Shape } from '../core/interactive.ts'
 import { frameDimensions } from '../util/frame.ts'
 

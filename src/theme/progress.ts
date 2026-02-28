@@ -1,4 +1,4 @@
-import { StyleList } from './theme.ts'
+import type { StyleList } from './theme.ts'
 
 export type ProgressStyle = {
     frame?: string

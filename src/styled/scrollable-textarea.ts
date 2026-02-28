@@ -3,18 +3,24 @@ import { ThemeConfig } from '../theme/theme.ts'
 import { Scene } from 'phaser'
 import { Scrollable } from '../core/scrollable.ts'
 import { TextArea, TextAreaConfig } from './textarea.ts'
+import type { StyledMultiFactory } from './factory.ts'
 
 export type ScrollableTextAreaConfig = TextAreaConfig
 
 export class ScrollableTextArea extends TextArea {
-    constructor(scene: Scene, theme: ThemeConfig, cfg: ScrollableTextAreaConfig) {
-        super(scene, theme, cfg)
+    constructor(
+        scene: Scene,
+        factory: StyledMultiFactory,
+        theme: ThemeConfig,
+        cfg: ScrollableTextAreaConfig
+    ) {
+        super(scene, factory, theme, cfg)
 
         this._mask = this.insert.mask()
         this._text.setMask(this._mask)
 
         this._scroller = this.insert.scrollable({
-            onScroll: (_, y) => {
+            onScroll: (_: number, y: number) => {
                 if (!this._text) return
                 this._text.localY = -y
             },
@@ -28,6 +34,7 @@ export class ScrollableTextArea extends TextArea {
     }
     set text(value: string) {
         super.text = value
+        this._text.setWidth(this._mask.width)
         this._scroller.setContentHeight(this._text.height)
         this.scrollToEnd()
     }

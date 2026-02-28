@@ -1,137 +1,120 @@
 import { ThemeConfig } from '../theme/theme.ts'
+import { ComponentFactory, ComponentFactoryConfig } from '../core/factory.ts'
+import { Frame, FrameConfig } from './frame.ts'
 import { Button, ButtonConfig } from './button.ts'
+import { Progress, ProgressConfig } from './progress.ts'
 import { TextArea, TextAreaConfig } from './textarea.ts'
 import { ScrollableTextArea, ScrollableTextAreaConfig } from './scrollable-textarea.ts'
-import { ComponentFactory, ComponentFactoryConfig } from '../core/factory.ts'
-import { Progress, ProgressConfig } from './progress.ts'
-import { Frame, FrameConfig } from './frame.ts'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
 import { Scene } from 'phaser'
-import { Container } from '../core/container.ts'
 import { OriginX, OriginY } from '../util/origin.ts'
 
 export type StyledFactoryConfig = {
     theme: ThemeConfig
 } & ComponentFactoryConfig
 
-export class StyledFactory extends ComponentFactory {
+export class StyledFactory extends ComponentFactory<StyledMultiFactory> {
     constructor(cfg: StyledFactoryConfig) {
         super(cfg)
         this.theme = cfg.theme
     }
     readonly theme: ThemeConfig
 
-    button(cfg: ButtonConfig): Button {
-        const button = new Button(this.scene, this.theme, cfg)
-        this._container.attach(button, this.originX, this.originY)
-        return button
-    }
-
-    progress(cfg: ProgressConfig): Progress {
-        const progress = new Progress(this.scene, this.theme, cfg)
-        this._container.attach(progress, this.originX, this.originY)
-        return progress
-    }
-
-    textArea(cfg: TextAreaConfig): TextArea {
-        const textArea = new TextArea(this.scene, this.theme, cfg)
-        this._container.attach(textArea, this.originX, this.originY)
-        return textArea
-    }
-
-    scrollableTextArea(cfg: ScrollableTextAreaConfig): ScrollableTextArea {
-        const scrollableTextArea = new ScrollableTextArea(this.scene, this.theme, cfg)
-        this._container.attach(scrollableTextArea, this.originX, this.originY)
-        return scrollableTextArea
+    styledContainer(cfg?: StyledComponentConfig): StyledComponent {
+        return this.createStyled(StyledComponent, cfg)
     }
 
     frame(cfg: FrameConfig): Frame {
-        const frame = new Frame(this.scene, this.theme, cfg)
-        this._container.attach(frame, this.originX, this.originY)
-        return frame
+        return this.createStyled(Frame, cfg)
+    }
+
+    button(cfg: ButtonConfig): Button {
+        return this.createStyled(Button, cfg)
+    }
+
+    progress(cfg: ProgressConfig): Progress {
+        return this.createStyled(Progress, cfg)
+    }
+
+    textArea(cfg: TextAreaConfig): TextArea {
+        return this.createStyled(TextArea, cfg)
+    }
+
+    scrollableTextArea(cfg: ScrollableTextAreaConfig): ScrollableTextArea {
+        return this.createStyled(ScrollableTextArea, cfg)
+    }
+
+    protected createStyled<T extends StyledComponent, Cfg>(
+        Ctor: new (scene: Scene, factory: StyledMultiFactory, theme: ThemeConfig, cfg: Cfg) => T,
+        cfg: Cfg
+    ): T {
+        const multiFactory = new StyledMultiFactory(this.scene, this.theme)
+        const instance = new Ctor(this.scene, multiFactory, this.theme, cfg)
+        this._container.attach(instance, this.originX, this.originY)
+        return instance
     }
 }
 
 export class StyledMultiFactory extends StyledFactory {
-    constructor(scene: Scene, container: Container, theme: ThemeConfig) {
+    constructor(scene: Scene, theme: ThemeConfig) {
         super({
             scene,
-            container,
             theme,
             originX: OriginX.Center,
             originY: OriginY.Center,
-        })
-        this.center = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Center,
-            originY: OriginY.Center,
-        })
-        this.left = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Left,
-            originY: OriginY.Center,
-        })
-        this.right = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Right,
-            originY: OriginY.Center,
-        })
-        this.top = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Center,
-            originY: OriginY.Top,
-        })
-        this.bottom = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Center,
-            originY: OriginY.Bottom,
-        })
-        this.topLeft = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Left,
-            originY: OriginY.Top,
-        })
-        this.topRight = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Right,
-            originY: OriginY.Top,
-        })
-        this.bottomLeft = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Left,
-            originY: OriginY.Bottom,
-        })
-        this.bottomRight = new StyledFactory({
-            scene,
-            container,
-            theme,
-            originX: OriginX.Right,
-            originY: OriginY.Bottom,
         })
     }
 
-    readonly center: StyledFactory
-    readonly left: StyledFactory
-    readonly right: StyledFactory
-    readonly top: StyledFactory
-    readonly bottom: StyledFactory
-    readonly topLeft: StyledFactory
-    readonly topRight: StyledFactory
-    readonly bottomLeft: StyledFactory
-    readonly bottomRight: StyledFactory
+    at(originX: OriginX, originY: OriginY): StyledFactory {
+        const key = `${originX}-${originY}`
+        let factory = this._factories[key]
+        if (!factory) {
+            factory = new StyledFactory({
+                scene: this.scene,
+                theme: this.theme,
+                originX,
+                originY,
+            })
+            factory.setContainer(this._container)
+            this._factories[key] = factory
+        }
+        return factory
+    }
+    private readonly _factories: { [key: string]: StyledFactory } = {}
+
+    get center(): StyledFactory {
+        return this.at(OriginX.Center, OriginY.Center)
+    }
+
+    get left(): StyledFactory {
+        return this.at(OriginX.Left, OriginY.Center)
+    }
+
+    get right(): StyledFactory {
+        return this.at(OriginX.Right, OriginY.Center)
+    }
+
+    get top(): StyledFactory {
+        return this.at(OriginX.Center, OriginY.Top)
+    }
+
+    get bottom(): StyledFactory {
+        return this.at(OriginX.Center, OriginY.Bottom)
+    }
+
+    get topLeft(): StyledFactory {
+        return this.at(OriginX.Left, OriginY.Top)
+    }
+
+    get topRight(): StyledFactory {
+        return this.at(OriginX.Right, OriginY.Top)
+    }
+
+    get bottomLeft(): StyledFactory {
+        return this.at(OriginX.Left, OriginY.Bottom)
+    }
+
+    get bottomRight(): StyledFactory {
+        return this.at(OriginX.Right, OriginY.Bottom)
+    }
 }

@@ -86,10 +86,11 @@ export class Component {
     }
 
     updatePosition() {
+        this._calcPosition()
         Component.updateCount++
         console.log('updateCount', Component.updateCount)
 
-        this._calcPosition()
+        if (!this._initialized) return
         this.afterReposition()
         this.update()
     }
@@ -98,9 +99,11 @@ export class Component {
     reposition(anchor: Anchor, zoom: number) {
         this._anchor = anchor
         this._zoom = zoom
+        this._initialized = true
         this.updatePosition()
     }
     protected afterReposition() {}
+    protected _initialized = false
 
     private readonly _cfg: ComponentConfig
     private _anchor: Anchor = {

@@ -64,15 +64,9 @@ export class Interactive extends Component {
     update() {
         this._updateInteractive(this.visible)
         if (!this._onUpdate) return
-        // During the first update of an interactive component, a controlled
-        // component is usually not yet constructed, so we skip this update.
-        // However, the factory will still call controlled component update,
-        // right after it is constructed.
-        if (!this._firstUpdate) this._onUpdate()
-        this._firstUpdate = false
+        this._onUpdate()
     }
     private readonly _onUpdate?: () => void
-    private _firstUpdate = true
 
     protected afterReposition() {
         if (this._hitRect) {

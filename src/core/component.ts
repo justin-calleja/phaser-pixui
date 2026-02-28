@@ -86,10 +86,14 @@ export class Component {
     }
 
     updatePosition() {
+        Component.updateCount++
+        console.log('updateCount', Component.updateCount)
+
         this._calcPosition()
         this.afterReposition()
         this.update()
     }
+    static updateCount = 0
 
     reposition(anchor: Anchor, zoom: number) {
         this._anchor = anchor

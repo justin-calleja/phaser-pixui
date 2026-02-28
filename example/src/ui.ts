@@ -1,9 +1,10 @@
 import { UiScene } from 'phaser-pixui'
 import { ConstraintMode } from 'phaser-pixui'
 import { TextArea } from 'phaser-pixui'
-import { TextAlign } from 'phaser-pixui'
 import { resolveColor } from '../../src'
 import { GameWorld } from './game.ts'
+import { uiTheme } from './theme.ts'
+import { load_dialog } from './ui/load_dialog.ts'
 
 export class Ui extends UiScene {
     constructor() {
@@ -14,71 +15,7 @@ export class Ui extends UiScene {
                 mode: ConstraintMode.Minimum,
                 height: 320,
             },
-            theme: {
-                resources: {
-                    basePath: 'assets',
-                    atlas: 'mana_soul',
-                    fonts: {
-                        atlas: 'fonts',
-                        names: ['mana_roots', 'mana_trunk', 'mana_branches'],
-                    },
-                },
-
-                palette: {
-                    default: 0xfbe4af,
-                    light: 0xfbe4af,
-                    dark: 0x111343,
-                    disabled: 0x7bb6bc,
-                },
-
-                fontName: 'mana_roots',
-                fontSize: 16,
-                fontTint: 'light',
-
-                button: {
-                    frame: 'button',
-                    defaultWidth: 128,
-                    fontTintDisabled: 'disabled',
-
-                    styles: {
-                        settings: {
-                            frame: 'button_settings',
-                            shape: 'diamond',
-                        },
-                    },
-                },
-
-                progress: {
-                    frame: 'progress_curly',
-                    bar: 'bar_green',
-                    paddingX: 5,
-                    paddingY: 3,
-                },
-
-                textArea: {
-                    styles: {
-                        header_scroll: {
-                            fontName: 'mana_trunk',
-                            fontTint: 'dark',
-                            defaultAlign: TextAlign.Center,
-                        },
-                    },
-                },
-
-                frame: {
-                    frame: 'frame_light',
-                    paddingX: 12,
-                    paddingY: 14,
-
-                    styles: {
-                        header_scroll: {
-                            frame: 'header_scroll',
-                            paddingX: 30,
-                            paddingY: 8,
-                        },
-                    },
-                },
-            },
+            theme: uiTheme,
         })
     }
 
@@ -111,6 +48,8 @@ export class Ui extends UiScene {
         })
         this.scene.launch(game)
 
+        const loadDialog = load_dialog(this.insert)
+
         this.insert.bottomRight.bitmapText({
             x: 4,
             y: 88,
@@ -122,7 +61,7 @@ export class Ui extends UiScene {
         const headerFrame = this.insert.top.frame({
             style: 'header_scroll',
             y: 64,
-            width: 256,
+            width: 224,
             height: 32,
         })
         headerFrame.insert.textArea({
@@ -137,7 +76,7 @@ export class Ui extends UiScene {
         })
         this.insert.center.button({
             text: 'Load game',
-            onClick: () => this.log('There are no saved games yet...'),
+            onClick: () => (loadDialog.visible = true),
         })
         this.insert.center.button({
             y: 24,

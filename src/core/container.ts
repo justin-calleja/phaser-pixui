@@ -9,11 +9,14 @@ export interface WithContainer {
 export class Container<MultiFactory extends WithContainer> extends Component {
     constructor(scene: Scene, factory: MultiFactory, cfg?: ComponentConfig) {
         super(scene, cfg)
-        this.insert = factory
+        this._insert = factory
         factory.setContainer(this)
     }
 
-    readonly insert: MultiFactory
+    get insert() {
+        return this._insert
+    }
+    private readonly _insert: MultiFactory
 
     attach(components: Component | Component[], originX?: OriginX, originY?: OriginY) {
         originX ??= OriginX.Center
@@ -21,6 +24,7 @@ export class Container<MultiFactory extends WithContainer> extends Component {
         if (!Array.isArray(components)) components = [components]
         for (const c of components) {
             this._children.push({ originX, originY, component: c })
+            c.setParentState(this.currentState)
         }
 
         if (!this._initialized) return
@@ -35,6 +39,18 @@ export class Container<MultiFactory extends WithContainer> extends Component {
         }
     }
     private _children: ({ component: Component } & Origin)[] = []
+
+    update() {
+        for (const item of this._children) {
+            item.component.setParentState(this.currentState)
+        }
+    }
+
+    bringToTop() {
+        for (const item of this._children) {
+            item.component.bringToTop()
+        }
+    }
 
     protected afterReposition() {
         for (const item of this._children) {

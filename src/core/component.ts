@@ -7,6 +7,7 @@ export type ComponentConfig = RelativePosition &
     RelativeSize &
     OriginConfig & {
         visible?: boolean
+        enabled?: boolean
     }
 
 export type Anchor = Position & Size & Origin
@@ -15,7 +16,11 @@ export class Component {
     constructor(scene: Scene, cfg?: ComponentConfig) {
         this.scene = scene
         this._cfg = cfg ?? {}
-        this._visible = cfg?.visible ?? true
+        this._localState = {
+            visible: cfg?.visible ?? true,
+            enabled: cfg?.enabled ?? true,
+        }
+        this._currentState = { ...this._localState }
         this._calcPosition()
     }
     readonly scene: Scene
@@ -23,14 +28,28 @@ export class Component {
     update() {}
 
     get visible() {
-        return this._visible
+        return this._currentState.visible
     }
     set visible(value: boolean) {
-        if (this._visible === value) return
-        this._visible = value
-        this.update()
+        this._localState.visible = value
+        this._updateState()
     }
-    private _visible: boolean
+
+    get enabled() {
+        return this._currentState.enabled
+    }
+    set enabled(value: boolean) {
+        this._localState.enabled = value
+        this._updateState()
+    }
+
+    setParentState(state: ComponentState) {
+        this._parentState = state
+        this._updateState()
+    }
+    get currentState(): ComponentState {
+        return this._currentState
+    }
 
     get x() {
         return this._position.x
@@ -102,6 +121,8 @@ export class Component {
         this._initialized = true
         this.updatePosition()
     }
+    bringToTop() {}
+
     protected afterReposition() {}
     protected _initialized = false
 
@@ -140,4 +161,25 @@ export class Component {
         this._cfg[key] = value
         this.updatePosition()
     }
+
+    private _updateState() {
+        const newState = {
+            enabled: this._parentState.enabled && this._localState.enabled,
+            visible: this._parentState.visible && this._localState.visible,
+        }
+        const needUpdate =
+            this._currentState.enabled !== newState.enabled ||
+            this._currentState.visible !== newState.visible
+        if (!needUpdate) return
+        this._currentState = newState
+        this.update()
+    }
+    private readonly _localState: ComponentState
+    private _parentState: ComponentState = { enabled: true, visible: true }
+    private _currentState: ComponentState
+}
+
+export type ComponentState = {
+    enabled: boolean
+    visible: boolean
 }

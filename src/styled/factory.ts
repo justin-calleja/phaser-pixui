@@ -1,5 +1,6 @@
 import { ThemeConfig } from '../theme/theme.ts'
 import { ComponentFactory, ComponentFactoryConfig } from '../core/factory.ts'
+import { Dialog, DialogConfig } from './dialog.ts'
 import { Frame, FrameConfig } from './frame.ts'
 import { Button, ButtonConfig } from './button.ts'
 import { Progress, ProgressConfig } from './progress.ts'
@@ -22,6 +23,10 @@ export class StyledFactory extends ComponentFactory<StyledMultiFactory> {
 
     styledContainer(cfg?: StyledComponentConfig): StyledComponent {
         return this.createStyled(StyledComponent, cfg)
+    }
+
+    dialog(cfg: DialogConfig): Dialog {
+        return this.createStyled(Dialog, cfg)
     }
 
     frame(cfg: FrameConfig): Frame {

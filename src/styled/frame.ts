@@ -3,13 +3,16 @@ import { Scene } from 'phaser'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
 import { Image } from '../core/image.ts'
 import { StyledMultiFactory } from './factory.ts'
+import { FrameStyle } from '../theme/frame.ts'
 
-export type FrameConfig = StyledComponentConfig
+export type FrameConfig = StyledComponentConfig & {
+    styleObject?: FrameStyle
+}
 
 export class Frame extends StyledComponent {
     constructor(scene: Scene, factory: StyledMultiFactory, theme: ThemeConfig, cfg: FrameConfig) {
         super(scene, factory, theme, cfg)
-        const style = findStyle('Frame', cfg.style, theme.frame)
+        const style = cfg.styleObject ?? findStyle('Frame', cfg.style, theme.frame)
 
         this._image = this.insert.image({
             texture: theme.resources.atlas,
@@ -28,6 +31,7 @@ export class Frame extends StyledComponent {
     }
 
     update() {
+        super.update()
         this._image.visible = this.visible
     }
 

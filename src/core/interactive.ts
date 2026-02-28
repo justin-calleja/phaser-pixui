@@ -10,7 +10,6 @@ type Polygon = Phaser.Geom.Polygon
 const { Rectangle, Ellipse, Polygon } = Geom
 
 export type InteractiveConfig = {
-    enabled?: boolean
     draggable?: boolean
     shape?: Shape
     onUpdate?: () => void
@@ -22,7 +21,6 @@ export class Interactive extends Component {
     constructor(scene: Scene, cfg?: InteractiveConfig) {
         super(scene, cfg)
 
-        this._enabled = cfg?.enabled ?? true
         this._draggable = cfg?.draggable ?? false
         this._onUpdate = cfg?.onUpdate
 
@@ -41,16 +39,6 @@ export class Interactive extends Component {
         this._hitArea = scene.make.container({})
     }
 
-    get enabled() {
-        return this._enabled
-    }
-    set enabled(value: boolean) {
-        if (this._enabled === value) return
-        this._enabled = value
-        this.update()
-    }
-    private _enabled: boolean
-
     get events(): EventEmitter {
         return this._hitArea
     }
@@ -59,6 +47,10 @@ export class Interactive extends Component {
 
     get isDesktop() {
         return this.scene.sys.game.device.os.desktop
+    }
+
+    bringToTop() {
+        this.scene.children.bringToTop(this._hitArea)
     }
 
     update() {

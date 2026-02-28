@@ -1,6 +1,7 @@
 import { Component, ComponentConfig } from './component.ts'
 import { Scene } from 'phaser'
 
+type GameObject = Phaser.GameObjects.GameObject
 type Transform = Phaser.GameObjects.Components.Transform
 type Origin = Phaser.GameObjects.Components.Origin
 type Visible = Phaser.GameObjects.Components.Visible
@@ -19,20 +20,18 @@ export interface Tint {
 }
 
 export class Renderable<
-    Internal extends Transform & Origin & Visible & Filters & Tint,
+    Internal extends GameObject & Transform & Origin & Visible & Filters & Tint,
 > extends Component {
     constructor(scene: Scene, cfg: RenderableConfig | undefined, internal: Internal) {
         super(scene, cfg)
         this.internal = internal
         this.tint = cfg?.tint
+        this.update()
     }
     readonly internal: Internal
 
-    get visible() {
-        return this.internal.visible
-    }
-    set visible(value: boolean) {
-        this.internal.visible = value
+    update() {
+        this.internal.visible = this.visible
     }
 
     get tint(): number | undefined {
@@ -41,6 +40,10 @@ export class Renderable<
     set tint(value: number | undefined) {
         if (value === undefined) this.internal.clearTint()
         else this.internal.setTint(value)
+    }
+
+    bringToTop() {
+        this.scene.children.bringToTop(this.internal)
     }
 
     setMask(mask: Mask) {

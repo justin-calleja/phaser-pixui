@@ -1,14 +1,14 @@
-import { UiScene } from "phaser-pixui"
-import { ConstraintMode } from "phaser-pixui"
-import { TextArea } from "phaser-pixui"
-import { TextAlign } from "phaser-pixui"
-import { resolveColor } from "../../src"
-import { GameWorld } from "./game.ts"
+import { UiScene } from 'phaser-pixui'
+import { ConstraintMode } from 'phaser-pixui'
+import { TextArea } from 'phaser-pixui'
+import { TextAlign } from 'phaser-pixui'
+import { resolveColor } from '../../src'
+import { GameWorld } from './game.ts'
 
 export class Ui extends UiScene {
     constructor() {
         super({
-            key: "ui",
+            key: 'ui',
             active: true,
             viewportConstraints: {
                 mode: ConstraintMode.Minimum,
@@ -16,11 +16,11 @@ export class Ui extends UiScene {
             },
             theme: {
                 resources: {
-                    basePath: "assets",
-                    atlas: "mana_soul",
+                    basePath: 'assets',
+                    atlas: 'mana_soul',
                     fonts: {
-                        atlas: "fonts",
-                        names: ["mana_roots", "mana_trunk", "mana_branches"],
+                        atlas: 'fonts',
+                        names: ['mana_roots', 'mana_trunk', 'mana_branches'],
                     },
                 },
 
@@ -31,26 +31,26 @@ export class Ui extends UiScene {
                     disabled: 0x7bb6bc,
                 },
 
-                fontName: "mana_roots",
+                fontName: 'mana_roots',
                 fontSize: 16,
-                fontTint: "light",
+                fontTint: 'light',
 
                 button: {
-                    frame: "button",
+                    frame: 'button',
                     defaultWidth: 128,
-                    fontTintDisabled: "disabled",
+                    fontTintDisabled: 'disabled',
 
                     styles: {
                         settings: {
-                            frame: "button_settings",
-                            shape: "diamond",
+                            frame: 'button_settings',
+                            shape: 'diamond',
                         },
                     },
                 },
 
                 progress: {
-                    frame: "progress_curly",
-                    bar: "bar_green",
+                    frame: 'progress_curly',
+                    bar: 'bar_green',
                     paddingX: 5,
                     paddingY: 3,
                 },
@@ -58,21 +58,21 @@ export class Ui extends UiScene {
                 textArea: {
                     styles: {
                         header_scroll: {
-                            fontName: "mana_trunk",
-                            fontTint: "dark",
+                            fontName: 'mana_trunk',
+                            fontTint: 'dark',
                             defaultAlign: TextAlign.Center,
                         },
                     },
                 },
 
                 frame: {
-                    frame: "frame_light",
+                    frame: 'frame_light',
                     paddingX: 12,
                     paddingY: 14,
 
                     styles: {
                         header_scroll: {
-                            frame: "header_scroll",
+                            frame: 'header_scroll',
                             paddingX: 30,
                             paddingY: 8,
                         },
@@ -84,7 +84,7 @@ export class Ui extends UiScene {
 
     create() {
         super.create()
-        this.scene.bringToTop("ui")
+        this.scene.bringToTop('ui')
         const logFrame = this.insert.bottom.frame({
             y: 2,
             width: -4,
@@ -98,14 +98,14 @@ export class Ui extends UiScene {
             height: 24,
             visible: false,
         })
-        const game = this.scene.get<GameWorld>("game-world")
-        game.events.on("start", () => {
+        const game = this.scene.get<GameWorld>('game-world')
+        game.events.on('start', () => {
             progress.value = 0
             progress.visible = true
-            game.load.on("progress", (v: number) => {
+            game.load.on('progress', (v: number) => {
                 progress.value = v
             })
-            game.load.once("complete", () => {
+            game.load.once('complete', () => {
                 progress.visible = false
             })
         })
@@ -114,77 +114,77 @@ export class Ui extends UiScene {
         this.insert.bottomRight.bitmapText({
             x: 4,
             y: 88,
-            font: "mana_branches",
-            tint: resolveColor("dark", this.theme.palette),
+            font: 'mana_branches',
+            tint: resolveColor('dark', this.theme.palette),
             text: `Phaser PixUI v${PHASER_PIXUI_VERSION}`,
         })
 
         const headerFrame = this.insert.top.frame({
-            style: "header_scroll",
+            style: 'header_scroll',
             y: 64,
             width: 256,
             height: 32,
         })
         headerFrame.insert.textArea({
-            style: "header_scroll",
-            text: "Phaser-PixUI demo",
+            style: 'header_scroll',
+            text: 'Phaser-PixUI demo',
         })
 
         this.insert.center.button({
             y: -24,
-            text: "New game",
-            onClick: () => this.log("New game is already started!"),
+            text: 'New game',
+            onClick: () => this.log('New game is already started!'),
         })
         this.insert.center.button({
-            text: "Load game",
-            onClick: () => this.log("There are no saved games yet..."),
+            text: 'Load game',
+            onClick: () => this.log('There are no saved games yet...'),
         })
         this.insert.center.button({
             y: 24,
-            text: "Exit",
+            text: 'Exit',
             enabled: false,
-            onClick: () => this.log("There is no escape :)"),
+            onClick: () => this.log('There is no escape :)'),
         })
 
         this.insert.topRight.button({
-            style: "settings",
+            style: 'settings',
             x: 4,
             y: 4,
-            onClick: () => this.log("What do you want to customize here?"),
+            onClick: () => this.log('What do you want to customize here?'),
         })
 
         const dps = window.devicePixelRatio || 1
         let rendererType
         switch (this.renderer.type) {
             case Phaser.CANVAS:
-                rendererType = "Canvas"
+                rendererType = 'Canvas'
                 break
             case Phaser.WEBGL:
-                rendererType = "WebGL"
+                rendererType = 'WebGL'
                 break
             case Phaser.HEADLESS:
-                rendererType = "Headless"
+                rendererType = 'Headless'
                 break
             default:
-                rendererType = "Unknown"
+                rendererType = 'Unknown'
         }
         this.log(`Phaser ${Phaser.VERSION}, renderer ${rendererType}, device pixel ratio ${dps}`)
 
         const messages = [
-            "The sun is shining",
-            "The birds are singing",
-            "Life is beautiful",
-            "You feel an urge to scroll through logs",
-            "Suddenly your back starts itching",
-            "A gust of wind sways the grass",
-            "Was für ein wunderschönen Tag!",
-            "Hoffentlich gibt es keinen Ärger hier...",
+            'The sun is shining',
+            'The birds are singing',
+            'Life is beautiful',
+            'You feel an urge to scroll through logs',
+            'Suddenly your back starts itching',
+            'A gust of wind sways the grass',
+            'Was für ein wunderschönen Tag!',
+            'Hoffentlich gibt es keinen Ärger hier...',
         ]
         setInterval(() => this.log(messages[Math.floor(Math.random() * messages.length)]), 5000)
 
-        this.scale.on("resize", () => {
+        this.scale.on('resize', () => {
             const dpr = window.devicePixelRatio || 1
-            const game = this.scene.get<GameWorld>("game-world")
+            const game = this.scene.get<GameWorld>('game-world')
             this.log(
                 `Canvas ${window.innerWidth * dpr}x${window.innerHeight * dpr}, UI ${this.viewport.width}x${this.viewport.height}, game ${game.viewport.width}x${game.viewport.height}`
             )
@@ -192,11 +192,11 @@ export class Ui extends UiScene {
     }
 
     log(msg: string) {
-        const text = this._logArea.text + msg + "\n"
-        const lines = text.split("\n")
+        const text = this._logArea.text + msg + '\n'
+        const lines = text.split('\n')
         if (lines.length > 200) {
             const trimmedLines = lines.slice(-200)
-            this._logArea.text = trimmedLines.join("\n")
+            this._logArea.text = trimmedLines.join('\n')
         } else {
             this._logArea.text = text
         }

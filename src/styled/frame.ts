@@ -1,16 +1,16 @@
-import { findStyle, ThemeConfig } from "../theme/theme.ts"
-import { Scene } from "phaser"
-import { StyledComponent, StyledComponentConfig } from "./styled.ts"
-import { Container } from "../core/container.ts"
-import { StyledMultiFactory } from "./factory.ts"
-import { Image } from "../core/image.ts"
+import { findStyle, ThemeConfig } from '../theme/theme.ts'
+import { Scene } from 'phaser'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
+import { Container } from '../core/container.ts'
+import { StyledMultiFactory } from './factory.ts'
+import { Image } from '../core/image.ts'
 
 export type FrameConfig = StyledComponentConfig
 
 export class Frame extends StyledComponent {
     constructor(scene: Scene, theme: ThemeConfig, cfg: FrameConfig) {
         super(scene, theme, cfg)
-        const style = findStyle("Frame", cfg.style, theme.frame)
+        const style = findStyle('Frame', cfg.style, theme.frame)
 
         const insert = (this as Container).insert
 

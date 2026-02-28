@@ -1,5 +1,5 @@
-import { Interactive, InteractiveConfig } from "./interactive.ts"
-import { Scene } from "phaser"
+import { Interactive, InteractiveConfig } from './interactive.ts'
+import { Scene } from 'phaser'
 
 export type ClickableConfig = {
     onClick?: () => void
@@ -18,10 +18,10 @@ export class Clickable extends Interactive {
 
         this._onClick = cfg.onClick
 
-        this.events.on("pointerdown", this._onPointerDown, this)
-        this.events.on("pointerout", this._onPointerOut, this)
-        this.events.on("pointerup", this._onPointerUp, this)
-        this.events.on("pointerover", this._onPointerOver, this)
+        this.events.on('pointerdown', this._onPointerDown, this)
+        this.events.on('pointerout', this._onPointerOut, this)
+        this.events.on('pointerup', this._onPointerUp, this)
+        this.events.on('pointerover', this._onPointerOver, this)
     }
 
     get state(): ClickableState {

@@ -1,5 +1,5 @@
-import { Component, ComponentConfig } from "./component.ts"
-import { Scene, Geom } from "phaser"
+import { Component, ComponentConfig } from './component.ts'
+import { Scene, Geom } from 'phaser'
 
 type Rectangle = Phaser.Geom.Rectangle
 type Ellipse = Phaser.Geom.Ellipse
@@ -16,7 +16,7 @@ export type InteractiveConfig = {
     onUpdate?: () => void
 } & ComponentConfig
 
-export type Shape = "rect" | "diamond" | "ellipse"
+export type Shape = 'rect' | 'diamond' | 'ellipse'
 
 export class Interactive extends Component {
     constructor(scene: Scene, cfg?: InteractiveConfig) {
@@ -26,14 +26,14 @@ export class Interactive extends Component {
         this._draggable = cfg?.draggable ?? false
         this._onUpdate = cfg?.onUpdate
 
-        switch (cfg?.shape ?? "rect") {
-            case "rect":
+        switch (cfg?.shape ?? 'rect') {
+            case 'rect':
                 this._hitRect = new Rectangle()
                 break
-            case "diamond":
+            case 'diamond':
                 this._hitDiamond = new Polygon()
                 break
-            case "ellipse":
+            case 'ellipse':
                 this._hitEllipse = new Ellipse()
                 break
         }

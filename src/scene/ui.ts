@@ -1,8 +1,8 @@
-import { ThemeConfig, initTheme } from "../theme/theme.ts"
-import { ResponsiveScene, ResponsiveSceneConfig } from "./responsive.ts"
-import { OriginX, OriginY } from "../util/origin.ts"
-import { Container } from "../core/container.ts"
-import { StyledMultiFactory } from "../styled/factory.ts"
+import { ThemeConfig, initTheme } from '../theme/theme.ts'
+import { ResponsiveScene, ResponsiveSceneConfig } from './responsive.ts'
+import { OriginX, OriginY } from '../util/origin.ts'
+import { Container } from '../core/container.ts'
+import { StyledMultiFactory } from '../styled/factory.ts'
 
 export type UiSceneConfig = ResponsiveSceneConfig & {
     theme: ThemeConfig
@@ -21,9 +21,9 @@ export class UiScene extends ResponsiveScene {
     preload() {
         const res = this.theme.resources
         this.load.setPath(res.basePath)
-        this.load.atlas(res.atlas, res.atlas + ".png", res.atlas + ".atlas")
+        this.load.atlas(res.atlas, res.atlas + '.png', res.atlas + '.atlas')
         for (const font of res.fonts.names) {
-            this.load.bitmapFont(font, res.fonts.atlas + ".png", font + ".bmfont")
+            this.load.bitmapFont(font, res.fonts.atlas + '.png', font + '.bmfont')
         }
     }
 
@@ -33,7 +33,7 @@ export class UiScene extends ResponsiveScene {
     create() {
         super.create()
         initTheme(this.theme, this.textures.get(this.theme.resources.atlas))
-        this.game.scale.on("resize", this._updateRoot, this)
+        this.game.scale.on('resize', this._updateRoot, this)
     }
 
     private _updateRoot() {

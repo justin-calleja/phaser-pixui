@@ -1,8 +1,8 @@
-import { FontStyle, initBaseFontStyle } from "./font.ts"
-import { ButtonStyle, initButtonStyle } from "./button.ts"
-import { initTextAreaStyle, TextAreaStyle } from "./textarea.ts"
-import { ProgressStyle, initProgressStyle } from "./progress.ts"
-import { FrameStyle, initFrameStyle } from "./frame.ts"
+import { FontStyle, initBaseFontStyle } from './font.ts'
+import { ButtonStyle, initButtonStyle } from './button.ts'
+import { initTextAreaStyle, TextAreaStyle } from './textarea.ts'
+import { ProgressStyle, initProgressStyle } from './progress.ts'
+import { FrameStyle, initFrameStyle } from './frame.ts'
 
 type Texture = Phaser.Textures.Texture
 
@@ -50,7 +50,7 @@ export function findStyle<StyleType extends object>(
     }
     if (!(name in list.styles!)) {
         console.warn(
-            `${type} style '${name} not found, available are: ${Object.keys(list.styles!).join(",")}`
+            `${type} style '${name} not found, available are: ${Object.keys(list.styles!).join(',')}`
         )
         return list
     }

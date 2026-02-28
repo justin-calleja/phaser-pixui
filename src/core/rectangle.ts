@@ -1,5 +1,5 @@
-import { Scene } from "phaser"
-import { Component, ComponentConfig } from "./component.ts"
+import { Scene } from 'phaser'
+import { Component, ComponentConfig } from './component.ts'
 
 export type RectangleConfig = ComponentConfig & {
     fillColor?: number

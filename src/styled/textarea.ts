@@ -1,8 +1,8 @@
-import { findStyle, resolveColor, ThemeConfig } from "../theme/theme.ts"
-import { Scene } from "phaser"
-import { BitmapText } from "../core/bitmaptext.ts"
-import { StyledComponent, StyledComponentConfig } from "./styled.ts"
-import { TextAlign } from "../util/align.ts"
+import { findStyle, resolveColor, ThemeConfig } from '../theme/theme.ts'
+import { Scene } from 'phaser'
+import { BitmapText } from '../core/bitmaptext.ts'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
+import { TextAlign } from '../util/align.ts'
 
 export type TextAreaConfig = {
     text?: string
@@ -12,7 +12,7 @@ export type TextAreaConfig = {
 export class TextArea extends StyledComponent {
     constructor(scene: Scene, theme: ThemeConfig, cfg: TextAreaConfig) {
         super(scene, theme, cfg)
-        const style = findStyle("TextArea", cfg.style, theme.textArea)
+        const style = findStyle('TextArea', cfg.style, theme.textArea)
 
         const align = cfg.textAlign ?? style.defaultAlign ?? TextAlign.Left
         const textFactory =

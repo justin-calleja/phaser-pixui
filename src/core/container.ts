@@ -1,7 +1,7 @@
-import { Anchor, Component, ComponentConfig } from "./component.ts"
-import { Origin, OriginX, OriginY } from "../util/origin.ts"
-import { Scene } from "phaser"
-import { ComponentMultiFactory } from "./factory.ts"
+import { Anchor, Component, ComponentConfig } from './component.ts'
+import { Origin, OriginX, OriginY } from '../util/origin.ts'
+import { Scene } from 'phaser'
+import { ComponentMultiFactory } from './factory.ts'
 
 export class Container extends Component {
     constructor(scene: Scene, cfg?: ComponentConfig) {

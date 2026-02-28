@@ -1,7 +1,7 @@
-import { ComponentConfig } from "../core/component.ts"
-import { Scene } from "phaser"
-import { Container } from "../core/container.ts"
-import { ThemeConfig } from "../theme/theme.ts"
+import { ComponentConfig } from '../core/component.ts'
+import { Scene } from 'phaser'
+import { Container } from '../core/container.ts'
+import { ThemeConfig } from '../theme/theme.ts'
 
 export type StyledComponentConfig = {
     style?: string

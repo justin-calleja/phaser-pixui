@@ -1,6 +1,6 @@
-import { Scene } from "phaser"
-import { Interactive, InteractiveConfig } from "./interactive.ts"
-import { add, len, scale, sub } from "../util/vec2.ts"
+import { Scene } from 'phaser'
+import { Interactive, InteractiveConfig } from './interactive.ts'
+import { add, len, scale, sub } from '../util/vec2.ts'
 
 export type ScrollableConfig = {
     onScroll: (x: number, y: number) => void
@@ -12,19 +12,19 @@ export class Scrollable extends Interactive {
 
         this._onScroll = cfg.onScroll
 
-        this.events.on("wheel", (_: unknown, dx: number, dy: number) => {
+        this.events.on('wheel', (_: unknown, dx: number, dy: number) => {
             if (!this.enabled) return
             this.scrollX += dx / this.zoom
             this.scrollY += dy / this.zoom
         })
 
-        this.events.on("dragstart", () => {
+        this.events.on('dragstart', () => {
             if (!this.enabled) return
             this._dragTimestamp = Date.now()
             this._dragVelocity = { x: 0, y: 0 }
         })
 
-        this.events.on("drag", (_: unknown, dx: number, dy: number) => {
+        this.events.on('drag', (_: unknown, dx: number, dy: number) => {
             if (!this.enabled) return
             const now = Date.now()
             const delta = sub({ x: dx, y: dy }, this._dragPosition)
@@ -37,7 +37,7 @@ export class Scrollable extends Interactive {
             this._updateContentPosition()
         })
 
-        this.events.on("dragend", () => {
+        this.events.on('dragend', () => {
             if (!this.enabled) return
             const pos = sub(this._scrollPosition, this._dragPosition)
             this._scrollPosition = {
@@ -45,7 +45,7 @@ export class Scrollable extends Interactive {
                 y: Phaser.Math.Clamp(pos.y, 0, this._maxScrollPosition.y),
             }
             this._dragPosition = { x: 0, y: 0 }
-            this.scene.events.on("update", this._kineticScroll, this)
+            this.scene.events.on('update', this._kineticScroll, this)
         })
     }
 
@@ -101,7 +101,7 @@ export class Scrollable extends Interactive {
             scrollX: x,
             scrollY: y,
             duration: 400,
-            ease: "Cubic.easeOut",
+            ease: 'Cubic.easeOut',
         })
     }
     scrollToStart() {
@@ -122,7 +122,7 @@ export class Scrollable extends Interactive {
 
         if (len(this._dragVelocity) < 0.002) {
             this._dragVelocity = { x: 0, y: 0 }
-            this.scene.events.off("update", this._kineticScroll, this)
+            this.scene.events.off('update', this._kineticScroll, this)
         }
     }
 

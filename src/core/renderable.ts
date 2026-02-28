@@ -1,5 +1,5 @@
-import { Component, ComponentConfig } from "./component.ts"
-import { Scene } from "phaser"
+import { Component, ComponentConfig } from './component.ts'
+import { Scene } from 'phaser'
 
 type Transform = Phaser.GameObjects.Components.Transform
 type Origin = Phaser.GameObjects.Components.Origin

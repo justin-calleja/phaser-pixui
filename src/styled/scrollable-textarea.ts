@@ -1,8 +1,8 @@
-import { Mask } from "../core/renderable.ts"
-import { ThemeConfig } from "../theme/theme.ts"
-import { Scene } from "phaser"
-import { Scrollable } from "../core/scrollable.ts"
-import { TextArea, TextAreaConfig } from "./textarea.ts"
+import { Mask } from '../core/renderable.ts'
+import { ThemeConfig } from '../theme/theme.ts'
+import { Scene } from 'phaser'
+import { Scrollable } from '../core/scrollable.ts'
+import { TextArea, TextAreaConfig } from './textarea.ts'
 
 export type ScrollableTextAreaConfig = TextAreaConfig
 

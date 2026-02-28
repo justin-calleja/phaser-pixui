@@ -1,10 +1,10 @@
-import { findStyle, resolveColor, ThemeConfig } from "../theme/theme.ts"
-import { Scene } from "phaser"
-import { BitmapText } from "../core/bitmaptext.ts"
-import { StyledComponent, StyledComponentConfig } from "./styled.ts"
-import { Clickable, ClickableState } from "../core/clickable.ts"
-import { Image } from "../core/image.ts"
-import { TextAlign } from "../util/align.ts"
+import { findStyle, resolveColor, ThemeConfig } from '../theme/theme.ts'
+import { Scene } from 'phaser'
+import { BitmapText } from '../core/bitmaptext.ts'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
+import { Clickable, ClickableState } from '../core/clickable.ts'
+import { Image } from '../core/image.ts'
+import { TextAlign } from '../util/align.ts'
 
 export type ButtonConfig = {
     enabled?: boolean
@@ -14,7 +14,7 @@ export type ButtonConfig = {
 
 export class Button extends StyledComponent {
     constructor(scene: Scene, theme: ThemeConfig, cfg: ButtonConfig) {
-        const style = findStyle("Button", cfg.style, theme.button)
+        const style = findStyle('Button', cfg.style, theme.button)
         super(scene, theme, {
             width: cfg.width ?? style.defaultWidth,
             height: cfg.height ?? style.defaultHeight,

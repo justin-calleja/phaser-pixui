@@ -1,7 +1,7 @@
-import { FontStyle, initFontStyle } from "./font.ts"
-import { StyleList, ThemeConfig } from "./theme.ts"
-import { Shape } from "../core/interactive.ts"
-import { frameDimensions } from "../util/frame.ts"
+import { FontStyle, initFontStyle } from './font.ts'
+import { StyleList, ThemeConfig } from './theme.ts'
+import { Shape } from '../core/interactive.ts'
+import { frameDimensions } from '../util/frame.ts'
 
 type Texture = Phaser.Textures.Texture
 
@@ -23,7 +23,7 @@ export function initButtonStyle(base: StyleList<ButtonStyle>, theme: ThemeConfig
     if (base.frameDown === undefined) console.error(`Base button doesn't have frameDown defined`)
     base.frameHover ??= base.frameUp
     base.frameDisabled ??= base.frameUp
-    base.shape ??= "rect"
+    base.shape ??= 'rect'
     initFontStyle(base, theme)
     base.fontTintDisabled ??= base.fontTint
 

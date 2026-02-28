@@ -1,15 +1,15 @@
-import { findStyle, ThemeConfig } from "../theme/theme.ts"
-import { Scene } from "phaser"
-import { StyledComponent, StyledComponentConfig } from "./styled.ts"
-import { OriginX } from "../util/origin.ts"
-import { Image } from "../core/image.ts"
+import { findStyle, ThemeConfig } from '../theme/theme.ts'
+import { Scene } from 'phaser'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
+import { OriginX } from '../util/origin.ts'
+import { Image } from '../core/image.ts'
 
 export type ProgressConfig = StyledComponentConfig
 
 export class Progress extends StyledComponent {
     constructor(scene: Scene, theme: ThemeConfig, cfg: ProgressConfig) {
         super(scene, theme, cfg)
-        const style = findStyle("Progress", cfg.style, theme.progress)
+        const style = findStyle('Progress', cfg.style, theme.progress)
 
         this._bar = this.insert.left.image({
             texture: theme.resources.atlas,

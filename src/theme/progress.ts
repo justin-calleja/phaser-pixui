@@ -1,4 +1,4 @@
-import { StyleList } from "./theme.ts"
+import { StyleList } from './theme.ts'
 
 export type ProgressStyle = {
     frame?: string
@@ -15,7 +15,7 @@ export function initProgressStyle(base: StyleList<ProgressStyle>) {
     if (base.bar == undefined) {
         console.error(`Base progress doesn't have bar defined`)
     }
-    base.color ??= "default"
+    base.color ??= 'default'
     base.paddingX ??= 0
     base.paddingY ??= 0
 

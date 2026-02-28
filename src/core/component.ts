@@ -1,7 +1,7 @@
-import { calcSize, RelativeSize, Size } from "../util/size.ts"
-import { Position, RelativePosition } from "../util/position.ts"
-import { calcOrigin, Origin, OriginConfig, OriginX, OriginY } from "../util/origin.ts"
-import { Scene } from "phaser"
+import { calcSize, RelativeSize, Size } from '../util/size.ts'
+import { Position, RelativePosition } from '../util/position.ts'
+import { calcOrigin, Origin, OriginConfig, OriginX, OriginY } from '../util/origin.ts'
+import { Scene } from 'phaser'
 
 export type ComponentConfig = RelativePosition &
     RelativeSize &
@@ -70,19 +70,19 @@ export class Component {
         return this._cfg.x ?? 0
     }
     set localX(x) {
-        this._set("x", x)
+        this._set('x', x)
     }
     get localY() {
         return this._cfg.y ?? 0
     }
     set localY(y) {
-        this._set("y", y)
+        this._set('y', y)
     }
     setWidth(width: number) {
-        this._set("width", width)
+        this._set('width', width)
     }
     setHeight(height: number) {
-        this._set("height", height)
+        this._set('height', height)
     }
 
     updatePosition() {
@@ -127,7 +127,7 @@ export class Component {
         }
     }
 
-    private _set<K extends "x" | "y" | "width" | "height">(key: K, value: number) {
+    private _set<K extends 'x' | 'y' | 'width' | 'height'>(key: K, value: number) {
         const current = this._cfg[key]
         if (current !== undefined && Math.abs(current - value) < 1) return
         this._cfg[key] = value

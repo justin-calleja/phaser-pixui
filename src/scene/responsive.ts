@@ -1,5 +1,5 @@
-import { Scene } from "phaser"
-import { Size } from "../util/size.ts"
+import { Scene } from 'phaser'
+import { Size } from '../util/size.ts'
 
 export type ResponsiveSceneConfig = Phaser.Types.Scenes.SettingsConfig & {
     // Constraints on effective viewport size. Default is minimum 426x240.
@@ -54,7 +54,7 @@ export class ResponsiveScene extends Scene {
 
     create() {
         this._updateCamera()
-        this.scale.on("resize", () => {
+        this.scale.on('resize', () => {
             this._updateViewport()
             this._updateCamera()
         })
@@ -95,18 +95,18 @@ export class ResponsiveScene extends Scene {
 
     private _getCanvasWidth(): number {
         return (
-            (typeof window !== "undefined" ? window.innerWidth : 800) * this._getDevicePixelRatio()
+            (typeof window !== 'undefined' ? window.innerWidth : 800) * this._getDevicePixelRatio()
         )
     }
 
     private _getCanvasHeight(): number {
         return (
-            (typeof window !== "undefined" ? window.innerHeight : 600) * this._getDevicePixelRatio()
+            (typeof window !== 'undefined' ? window.innerHeight : 600) * this._getDevicePixelRatio()
         )
     }
 
     private _getDevicePixelRatio(): number {
-        return typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1
+        return typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
     }
 
     private _zoom = 1

@@ -1,20 +1,33 @@
-// Describes size of component, either absolute or relative to parent
-export type RelativeSize = {
-    // Positive indicates absolute width, zero or negative indicates width
-    // relative to parent (parentWidth + width), undefined is treated as zero
-    width?: number
-    // Positive indicates absolute height, zero or negative indicates height
-    // relative to parent (parentHeight + height), undefined is treated as zero
-    height?: number
-}
-
-// Describes absolute size of component
+/**
+ * Size in pixels.
+ */
 export type Size = {
     width: number
     height: number
 }
 
-// Calculates absolute size, based on potentially relative size and parent absolute size
+/**
+ * {@link Size} that can be relative to a parent.
+ *
+ * - **Positive values** (e.g. 100): Actual size in pixels.
+ * - **Zero or negative values** (e.g. -20): Size relative to the parent.
+ *   For example, `-20` means 20 px narrower than the parent, and `0` means
+ *   the same size as the parent.
+ * - **Undefined**: Treated as zero, which means the same size as the parent.
+ */
+export type RelativeSize = {
+    width?: number
+    height?: number
+}
+
+/**
+ * Converts a {@link RelativeSize} to a {@link Size} by resolving
+ * relative values against the parent size.
+ *
+ * @param s - Relative size to resolve
+ * @param parent - The parent's size
+ * @returns Resolved size
+ */
 export function calcSize(s: RelativeSize, parent: Size): Size {
     return {
         width: absDimension(s.width, parent.width),

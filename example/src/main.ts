@@ -1,3 +1,4 @@
+import type { Types } from 'phaser'
 import { Game, Scale } from 'phaser'
 import { GameWorld } from './game.ts'
 import { Ui } from './ui.ts'
@@ -6,7 +7,7 @@ const { ScaleModes } = Scale
 
 const dpr = window.devicePixelRatio || 1
 
-const config: Phaser.Types.Core.GameConfig = {
+const config: Types.Core.GameConfig = {
     parent: 'game-container',
     autoFocus: true,
     pixelArt: true,

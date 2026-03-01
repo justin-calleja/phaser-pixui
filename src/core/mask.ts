@@ -1,7 +1,8 @@
+import type { GameObjects } from 'phaser'
 import { Scene } from 'phaser'
 import { Component, ComponentConfig } from './component.ts'
 
-type Rectangle = Phaser.GameObjects.Rectangle
+type Rectangle = GameObjects.Rectangle
 
 export class Mask extends Component {
     constructor(scene: Scene, cfg?: ComponentConfig) {

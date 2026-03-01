@@ -1,7 +1,8 @@
+import type { Types } from 'phaser'
 import { Scene } from 'phaser'
 import { Size } from '../util/size.ts'
 
-export type ResponsiveSceneConfig = Phaser.Types.Scenes.SettingsConfig & {
+export type ResponsiveSceneConfig = Types.Scenes.SettingsConfig & {
     // Constraints on effective viewport size. Default is minimum 426x240.
     viewportConstraints?: ViewportConstraints
     // Specifies function that returns world size, which is later used to

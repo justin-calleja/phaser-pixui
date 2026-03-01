@@ -1,3 +1,4 @@
+import type { GameObjects } from 'phaser'
 import { Scene } from 'phaser'
 import { frameDimensions } from '../util/frame.ts'
 import { Renderable, RenderableConfig } from './renderable.ts'
@@ -7,7 +8,7 @@ export type ImageConfig = {
     frame: string
 } & RenderableConfig
 
-export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObjects.NineSlice> {
+export class Image extends Renderable<GameObjects.Sprite | GameObjects.NineSlice> {
     constructor(scene: Scene, cfg: ImageConfig) {
         const frame = frameDimensions(scene.textures.getFrame(cfg.texture, cfg.frame))
         const fixedWidth = frame.scalableX ? undefined : frame.width

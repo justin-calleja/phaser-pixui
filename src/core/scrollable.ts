@@ -1,4 +1,4 @@
-import { Scene } from 'phaser'
+import { Math as PMath, Scene } from 'phaser'
 import { add, len, scale, sub } from '../util/vec2.ts'
 import { Interactive, InteractiveConfig } from './interactive.ts'
 
@@ -37,8 +37,8 @@ export class Scrollable extends Interactive {
         this.events.on('dragend', () => {
             const pos = sub(this._scrollPosition, this._dragPosition)
             this._scrollPosition = {
-                x: Phaser.Math.Clamp(pos.x, 0, this._maxScrollPosition.x),
-                y: Phaser.Math.Clamp(pos.y, 0, this._maxScrollPosition.y),
+                x: PMath.Clamp(pos.x, 0, this._maxScrollPosition.x),
+                y: PMath.Clamp(pos.y, 0, this._maxScrollPosition.y),
             }
             this._dragPosition = { x: 0, y: 0 }
             this.scene.events.on('update', this._kineticScroll, this)
@@ -61,26 +61,26 @@ export class Scrollable extends Interactive {
     }
 
     get scrollX() {
-        return Phaser.Math.Clamp(
+        return PMath.Clamp(
             this._scrollPosition.x - this._dragPosition.x,
             0,
             this._maxScrollPosition.x
         )
     }
     set scrollX(pos: number) {
-        this._scrollPosition.x = Phaser.Math.Clamp(pos, 0, this._maxScrollPosition.x)
+        this._scrollPosition.x = PMath.Clamp(pos, 0, this._maxScrollPosition.x)
         this._updateContentPosition()
     }
 
     get scrollY() {
-        return Phaser.Math.Clamp(
+        return PMath.Clamp(
             this._scrollPosition.y - this._dragPosition.y,
             0,
             this._maxScrollPosition.y
         )
     }
     set scrollY(pos: number) {
-        this._scrollPosition.y = Phaser.Math.Clamp(pos, 0, this._maxScrollPosition.y)
+        this._scrollPosition.y = PMath.Clamp(pos, 0, this._maxScrollPosition.y)
         this._updateContentPosition()
     }
 

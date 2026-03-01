@@ -1,3 +1,4 @@
+import type { GameObjects } from 'phaser'
 import { Scene } from 'phaser'
 import { TextAlign } from '../util/align.ts'
 import { Renderable, RenderableConfig } from './renderable.ts'
@@ -9,7 +10,7 @@ export type BitmapTextConfig = {
     text?: string
 } & RenderableConfig
 
-export class BitmapText extends Renderable<Phaser.GameObjects.BitmapText> {
+export class BitmapText extends Renderable<GameObjects.BitmapText> {
     constructor(scene: Scene, cfg: BitmapTextConfig) {
         super(
             scene,

@@ -1,12 +1,13 @@
+import type { GameObjects } from 'phaser'
 import { Scene } from 'phaser'
 import { Component, ComponentConfig } from './component.ts'
 import { Mask } from './mask.ts'
 
-type GameObject = Phaser.GameObjects.GameObject
-type Transform = Phaser.GameObjects.Components.Transform
-type Origin = Phaser.GameObjects.Components.Origin
-type Visible = Phaser.GameObjects.Components.Visible
-type Filters = Phaser.GameObjects.Components.Filters
+type GameObject = GameObjects.GameObject
+type Transform = GameObjects.Components.Transform
+type Origin = GameObjects.Components.Origin
+type Visible = GameObjects.Components.Visible
+type Filters = GameObjects.Components.Filters
 
 export type RenderableConfig = ComponentConfig & {
     tint?: number

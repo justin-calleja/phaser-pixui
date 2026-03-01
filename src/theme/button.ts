@@ -1,9 +1,10 @@
+import { Textures } from 'phaser'
 import { Shape } from '../core/interactive.ts'
 import { frameDimensions } from '../util/frame.ts'
 import { FontStyle, initFontStyle } from './font.ts'
 import type { StyleList, ThemeConfig } from './theme.ts'
 
-type Texture = Phaser.Textures.Texture
+type Texture = Textures.Texture
 
 export type ButtonStyle = {
     frame?: string

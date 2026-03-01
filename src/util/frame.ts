@@ -1,4 +1,6 @@
-import Frame = Phaser.Textures.Frame
+import { Textures } from 'phaser'
+
+type Frame = Textures.Frame
 
 export function frameDimensions(frame: Frame): FrameDimensions {
     type size = { w: number; h: number }

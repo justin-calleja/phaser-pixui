@@ -1,3 +1,4 @@
+import { Textures } from 'phaser'
 import { ButtonStyle, initButtonStyle } from './button.ts'
 import { DialogStyle, initDialogStyle } from './dialog.ts'
 import { FontStyle, initBaseFontStyle } from './font.ts'
@@ -5,7 +6,7 @@ import { FrameStyle, initFrameStyle } from './frame.ts'
 import { initProgressStyle, ProgressStyle } from './progress.ts'
 import { initTextAreaStyle, TextAreaStyle } from './textarea.ts'
 
-type Texture = Phaser.Textures.Texture
+type Texture = Textures.Texture
 
 export type ThemeConfig = {
     resources: {

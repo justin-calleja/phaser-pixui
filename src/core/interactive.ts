@@ -1,11 +1,12 @@
+import type { Events, GameObjects } from 'phaser'
 import { Geom, Scene } from 'phaser'
 import { Component, ComponentConfig } from './component.ts'
 
-type Rectangle = Phaser.Geom.Rectangle
-type Ellipse = Phaser.Geom.Ellipse
-type Container = Phaser.GameObjects.Container
-type EventEmitter = Phaser.Events.EventEmitter
-type Polygon = Phaser.Geom.Polygon
+type Rectangle = Geom.Rectangle
+type Ellipse = Geom.Ellipse
+type Container = GameObjects.Container
+type EventEmitter = Events.EventEmitter
+type Polygon = Geom.Polygon
 
 const { Rectangle, Ellipse, Polygon } = Geom
 

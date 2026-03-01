@@ -1,3 +1,4 @@
+import { CANVAS, HEADLESS, VERSION, WEBGL } from 'phaser'
 import { ConstraintMode, TextArea, UiScene } from 'phaser-pixui'
 import { resolveColor } from '../../src'
 import { GameWorld } from './game.ts'
@@ -93,19 +94,19 @@ export class Ui extends UiScene {
         const dps = window.devicePixelRatio || 1
         let rendererType
         switch (this.renderer.type) {
-            case Phaser.CANVAS:
+            case CANVAS:
                 rendererType = 'Canvas'
                 break
-            case Phaser.WEBGL:
+            case WEBGL:
                 rendererType = 'WebGL'
                 break
-            case Phaser.HEADLESS:
+            case HEADLESS:
                 rendererType = 'Headless'
                 break
             default:
                 rendererType = 'Unknown'
         }
-        this.log(`Phaser ${Phaser.VERSION}, renderer ${rendererType}, device pixel ratio ${dps}`)
+        this.log(`Phaser ${VERSION}, renderer ${rendererType}, device pixel ratio ${dps}`)
 
         this.scale.on('resize', () => {
             const dpr = window.devicePixelRatio || 1

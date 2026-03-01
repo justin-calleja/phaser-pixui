@@ -1,3 +1,4 @@
+import type { GameObjects } from 'phaser'
 import { Scene } from 'phaser'
 import { Component, ComponentConfig } from './component.ts'
 
@@ -98,5 +99,5 @@ export class Rectangle extends Component {
         }
     }
 
-    private readonly _internal: Phaser.GameObjects.Rectangle
+    private readonly _internal: GameObjects.Rectangle
 }

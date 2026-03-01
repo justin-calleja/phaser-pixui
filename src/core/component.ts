@@ -2,6 +2,7 @@ import { Scene } from 'phaser'
 import { Origin, OriginConfig, OriginX, OriginY } from '../util/origin.ts'
 import { Position, RelativePosition } from '../util/position.ts'
 import { RelativeSize, Size } from '../util/size.ts'
+import type { Mask } from './mask.ts'
 
 export type ComponentConfig = RelativePosition &
     RelativeSize &
@@ -129,6 +130,7 @@ export class Component {
     }
     private _zoom = 1
 
+    setMask(_mask: Mask) {}
     bringToTop() {}
 
     private _set<K extends 'x' | 'y' | 'width' | 'height'>(key: K, value: number) {

@@ -1,5 +1,5 @@
 import { Scene } from 'phaser'
-import { Mask } from '../core/renderable.ts'
+import { Mask } from '../core/mask.ts'
 import { Scrollable } from '../core/scrollable.ts'
 import { ThemeConfig } from '../theme/theme.ts'
 import type { StyledMultiFactory } from './factory.ts'

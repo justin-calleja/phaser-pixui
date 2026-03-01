@@ -6,8 +6,8 @@ import { Component, ComponentConfig } from './component.ts'
 import { Container, WithContainer } from './container.ts'
 import { Image, ImageConfig } from './image.ts'
 import { Interactive, InteractiveConfig } from './interactive.ts'
+import { Mask } from './mask.ts'
 import { Rectangle, RectangleConfig } from './rectangle.ts'
-import { Mask } from './renderable.ts'
 import { Scrollable, ScrollableConfig } from './scrollable.ts'
 
 export type ComponentFactoryConfig = Origin & {

@@ -1,12 +1,12 @@
 import { Scene } from 'phaser'
 import { Component, ComponentConfig } from './component.ts'
+import { Mask } from './mask.ts'
 
 type GameObject = Phaser.GameObjects.GameObject
 type Transform = Phaser.GameObjects.Components.Transform
 type Origin = Phaser.GameObjects.Components.Origin
 type Visible = Phaser.GameObjects.Components.Visible
 type Filters = Phaser.GameObjects.Components.Filters
-type Rectangle = Phaser.GameObjects.Rectangle
 
 export type RenderableConfig = ComponentConfig & {
     tint?: number
@@ -45,11 +45,10 @@ export class Renderable<
         this.scene.children.bringToTop(this.internal)
     }
 
-    setMask(mask: Mask) {
+    override setMask(mask: Mask) {
         if (!this.internal.filters) {
             this.internal.enableFilters()
         }
-        // @ts-expect-error: Phaser filters might not have internal property depending on version/types
         this.internal.filters?.internal.addMask(mask._internal)
     }
 
@@ -57,21 +56,4 @@ export class Renderable<
         this.internal.setOrigin(this.originX, this.originY)
         this.internal.setPosition(this.x, this.y)
     }
-}
-
-export class Mask extends Component {
-    constructor(scene: Scene, cfg?: ComponentConfig) {
-        super(scene, cfg)
-        this._internal = scene.add.rectangle()
-        this._internal.setFillStyle(0)
-        this._internal.setVisible(false)
-    }
-
-    protected override updatePosition() {
-        this._internal.setOrigin(this.originX, this.originY)
-        this._internal.setPosition(this.x, this.y)
-        this._internal.setSize(this.width, this.height)
-    }
-
-    private readonly _internal: Rectangle
 }

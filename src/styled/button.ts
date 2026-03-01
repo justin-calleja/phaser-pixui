@@ -24,9 +24,9 @@ export class Button extends StyledComponent {
 
         this._clickable = this.insert.clickable({
             shape: style.shape,
-            enabled: cfg.enabled,
+            visible: cfg.enabled,
             onClick: cfg.onClick,
-            onUpdate: () => this.update(),
+            onUpdate: () => this._updateState(),
         })
 
         this._buttonUp = this.insert.image({
@@ -66,23 +66,7 @@ export class Button extends StyledComponent {
         }
     }
 
-    get visible() {
-        return this._clickable.visible
-    }
-    set visible(value: boolean) {
-        this._clickable.visible = value
-    }
-
-    get enabled() {
-        return this._clickable.enabled
-    }
-    set enabled(value: boolean) {
-        this._clickable.enabled = value
-    }
-
-    update() {
-        super.update()
-
+    private _updateState() {
         if (!this.visible) {
             this._setVisible(null)
             return
@@ -116,18 +100,17 @@ export class Button extends StyledComponent {
         }
     }
 
-    protected afterReposition() {
-        super.afterReposition()
+    protected override updatePosition() {
+        super.updatePosition()
         this._clickable.setHeight(this._buttonUp.height)
+        this._updateState()
     }
 
     private _setVisible(obj: Image | null) {
-        this._buttonUp.visible = this.visible && obj === this._buttonUp
-        this._buttonDown.visible = this.visible && obj === this._buttonDown
-        if (this._buttonHover) this._buttonHover.visible = this.visible && obj === this._buttonHover
-        if (this._buttonDisabled)
-            this._buttonDisabled.visible = this.visible && obj === this._buttonDisabled
-        if (this._buttonText) this._buttonText.visible = this.visible
+        this._buttonUp.visible = obj === this._buttonUp
+        this._buttonDown.visible = obj === this._buttonDown
+        if (this._buttonHover) this._buttonHover.visible = obj === this._buttonHover
+        if (this._buttonDisabled) this._buttonDisabled.visible = obj === this._buttonDisabled
     }
 
     private readonly _clickable: Clickable

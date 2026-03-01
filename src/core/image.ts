@@ -30,8 +30,8 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
     readonly scalableX: boolean
     readonly scalableY: boolean
 
-    protected afterReposition() {
-        super.afterReposition()
+    protected override updatePosition() {
+        super.updatePosition()
         if (this.scalableX) this.internal.width = this.width
         if (this.scalableY) this.internal.height = this.height
     }
@@ -40,7 +40,7 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
         return scene.make.sprite({
             key: cfg.texture,
             frame: cfg.frame,
-            visible: cfg.visible ?? true,
+            visible: false,
         })
     }
 
@@ -48,7 +48,7 @@ export class Image extends Renderable<Phaser.GameObjects.Sprite | Phaser.GameObj
         return scene.make.nineslice({
             key: cfg.texture,
             frame: cfg.frame,
-            visible: cfg.visible ?? true,
+            visible: false,
         })
     }
 }

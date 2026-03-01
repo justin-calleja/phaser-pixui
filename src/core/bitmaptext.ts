@@ -48,7 +48,7 @@ export class BitmapText extends Renderable<Phaser.GameObjects.BitmapText> {
         return this.internal.height
     }
 
-    protected afterReposition() {
+    protected override updatePosition() {
         this.internal.setOrigin(0, 0)
         this.internal.setPosition(this.left, this.top)
         this.internal.setMaxWidth(super.width)

@@ -21,11 +21,10 @@ export class Rectangle extends Component {
         this._internal = scene.add.rectangle()
         this._updateFill()
         this._updateStroke()
-        this.update()
     }
 
-    update() {
-        this._internal.visible = this.visible
+    protected override updateVisible(visible: boolean) {
+        this._internal.visible = visible
     }
 
     get fillColor(): number | undefined {
@@ -73,11 +72,11 @@ export class Rectangle extends Component {
     }
     private _borderWidth: number
 
-    bringToTop() {
+    override bringToTop() {
         this.scene.children.bringToTop(this._internal)
     }
 
-    protected afterReposition() {
+    protected override updatePosition() {
         this._internal.setOrigin(this.originX, this.originY)
         this._internal.setPosition(this.x, this.y)
         this._internal.setSize(this.width, this.height)

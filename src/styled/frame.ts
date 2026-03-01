@@ -30,9 +30,9 @@ export class Frame extends StyledComponent {
         this.insert.setContainer(inner)
     }
 
-    update() {
-        super.update()
-        this._image.visible = this.visible
+    protected override updateVisible(visible: boolean) {
+        super.updateVisible(visible)
+        this._image.visible = visible
     }
 
     private _image: Image

@@ -25,7 +25,7 @@ export class Clickable extends Interactive {
     }
 
     get state(): ClickableState {
-        return this.enabled ? this._state : ClickableState.Disabled
+        return this.visible ? this._state : ClickableState.Disabled
     }
     get hovered() {
         return this.state === ClickableState.Hovered
@@ -35,18 +35,16 @@ export class Clickable extends Interactive {
     }
     private _state: ClickableState = ClickableState.Default
 
-    update() {
-        if (!this.enabled) this._state = ClickableState.Default
-        super.update()
+    protected override updateVisible(visible: boolean) {
+        if (!visible) this._state = ClickableState.Default
+        super.updateVisible(visible)
     }
 
     private _onPointerDown() {
-        if (!this.enabled) return
         this._setState(ClickableState.Pressed)
     }
 
     private _onPointerUp() {
-        if (!this.enabled) return
         if (this.pressed && this._onClick) this._onClick()
         if (this.isDesktop) return this._setState(ClickableState.Hovered)
         else this._setState(ClickableState.Default)
@@ -54,18 +52,17 @@ export class Clickable extends Interactive {
     private readonly _onClick?: () => void
 
     private _onPointerOut() {
-        if (!this.enabled) return
         this._setState(ClickableState.Default)
     }
 
     private _onPointerOver() {
-        if (!this.enabled || !this.isDesktop) return
+        if (!this.isDesktop) return
         this._setState(ClickableState.Hovered)
     }
 
     private _setState(state: ClickableState) {
         if (this._state === state) return
         this._state = state
-        this.update()
+        if (this._onUpdate) this._onUpdate()
     }
 }

@@ -13,19 +13,16 @@ export class Scrollable extends Interactive {
         this._onScroll = cfg.onScroll
 
         this.events.on('wheel', (_: unknown, dx: number, dy: number) => {
-            if (!this.enabled) return
             this.scrollX += dx / this.zoom
             this.scrollY += dy / this.zoom
         })
 
         this.events.on('dragstart', () => {
-            if (!this.enabled) return
             this._dragTimestamp = Date.now()
             this._dragVelocity = { x: 0, y: 0 }
         })
 
         this.events.on('drag', (_: unknown, dx: number, dy: number) => {
-            if (!this.enabled) return
             const now = Date.now()
             const delta = sub({ x: dx, y: dy }, this._dragPosition)
             const dt = now - this._dragTimestamp
@@ -38,7 +35,6 @@ export class Scrollable extends Interactive {
         })
 
         this.events.on('dragend', () => {
-            if (!this.enabled) return
             const pos = sub(this._scrollPosition, this._dragPosition)
             this._scrollPosition = {
                 x: Phaser.Math.Clamp(pos.x, 0, this._maxScrollPosition.x),

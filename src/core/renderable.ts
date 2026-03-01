@@ -26,12 +26,11 @@ export class Renderable<
         super(scene, cfg)
         this.internal = internal
         this.tint = cfg?.tint
-        this.update()
     }
     readonly internal: Internal
 
-    update() {
-        this.internal.visible = this.visible
+    protected override updateVisible(visible: boolean) {
+        this.internal.visible = visible
     }
 
     get tint(): number | undefined {
@@ -42,7 +41,7 @@ export class Renderable<
         else this.internal.setTint(value)
     }
 
-    bringToTop() {
+    override bringToTop() {
         this.scene.children.bringToTop(this.internal)
     }
 
@@ -54,7 +53,7 @@ export class Renderable<
         this.internal.filters?.internal.addMask(mask._internal)
     }
 
-    protected afterReposition() {
+    protected override updatePosition() {
         this.internal.setOrigin(this.originX, this.originY)
         this.internal.setPosition(this.x, this.y)
     }
@@ -68,7 +67,7 @@ export class Mask extends Component {
         this._internal.setVisible(false)
     }
 
-    protected afterReposition() {
+    protected override updatePosition() {
         this._internal.setOrigin(this.originX, this.originY)
         this._internal.setPosition(this.x, this.y)
         this._internal.setSize(this.width, this.height)

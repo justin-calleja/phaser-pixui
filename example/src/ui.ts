@@ -109,18 +109,6 @@ export class Ui extends UiScene {
         }
         this.log(`Phaser ${Phaser.VERSION}, renderer ${rendererType}, device pixel ratio ${dps}`)
 
-        const messages = [
-            'The sun is shining',
-            'The birds are singing',
-            'Life is beautiful',
-            'You feel an urge to scroll through logs',
-            'Suddenly your back starts itching',
-            'A gust of wind sways the grass',
-            'Was für ein wunderschönen Tag!',
-            'Hoffentlich gibt es keinen Ärger hier...',
-        ]
-        setInterval(() => this.log(messages[Math.floor(Math.random() * messages.length)]), 5000)
-
         this.scale.on('resize', () => {
             const dpr = window.devicePixelRatio || 1
             const game = this.scene.get<GameWorld>('game-world')

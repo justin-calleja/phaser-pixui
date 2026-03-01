@@ -20,10 +20,3 @@ export enum OriginY {
     Center = 0.5,
     Bottom = 1,
 }
-
-export function calcOrigin(cfg: OriginConfig, fallback: Origin): Origin {
-    return {
-        originX: cfg.originX ?? fallback.originX,
-        originY: cfg.originY ?? fallback.originY,
-    }
-}

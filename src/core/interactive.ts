@@ -49,18 +49,18 @@ export class Interactive extends Component {
         return this.scene.sys.game.device.os.desktop
     }
 
-    bringToTop() {
+    override bringToTop() {
         this.scene.children.bringToTop(this._hitArea)
     }
 
-    update() {
-        this._updateInteractive(this.visible)
+    protected override updateVisible(visible: boolean) {
+        this._updateInteractive(visible)
         if (!this._onUpdate) return
         this._onUpdate()
     }
-    private readonly _onUpdate?: () => void
+    protected readonly _onUpdate?: () => void
 
-    protected afterReposition() {
+    protected override updatePosition() {
         if (this._hitRect) {
             this._hitRect.setPosition(this.left, this.top)
             this._hitRect.setSize(this.width, this.height)
@@ -87,9 +87,6 @@ export class Interactive extends Component {
     private readonly _hitEllipse?: Ellipse
 
     private _updateInteractive(value: boolean) {
-        if (value === this._interactive) return
-        this._interactive = value
-
         if (!value) {
             this._hitArea.disableInteractive()
             return
@@ -120,5 +117,4 @@ export class Interactive extends Component {
             })
         }
     }
-    private _interactive?: boolean
 }

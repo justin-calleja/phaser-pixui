@@ -37,6 +37,7 @@ export class UiScene extends ResponsiveScene {
         super.create()
         initTheme(this.theme, this.textures.get(this.theme.resources.atlas))
         this.events.once('create', () => {
+            this._root.initialize()
             this.game.scale.refresh()
             this.game.scale.on('resize', this._updateRoot, this)
         })

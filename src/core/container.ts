@@ -24,13 +24,6 @@ export class Container<MultiFactory extends WithContainer> extends Component {
         if (!Array.isArray(components)) components = [components]
         for (const c of components) {
             this._children.push({ originX, originY, component: c })
-            c.setParentState(this.currentState)
-        }
-
-        if (!this._initialized) return
-        const anchor = this._calcAnchor(originX, originY)
-        for (const c of components) {
-            c.reposition(anchor, this.zoom)
         }
     }
     forEach(f: (c: Component) => void) {
@@ -40,44 +33,42 @@ export class Container<MultiFactory extends WithContainer> extends Component {
     }
     private _children: ({ component: Component } & Origin)[] = []
 
-    update() {
+    override initialize() {
+        super.initialize()
         for (const item of this._children) {
-            item.component.setParentState(this.currentState)
+            item.component.initialize()
         }
     }
 
-    bringToTop() {
+    protected override updateVisible(visible: boolean) {
+        for (const item of this._children) {
+            item.component.setParentVisible(visible)
+        }
+    }
+
+    protected override updatePosition() {
+        const anchors = new Map<number, Anchor>()
+        for (const item of this._children) {
+            const key = item.originX * 10 + item.originY
+            let anchor = anchors.get(key)
+            if (!anchor) {
+                anchor = {
+                    x: this.left + Math.floor(item.originX * this.width),
+                    y: this.top + Math.floor(item.originY * this.height),
+                    width: this.width,
+                    height: this.height,
+                    originX: item.originX,
+                    originY: item.originY,
+                }
+                anchors.set(key, anchor)
+            }
+            item.component.reposition(anchor, this.zoom)
+        }
+    }
+
+    override bringToTop() {
         for (const item of this._children) {
             item.component.bringToTop()
-        }
-    }
-
-    protected afterReposition() {
-        for (const item of this._children) {
-            item.component.reposition(this._calcAnchor(item.originX, item.originY), this.zoom)
-        }
-    }
-
-    private _calcAnchor(originX: OriginX, originY: OriginY): Anchor {
-        const x =
-            originX === OriginX.Left
-                ? this.left
-                : originX === OriginX.Right
-                  ? this.right
-                  : this.left + Math.floor(this.width / 2)
-        const y =
-            originY === OriginY.Top
-                ? this.top
-                : originY === OriginY.Bottom
-                  ? this.bottom
-                  : this.top + Math.floor(this.height / 2)
-        return {
-            x,
-            y,
-            width: this.width,
-            height: this.height,
-            originX,
-            originY,
         }
     }
 }

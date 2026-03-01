@@ -25,7 +25,7 @@ export class Progress extends StyledComponent {
             height: -2 * style.paddingY!,
             originX: OriginX.Left,
         })
-        this._frame = this.insert.image({
+        this.insert.image({
             texture: theme.resources.atlas,
             frame: style.frame!,
         })
@@ -41,18 +41,11 @@ export class Progress extends StyledComponent {
     }
     private _value = 0
 
-    update() {
-        super.update()
-        this._updateBar()
-        this._frame.visible = this.visible
-    }
-
     private _updateBar() {
-        this._bar.visible = this.visible && this._value > 0
+        this._bar.visible = this._value > 0
         this._bar.setWidth(this._value * (this.width - 2 * this._paddingX))
     }
 
     private _bar: Image
-    private _frame: Image
     private readonly _paddingX
 }

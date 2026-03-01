@@ -1,8 +1,7 @@
-import { Scene } from 'phaser'
 import { Image } from '../core/image.ts'
 import { FrameStyle } from '../theme/frame.ts'
-import { findStyle, ThemeConfig } from '../theme/theme.ts'
-import { StyledMultiFactory } from './factory.ts'
+import { findStyle } from '../theme/theme.ts'
+import { InsertContext } from './context.ts'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type FrameConfig = StyledComponentConfig & {
@@ -10,18 +9,18 @@ export type FrameConfig = StyledComponentConfig & {
 }
 
 export class Frame extends StyledComponent {
-    constructor(scene: Scene, factory: StyledMultiFactory, theme: ThemeConfig, cfg: FrameConfig) {
-        super(scene, factory, theme, cfg)
-        const style = cfg.styleObject ?? findStyle('Frame', cfg.style, theme.frame)
+    constructor(ctx: InsertContext, cfg: FrameConfig) {
+        super(ctx, cfg)
+        const style = cfg.styleObject ?? findStyle('Frame', cfg.style, ctx.theme.frame)
 
         this._image = this.insert.image({
-            texture: theme.resources.atlas,
+            texture: ctx.theme.resources.atlas,
             frame: style.frame!,
         })
 
         const paddingX = style.paddingX ?? 0
         const paddingY = style.paddingY ?? 0
-        const inner = this.insert.styledContainer({
+        const inner = this.insert.container({
             width: -2 * paddingX,
             height: -2 * paddingY,
         })

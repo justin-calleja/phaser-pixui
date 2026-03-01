@@ -1,10 +1,9 @@
-import { Scene } from 'phaser'
 import { BitmapText } from '../core/bitmaptext.ts'
 import { Clickable, ClickableState } from '../core/clickable.ts'
 import { Image } from '../core/image.ts'
-import { findStyle, resolveColor, ThemeConfig } from '../theme/theme.ts'
+import { findStyle, resolveColor } from '../theme/theme.ts'
 import { TextAlign } from '../util/align.ts'
-import type { StyledMultiFactory } from './factory.ts'
+import type { InsertContext } from './context.ts'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type ButtonConfig = {
@@ -14,9 +13,9 @@ export type ButtonConfig = {
 } & StyledComponentConfig
 
 export class Button extends StyledComponent {
-    constructor(scene: Scene, factory: StyledMultiFactory, theme: ThemeConfig, cfg: ButtonConfig) {
-        const style = findStyle('Button', cfg.style, theme.button)
-        super(scene, factory, theme, {
+    constructor(ctx: InsertContext, cfg: ButtonConfig) {
+        const style = findStyle('Button', cfg.style, ctx.theme.button)
+        super(ctx, {
             width: cfg.width ?? style.defaultWidth,
             height: cfg.height ?? style.defaultHeight,
             ...cfg,
@@ -30,11 +29,11 @@ export class Button extends StyledComponent {
         })
 
         this._buttonUp = this.insert.image({
-            texture: theme.resources.atlas,
+            texture: ctx.theme.resources.atlas,
             frame: style.frameUp!,
         })
         this._buttonDown = this.insert.image({
-            texture: theme.resources.atlas,
+            texture: ctx.theme.resources.atlas,
             frame: style.frameDown!,
         })
         if (!this._buttonUp.scalableX) this.setWidth(this._buttonUp.width)
@@ -42,13 +41,13 @@ export class Button extends StyledComponent {
 
         if (style.frameHover) {
             this._buttonHover = this.insert.image({
-                texture: theme.resources.atlas,
+                texture: ctx.theme.resources.atlas,
                 frame: style.frameHover,
             })
         }
         if (style.frameDisabled) {
             this._buttonDisabled = this.insert.image({
-                texture: theme.resources.atlas,
+                texture: ctx.theme.resources.atlas,
                 frame: style.frameDisabled,
             })
         }
@@ -61,8 +60,8 @@ export class Button extends StyledComponent {
                 size: style.fontSize,
             })
 
-            this._defaultTint = resolveColor(style.fontTint, theme.palette)
-            this._disabledTint = resolveColor(style.fontTintDisabled, theme.palette)
+            this._defaultTint = resolveColor(style.fontTint, ctx.theme.palette)
+            this._disabledTint = resolveColor(style.fontTintDisabled, ctx.theme.palette)
         }
     }
 

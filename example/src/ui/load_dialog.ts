@@ -1,8 +1,8 @@
-import { StyledFactory } from 'phaser-pixui'
+import { InsertContext } from 'phaser-pixui'
 import { TextAlign } from '../../../src'
 
-export function load_dialog(factory: StyledFactory) {
-    const dialog = factory.dialog({
+export function load_dialog(ctx: InsertContext) {
+    const dialog = ctx.dialog({
         width: 256,
         height: 80,
     })

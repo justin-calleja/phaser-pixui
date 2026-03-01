@@ -1,22 +1,24 @@
-import { Scene } from 'phaser'
 import { ComponentConfig } from '../core/component.ts'
 import { Container } from '../core/container.ts'
-import { ThemeConfig } from '../theme/theme.ts'
-import type { StyledMultiFactory } from './factory.ts'
+import type { InsertContext } from './context.ts'
 
 export type StyledComponentConfig = {
     style?: string
 } & ComponentConfig
 
-export class StyledComponent extends Container<StyledMultiFactory> {
-    constructor(
-        scene: Scene,
-        factory: StyledMultiFactory,
-        theme: ThemeConfig,
-        cfg?: StyledComponentConfig
-    ) {
-        super(scene, factory, cfg)
-        this.theme = theme
+export class StyledComponent extends Container {
+    constructor(ctx: InsertContext, cfg?: StyledComponentConfig) {
+        super(ctx.scene, cfg)
+        this._insert = ctx
+        ctx.setContainer(this)
     }
-    readonly theme: ThemeConfig
+
+    get insert() {
+        return this._insert
+    }
+    private readonly _insert: InsertContext
+
+    get theme() {
+        return this._insert.theme
+    }
 }

@@ -1,24 +1,18 @@
-import { Scene } from 'phaser'
 import { Image } from '../core/image.ts'
-import { findStyle, ThemeConfig } from '../theme/theme.ts'
+import { findStyle } from '../theme/theme.ts'
 import { OriginX } from '../util/origin.ts'
-import type { StyledMultiFactory } from './factory.ts'
+import type { InsertContext } from './context.ts'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type ProgressConfig = StyledComponentConfig
 
 export class Progress extends StyledComponent {
-    constructor(
-        scene: Scene,
-        factory: StyledMultiFactory,
-        theme: ThemeConfig,
-        cfg: ProgressConfig
-    ) {
-        super(scene, factory, theme, cfg)
-        const style = findStyle('Progress', cfg.style, theme.progress)
+    constructor(ctx: InsertContext, cfg: ProgressConfig) {
+        super(ctx, cfg)
+        const style = findStyle('Progress', cfg.style, ctx.theme.progress)
 
         this._bar = this.insert.left.image({
-            texture: theme.resources.atlas,
+            texture: ctx.theme.resources.atlas,
             frame: style.bar!,
             x: style.paddingX!,
             width: -2 * style.paddingX!,
@@ -26,7 +20,7 @@ export class Progress extends StyledComponent {
             originX: OriginX.Left,
         })
         this.insert.image({
-            texture: theme.resources.atlas,
+            texture: ctx.theme.resources.atlas,
             frame: style.frame!,
         })
         this._paddingX = style.paddingX!

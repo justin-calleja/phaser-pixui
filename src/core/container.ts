@@ -3,21 +3,10 @@ import { Origin, OriginX, OriginY } from '../util/origin.ts'
 import { Anchor, Component, ComponentConfig } from './component.ts'
 import type { Mask } from './mask.ts'
 
-export interface WithContainer {
-    setContainer(container: Container<this>): void
-}
-
-export class Container<MultiFactory extends WithContainer> extends Component {
-    constructor(scene: Scene, factory: MultiFactory, cfg?: ComponentConfig) {
+export class Container extends Component {
+    constructor(scene: Scene, cfg?: ComponentConfig) {
         super(scene, cfg)
-        this._insert = factory
-        factory.setContainer(this)
     }
-
-    get insert() {
-        return this._insert
-    }
-    private readonly _insert: MultiFactory
 
     attach(components: Component | Component[], originX?: OriginX, originY?: OriginY) {
         originX ??= OriginX.Center

@@ -1,4 +1,4 @@
-import { StyledMultiFactory } from '../styled/factory.ts'
+import { InsertContext } from '../styled/context.ts'
 import { StyledComponent } from '../styled/styled.ts'
 import { ThemeConfig, initTheme } from '../theme/theme.ts'
 import { OriginX, OriginY } from '../util/origin.ts'
@@ -14,8 +14,8 @@ export class UiScene extends ResponsiveScene {
 
         this.theme = cfg.theme
 
-        const factory = new StyledMultiFactory(this, this.theme)
-        this._root = new StyledComponent(this, factory, this.theme)
+        const ctx = new InsertContext(this, this.theme)
+        this._root = new StyledComponent(ctx)
         this._updateRoot()
     }
 

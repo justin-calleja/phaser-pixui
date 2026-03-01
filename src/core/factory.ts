@@ -3,7 +3,7 @@ import { Origin, OriginX, OriginY } from '../util/origin.ts'
 import { BitmapText, BitmapTextConfig } from './bitmaptext.ts'
 import { Clickable, ClickableConfig } from './clickable.ts'
 import { Component, ComponentConfig } from './component.ts'
-import { Container, WithContainer } from './container.ts'
+import { Container } from './container.ts'
 import { Image, ImageConfig } from './image.ts'
 import { Interactive, InteractiveConfig } from './interactive.ts'
 import { Mask } from './mask.ts'
@@ -14,28 +14,21 @@ export type ComponentFactoryConfig = Origin & {
     scene: Scene
 }
 
-export class ComponentFactory<MultiFactory extends WithContainer> {
+export class ComponentFactory {
     constructor(cfg: ComponentFactoryConfig) {
         this.scene = cfg.scene
         this.originX = cfg.originX
         this.originY = cfg.originY
     }
 
-    setContainer(container: Container<MultiFactory>) {
-        this._container = container
-    }
-    protected _container!: Container<MultiFactory>
-
     readonly scene: Scene
     readonly originX: OriginX
     readonly originY: OriginY
 
-    container(cfg?: ComponentConfig): Container<ComponentMultiFactory> {
-        const multiFactory = new ComponentMultiFactory(this.scene)
-        const instance = new Container(this.scene, multiFactory, cfg)
-        this._container.attach(instance, this.originX, this.originY)
-        return instance
+    setContainer(container: Container) {
+        this._container = container
     }
+    protected _container!: Container
 
     interactive(cfg?: InteractiveConfig): Interactive {
         return this.create(Interactive, cfg)
@@ -69,67 +62,5 @@ export class ComponentFactory<MultiFactory extends WithContainer> {
         const instance = new Ctor(this.scene, cfg)
         this._container.attach(instance, this.originX, this.originY)
         return instance
-    }
-}
-
-export class ComponentMultiFactory extends ComponentFactory<ComponentMultiFactory> {
-    constructor(scene: Scene) {
-        super({
-            scene,
-            originX: OriginX.Center,
-            originY: OriginY.Center,
-        })
-    }
-
-    at(originX: OriginX, originY: OriginY): ComponentFactory<ComponentMultiFactory> {
-        const key = `${originX}-${originY}`
-        let factory = this._factories[key]
-        if (!factory) {
-            factory = new ComponentFactory({
-                scene: this.scene,
-                originX,
-                originY,
-            })
-            factory.setContainer(this._container)
-            this._factories[key] = factory
-        }
-        return factory
-    }
-    private _factories: { [key: string]: ComponentFactory<ComponentMultiFactory> } = {}
-
-    get center(): ComponentFactory<ComponentMultiFactory> {
-        return this
-    }
-
-    get left(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Left, OriginY.Center)
-    }
-
-    get right(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Right, OriginY.Center)
-    }
-
-    get top(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Center, OriginY.Top)
-    }
-
-    get bottom(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Center, OriginY.Bottom)
-    }
-
-    get topLeft(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Left, OriginY.Top)
-    }
-
-    get topRight(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Right, OriginY.Top)
-    }
-
-    get bottomLeft(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Left, OriginY.Bottom)
-    }
-
-    get bottomRight(): ComponentFactory<ComponentMultiFactory> {
-        return this.at(OriginX.Right, OriginY.Bottom)
     }
 }

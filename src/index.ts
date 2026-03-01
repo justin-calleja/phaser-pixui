@@ -12,6 +12,7 @@ export * from './core/scrollable'
 
 // Styled components
 export * from './styled/button'
+export * from './styled/context'
 export * from './styled/dialog'
 export * from './styled/factory'
 export * from './styled/frame'

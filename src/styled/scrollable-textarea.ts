@@ -1,20 +1,13 @@
-import { Scene } from 'phaser'
 import { Mask } from '../core/mask.ts'
 import { Scrollable } from '../core/scrollable.ts'
-import { ThemeConfig } from '../theme/theme.ts'
-import type { StyledMultiFactory } from './factory.ts'
+import type { InsertContext } from './context.ts'
 import { TextArea, TextAreaConfig } from './textarea.ts'
 
 export type ScrollableTextAreaConfig = TextAreaConfig
 
 export class ScrollableTextArea extends TextArea {
-    constructor(
-        scene: Scene,
-        factory: StyledMultiFactory,
-        theme: ThemeConfig,
-        cfg: ScrollableTextAreaConfig
-    ) {
-        super(scene, factory, theme, cfg)
+    constructor(ctx: InsertContext, cfg: ScrollableTextAreaConfig) {
+        super(ctx, cfg)
 
         this._mask = this.insert.mask()
         this._text.setMask(this._mask)

@@ -1,8 +1,7 @@
-import { Scene } from 'phaser'
 import { BitmapText } from '../core/bitmaptext.ts'
-import { findStyle, resolveColor, ThemeConfig } from '../theme/theme.ts'
+import { findStyle, resolveColor } from '../theme/theme.ts'
 import { TextAlign } from '../util/align.ts'
-import type { StyledMultiFactory } from './factory.ts'
+import type { InsertContext } from './context.ts'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type TextAreaConfig = {
@@ -11,14 +10,9 @@ export type TextAreaConfig = {
 } & StyledComponentConfig
 
 export class TextArea extends StyledComponent {
-    constructor(
-        scene: Scene,
-        factory: StyledMultiFactory,
-        theme: ThemeConfig,
-        cfg: TextAreaConfig
-    ) {
-        super(scene, factory, theme, cfg)
-        const style = findStyle('TextArea', cfg.style, theme.textArea)
+    constructor(ctx: InsertContext, cfg: TextAreaConfig) {
+        super(ctx, cfg)
+        const style = findStyle('TextArea', cfg.style, ctx.theme.textArea)
 
         const align = cfg.textAlign ?? style.defaultAlign ?? TextAlign.Left
         const textFactory =
@@ -33,7 +27,7 @@ export class TextArea extends StyledComponent {
             align: align,
             font: style.fontName!,
             size: style.fontSize,
-            tint: resolveColor(style.fontTint, theme.palette),
+            tint: resolveColor(style.fontTint, ctx.theme.palette),
             visible: this.visible,
         })
     }

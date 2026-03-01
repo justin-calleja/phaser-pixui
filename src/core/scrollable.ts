@@ -1,6 +1,6 @@
 import { Scene } from 'phaser'
-import { Interactive, InteractiveConfig } from './interactive.ts'
 import { add, len, scale, sub } from '../util/vec2.ts'
+import { Interactive, InteractiveConfig } from './interactive.ts'
 
 export type ScrollableConfig = {
     onScroll: (x: number, y: number) => void

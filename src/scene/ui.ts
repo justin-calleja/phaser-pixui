@@ -1,8 +1,8 @@
-import { ThemeConfig, initTheme } from '../theme/theme.ts'
-import { ResponsiveScene, ResponsiveSceneConfig } from './responsive.ts'
-import { OriginX, OriginY } from '../util/origin.ts'
-import { StyledComponent } from '../styled/styled.ts'
 import { StyledMultiFactory } from '../styled/factory.ts'
+import { StyledComponent } from '../styled/styled.ts'
+import { ThemeConfig, initTheme } from '../theme/theme.ts'
+import { OriginX, OriginY } from '../util/origin.ts'
+import { ResponsiveScene, ResponsiveSceneConfig } from './responsive.ts'
 
 export type UiSceneConfig = ResponsiveSceneConfig & {
     theme: ThemeConfig

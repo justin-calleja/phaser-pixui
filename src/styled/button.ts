@@ -1,11 +1,11 @@
-import { findStyle, resolveColor, ThemeConfig } from '../theme/theme.ts'
 import { Scene } from 'phaser'
 import { BitmapText } from '../core/bitmaptext.ts'
-import { StyledComponent, StyledComponentConfig } from './styled.ts'
 import { Clickable, ClickableState } from '../core/clickable.ts'
 import { Image } from '../core/image.ts'
+import { findStyle, resolveColor, ThemeConfig } from '../theme/theme.ts'
 import { TextAlign } from '../util/align.ts'
 import type { StyledMultiFactory } from './factory.ts'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type ButtonConfig = {
     enabled?: boolean

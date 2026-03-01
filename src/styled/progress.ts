@@ -1,9 +1,9 @@
-import { findStyle, ThemeConfig } from '../theme/theme.ts'
 import { Scene } from 'phaser'
-import { StyledComponent, StyledComponentConfig } from './styled.ts'
-import { OriginX } from '../util/origin.ts'
 import { Image } from '../core/image.ts'
+import { findStyle, ThemeConfig } from '../theme/theme.ts'
+import { OriginX } from '../util/origin.ts'
 import type { StyledMultiFactory } from './factory.ts'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type ProgressConfig = StyledComponentConfig
 

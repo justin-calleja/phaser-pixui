@@ -1,7 +1,7 @@
-import { defineConfig } from "vite"
 import { processAssetsDev } from "pixel-tools"
-import { assetsConfig } from "./assets.mjs"
+import { defineConfig } from "vite"
 import pkg from "../../package.json" with { type: "json" }
+import { assetsConfig } from "./assets.mjs"
 
 export default defineConfig({
   base: "./",

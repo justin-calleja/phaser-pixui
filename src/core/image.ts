@@ -1,6 +1,6 @@
 import { Scene } from 'phaser'
-import { Renderable, RenderableConfig } from './renderable.ts'
 import { frameDimensions } from '../util/frame.ts'
+import { Renderable, RenderableConfig } from './renderable.ts'
 
 export type ImageConfig = {
     texture: string

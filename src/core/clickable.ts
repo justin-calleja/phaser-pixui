@@ -1,5 +1,5 @@
-import { Interactive, InteractiveConfig } from './interactive.ts'
 import { Scene } from 'phaser'
+import { Interactive, InteractiveConfig } from './interactive.ts'
 
 export type ClickableConfig = {
     onClick?: () => void

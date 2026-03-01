@@ -1,6 +1,6 @@
-import { Anchor, Component, ComponentConfig } from './component.ts'
-import { Origin, OriginX, OriginY } from '../util/origin.ts'
 import { Scene } from 'phaser'
+import { Origin, OriginX, OriginY } from '../util/origin.ts'
+import { Anchor, Component, ComponentConfig } from './component.ts'
 
 export interface WithContainer {
     setContainer(container: Container<this>): void

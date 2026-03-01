@@ -1,6 +1,6 @@
 import { Game, Scale } from 'phaser'
-import { Ui } from './ui.ts'
 import { GameWorld } from './game.ts'
+import { Ui } from './ui.ts'
 
 const { ScaleModes } = Scale
 

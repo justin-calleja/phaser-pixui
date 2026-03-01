@@ -1,5 +1,5 @@
-import type { StyleList } from './theme.ts'
 import { FrameStyle, initFrameStyle } from './frame.ts'
+import type { StyleList } from './theme.ts'
 
 export type DialogStyle = FrameStyle & {
     backdropColor?: number

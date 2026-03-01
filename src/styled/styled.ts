@@ -1,5 +1,5 @@
-import { ComponentConfig } from '../core/component.ts'
 import { Scene } from 'phaser'
+import { ComponentConfig } from '../core/component.ts'
 import { Container } from '../core/container.ts'
 import { ThemeConfig } from '../theme/theme.ts'
 import type { StyledMultiFactory } from './factory.ts'

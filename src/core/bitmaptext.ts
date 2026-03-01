@@ -1,6 +1,6 @@
 import { Scene } from 'phaser'
-import { Renderable, RenderableConfig } from './renderable.ts'
 import { TextAlign } from '../util/align.ts'
+import { Renderable, RenderableConfig } from './renderable.ts'
 
 export type BitmapTextConfig = {
     font: string

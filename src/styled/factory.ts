@@ -1,14 +1,14 @@
-import { ThemeConfig } from '../theme/theme.ts'
+import { Scene } from 'phaser'
 import { ComponentFactory, ComponentFactoryConfig } from '../core/factory.ts'
+import { ThemeConfig } from '../theme/theme.ts'
+import { OriginX, OriginY } from '../util/origin.ts'
+import { Button, ButtonConfig } from './button.ts'
 import { Dialog, DialogConfig } from './dialog.ts'
 import { Frame, FrameConfig } from './frame.ts'
-import { Button, ButtonConfig } from './button.ts'
 import { Progress, ProgressConfig } from './progress.ts'
-import { TextArea, TextAreaConfig } from './textarea.ts'
 import { ScrollableTextArea, ScrollableTextAreaConfig } from './scrollable-textarea.ts'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
-import { Scene } from 'phaser'
-import { OriginX, OriginY } from '../util/origin.ts'
+import { TextArea, TextAreaConfig } from './textarea.ts'
 
 export type StyledFactoryConfig = {
     theme: ThemeConfig

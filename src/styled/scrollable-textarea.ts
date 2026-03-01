@@ -1,9 +1,9 @@
-import { Mask } from '../core/renderable.ts'
-import { ThemeConfig } from '../theme/theme.ts'
 import { Scene } from 'phaser'
+import { Mask } from '../core/renderable.ts'
 import { Scrollable } from '../core/scrollable.ts'
-import { TextArea, TextAreaConfig } from './textarea.ts'
+import { ThemeConfig } from '../theme/theme.ts'
 import type { StyledMultiFactory } from './factory.ts'
+import { TextArea, TextAreaConfig } from './textarea.ts'
 
 export type ScrollableTextAreaConfig = TextAreaConfig
 

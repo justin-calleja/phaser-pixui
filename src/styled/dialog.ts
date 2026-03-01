@@ -1,7 +1,7 @@
-import { findStyle, ThemeConfig } from '../theme/theme.ts'
 import { Scene } from 'phaser'
-import { Frame, FrameConfig } from './frame.ts'
+import { findStyle, ThemeConfig } from '../theme/theme.ts'
 import { StyledMultiFactory } from './factory.ts'
+import { Frame, FrameConfig } from './frame.ts'
 import { StyledComponent } from './styled.ts'
 
 export type DialogConfig = FrameConfig

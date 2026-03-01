@@ -1,14 +1,14 @@
-import { Origin, OriginX, OriginY } from '../util/origin.ts'
 import { Scene } from 'phaser'
-import { Container, WithContainer } from './container.ts'
-import { Component, ComponentConfig } from './component.ts'
-import { Interactive, InteractiveConfig } from './interactive.ts'
-import { Clickable, ClickableConfig } from './clickable.ts'
-import { Scrollable, ScrollableConfig } from './scrollable.ts'
-import { Rectangle, RectangleConfig } from './rectangle.ts'
-import { Image, ImageConfig } from './image.ts'
+import { Origin, OriginX, OriginY } from '../util/origin.ts'
 import { BitmapText, BitmapTextConfig } from './bitmaptext.ts'
+import { Clickable, ClickableConfig } from './clickable.ts'
+import { Component, ComponentConfig } from './component.ts'
+import { Container, WithContainer } from './container.ts'
+import { Image, ImageConfig } from './image.ts'
+import { Interactive, InteractiveConfig } from './interactive.ts'
+import { Rectangle, RectangleConfig } from './rectangle.ts'
 import { Mask } from './renderable.ts'
+import { Scrollable, ScrollableConfig } from './scrollable.ts'
 
 export type ComponentFactoryConfig = Origin & {
     scene: Scene

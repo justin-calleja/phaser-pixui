@@ -1,5 +1,5 @@
+import { Geom, Scene } from 'phaser'
 import { Component, ComponentConfig } from './component.ts'
-import { Scene, Geom } from 'phaser'
 
 type Rectangle = Phaser.Geom.Rectangle
 type Ellipse = Phaser.Geom.Ellipse

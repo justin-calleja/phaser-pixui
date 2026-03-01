@@ -4,6 +4,7 @@
   "singleQuote": false,
   "printWidth": 100,
   "tabWidth": 2,
+  "plugins": ["prettier-plugin-organize-imports"],
   "overrides": [
     {
       "files": ["*.js", "*.ts"],

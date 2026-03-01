@@ -1,6 +1,4 @@
-import { UiScene } from 'phaser-pixui'
-import { ConstraintMode } from 'phaser-pixui'
-import { TextArea } from 'phaser-pixui'
+import { ConstraintMode, TextArea, UiScene } from 'phaser-pixui'
 import { resolveColor } from '../../src'
 import { GameWorld } from './game.ts'
 import { uiTheme } from './theme.ts'

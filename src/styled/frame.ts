@@ -1,9 +1,9 @@
-import { findStyle, ThemeConfig } from '../theme/theme.ts'
 import { Scene } from 'phaser'
-import { StyledComponent, StyledComponentConfig } from './styled.ts'
 import { Image } from '../core/image.ts'
-import { StyledMultiFactory } from './factory.ts'
 import { FrameStyle } from '../theme/frame.ts'
+import { findStyle, ThemeConfig } from '../theme/theme.ts'
+import { StyledMultiFactory } from './factory.ts'
+import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type FrameConfig = StyledComponentConfig & {
     styleObject?: FrameStyle

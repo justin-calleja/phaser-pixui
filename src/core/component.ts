@@ -1,7 +1,7 @@
-import { RelativeSize, Size } from '../util/size.ts'
-import { Position, RelativePosition } from '../util/position.ts'
-import { Origin, OriginConfig, OriginX, OriginY } from '../util/origin.ts'
 import { Scene } from 'phaser'
+import { Origin, OriginConfig, OriginX, OriginY } from '../util/origin.ts'
+import { Position, RelativePosition } from '../util/position.ts'
+import { RelativeSize, Size } from '../util/size.ts'
 
 export type ComponentConfig = RelativePosition &
     RelativeSize &

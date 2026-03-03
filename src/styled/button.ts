@@ -7,7 +7,6 @@ import type { InsertContext } from './context.ts'
 import { StyledComponent, StyledComponentConfig } from './styled.ts'
 
 export type ButtonConfig = {
-    enabled?: boolean
     text?: string
     onClick: () => void
 } & StyledComponentConfig
@@ -23,7 +22,6 @@ export class Button extends StyledComponent {
 
         this._clickable = this.insert.clickable({
             shape: style.shape,
-            visible: cfg.enabled,
             onClick: cfg.onClick,
             onUpdate: () => this._updateState(),
         })
@@ -65,6 +63,17 @@ export class Button extends StyledComponent {
         }
     }
 
+    protected override updateVisible(visible: boolean) {
+        super.updateVisible(visible)
+        this._updateState()
+    }
+
+    protected override updatePosition() {
+        super.updatePosition()
+        this._clickable.setHeight(this._buttonUp.height)
+        this._updateState()
+    }
+
     private _updateState() {
         if (!this.visible) {
             this._setVisible(null)
@@ -97,12 +106,6 @@ export class Button extends StyledComponent {
                 if (this._buttonText) this._buttonText.tint = this._disabledTint
                 break
         }
-    }
-
-    protected override updatePosition() {
-        super.updatePosition()
-        this._clickable.setHeight(this._buttonUp.height)
-        this._updateState()
     }
 
     private _setVisible(obj: Image | null) {

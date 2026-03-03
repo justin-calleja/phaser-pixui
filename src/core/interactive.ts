@@ -13,7 +13,6 @@ const { Rectangle, Ellipse, Polygon } = Geom
 export type InteractiveConfig = {
     draggable?: boolean
     shape?: Shape
-    onUpdate?: () => void
 } & ComponentConfig
 
 export type Shape = 'rect' | 'diamond' | 'ellipse'
@@ -23,7 +22,6 @@ export class Interactive extends Component {
         super(scene, cfg)
 
         this._draggable = cfg?.draggable ?? false
-        this._onUpdate = cfg?.onUpdate
 
         switch (cfg?.shape ?? 'rect') {
             case 'rect':
@@ -55,40 +53,7 @@ export class Interactive extends Component {
     }
 
     protected override updateVisible(visible: boolean) {
-        this._updateInteractive(visible)
-        if (!this._onUpdate) return
-        this._onUpdate()
-    }
-    protected readonly _onUpdate?: () => void
-
-    protected override updatePosition() {
-        if (this._hitRect) {
-            this._hitRect.setPosition(this.left, this.top)
-            this._hitRect.setSize(this.width, this.height)
-        }
-        if (this._hitDiamond) {
-            this._hitDiamond.setTo([
-                this.x,
-                this.top,
-                this.right,
-                this.y,
-                this.x,
-                this.bottom,
-                this.left,
-                this.y,
-            ])
-        }
-        if (this._hitEllipse) {
-            this._hitEllipse.setPosition(this.x, this.y)
-            this._hitEllipse.setSize(this.width, this.height)
-        }
-    }
-    private readonly _hitRect?: Rectangle
-    private readonly _hitDiamond?: Polygon
-    private readonly _hitEllipse?: Ellipse
-
-    private _updateInteractive(value: boolean) {
-        if (!value) {
+        if (!visible) {
             this._hitArea.disableInteractive()
             return
         }
@@ -118,4 +83,30 @@ export class Interactive extends Component {
             })
         }
     }
+
+    protected override updatePosition() {
+        if (this._hitRect) {
+            this._hitRect.setPosition(this.left, this.top)
+            this._hitRect.setSize(this.width, this.height)
+        }
+        if (this._hitDiamond) {
+            this._hitDiamond.setTo([
+                this.x,
+                this.top,
+                this.right,
+                this.y,
+                this.x,
+                this.bottom,
+                this.left,
+                this.y,
+            ])
+        }
+        if (this._hitEllipse) {
+            this._hitEllipse.setPosition(this.x, this.y)
+            this._hitEllipse.setSize(this.width, this.height)
+        }
+    }
+    private readonly _hitRect?: Rectangle
+    private readonly _hitDiamond?: Polygon
+    private readonly _hitEllipse?: Ellipse
 }

@@ -17,6 +17,7 @@ export type ComponentConfig = RelativePosition &
     RelativeSize &
     OriginConfig & {
         visible?: boolean
+        enabled?: boolean
     }
 
 /** Absolute position, size, and reference point to be used as an origin. */
@@ -53,13 +54,6 @@ export type Anchor = Position & Size & Origin
  *   anchor, but can be overridden via {@link ComponentConfig} passed to the
  *   constructor.
  *
- * ### Lifecycle
- * 1. Construct with a Phaser `Scene` and optional {@link ComponentConfig}.
- * 2. The parent calls {@link reposition} to supply the parent anchor and zoom.
- * 3. Call {@link initialize} once the component should commit its layout.
- *    After initialization, any change to local properties or parent anchor
- *    automatically triggers {@link updatePosition}.
- *
  * ### Visibility
  * Effective visibility is `parentVisible AND localVisible`. Changes propagate
  * through {@link setParentVisible} (called by containers) and the
@@ -88,6 +82,7 @@ export class Component {
             originY: cfg?.originY,
         }
         this._localVisible = cfg?.visible ?? true
+        this._localEnabled = cfg?.enabled ?? true
     }
     /** The Phaser scene this component lives in. */
     readonly scene: Scene
@@ -106,6 +101,7 @@ export class Component {
         this._initialized = true
         this.updatePosition()
         this.updateVisible(this.visible)
+        this.updateEnabled(this.enabled)
     }
     private _initialized = false
 
@@ -136,6 +132,34 @@ export class Component {
     protected updateVisible(_visible: boolean) {}
     private _parentVisible = true
     private _localVisible: boolean
+
+    /**
+     * Effective enabled state: `true` only when both local and parent enabled state is `true`.
+     */
+    get enabled() {
+        return this._parentEnabled && this._localEnabled
+    }
+    /** Sets local enabled state. Triggers {@link updateEnabled} if effective state changes. */
+    set enabled(value: boolean) {
+        const was = this._parentEnabled && this._localEnabled
+        this._localEnabled = value
+        const now = this._parentEnabled && this._localEnabled
+        if (now !== was) this.updateEnabled(now)
+    }
+    /**
+     * Called by parent containers to propagate their enabled state.
+     * Triggers {@link updateEnabled} if effective state changes.
+     */
+    setParentEnabled(value: boolean) {
+        const was = this._parentEnabled && this._localEnabled
+        this._parentEnabled = value
+        const now = this._parentEnabled && this._localEnabled
+        if (now !== was) this.updateEnabled(now)
+    }
+    /** Override in subclasses to react to enabled state changes. */
+    protected updateEnabled(_enabled: boolean) {}
+    private _parentEnabled = true
+    private _localEnabled: boolean
 
     /** Absolute x position (parent x + local offset, flipped when origin is Right). */
     get x() {

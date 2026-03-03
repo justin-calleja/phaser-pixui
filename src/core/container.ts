@@ -8,18 +8,10 @@ export class Container extends Component {
         super(scene, cfg)
     }
 
-    attach(components: Component | Component[], originX?: OriginX, originY?: OriginY) {
+    attach(component: Component, originX?: OriginX, originY?: OriginY) {
         originX ??= OriginX.Center
         originY ??= OriginY.Center
-        if (!Array.isArray(components)) components = [components]
-        for (const c of components) {
-            this._children.push({ originX, originY, component: c })
-        }
-    }
-    forEach(f: (c: Component) => void) {
-        for (const c of this._children) {
-            f(c.component)
-        }
+        this._children.push({ originX, originY, component })
     }
     private _children: ({ component: Component } & Origin)[] = []
 
@@ -33,6 +25,12 @@ export class Container extends Component {
     protected override updateVisible(visible: boolean) {
         for (const item of this._children) {
             item.component.setParentVisible(visible)
+        }
+    }
+
+    protected override updateEnabled(enabled: boolean) {
+        for (const item of this._children) {
+            item.component.setParentEnabled(enabled)
         }
     }
 

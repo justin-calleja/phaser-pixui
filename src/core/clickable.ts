@@ -3,6 +3,7 @@ import { Interactive, InteractiveConfig } from './interactive.ts'
 
 export type ClickableConfig = {
     onClick?: () => void
+    onUpdate?: () => void
 } & InteractiveConfig
 
 export enum ClickableState {
@@ -17,6 +18,7 @@ export class Clickable extends Interactive {
         super(scene, cfg)
 
         this._onClick = cfg.onClick
+        this._onUpdate = cfg.onUpdate
 
         this.events.on('pointerdown', this._onPointerDown, this)
         this.events.on('pointerout', this._onPointerOut, this)
@@ -25,7 +27,7 @@ export class Clickable extends Interactive {
     }
 
     get state(): ClickableState {
-        return this.visible ? this._state : ClickableState.Disabled
+        return this.enabled ? this._state : ClickableState.Disabled
     }
     get hovered() {
         return this.state === ClickableState.Hovered
@@ -35,27 +37,33 @@ export class Clickable extends Interactive {
     }
     private _state: ClickableState = ClickableState.Default
 
+    protected override updateEnabled(enabled: boolean) {
+        this._setState(enabled ? ClickableState.Default : ClickableState.Disabled)
+    }
+
     protected override updateVisible(visible: boolean) {
-        if (!visible) this._state = ClickableState.Default
         super.updateVisible(visible)
+        this._setState(this.enabled ? ClickableState.Default : ClickableState.Disabled)
     }
 
     private _onPointerDown() {
+        if (!this.enabled) return
         this._setState(ClickableState.Pressed)
     }
 
     private _onPointerUp() {
+        if (!this.enabled) return
         if (this.pressed && this._onClick) this._onClick()
-        if (this.isDesktop) return this._setState(ClickableState.Hovered)
-        else this._setState(ClickableState.Default)
+        this._setState(this.isDesktop ? ClickableState.Hovered : ClickableState.Default)
     }
-    private readonly _onClick?: () => void
 
     private _onPointerOut() {
+        if (!this.enabled) return
         this._setState(ClickableState.Default)
     }
 
     private _onPointerOver() {
+        if (!this.enabled) return
         if (!this.isDesktop) return
         this._setState(ClickableState.Hovered)
     }
@@ -65,4 +73,7 @@ export class Clickable extends Interactive {
         this._state = state
         if (this._onUpdate) this._onUpdate()
     }
+
+    private readonly _onClick?: () => void
+    private readonly _onUpdate?: () => void
 }

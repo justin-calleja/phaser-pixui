@@ -34,5 +34,5 @@ export class Frame extends StyledComponent {
         this._image.visible = visible
     }
 
-    private _image: Image
+    private readonly _image: Image
 }

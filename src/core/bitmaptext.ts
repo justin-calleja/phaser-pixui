@@ -18,7 +18,7 @@ export class BitmapText extends Renderable<GameObjects.BitmapText> {
             scene.make.bitmapText({
                 font: cfg.font,
                 size: cfg.size,
-                visible: cfg.visible ?? true,
+                visible: false,
             })
         )
 

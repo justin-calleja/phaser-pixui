@@ -25,6 +25,9 @@ export class Dialog extends StyledComponent {
         return this._frame.insert
     }
 
+    get visible() {
+        return super.visible
+    }
     set visible(value: boolean) {
         super.visible = value
         if (value) {

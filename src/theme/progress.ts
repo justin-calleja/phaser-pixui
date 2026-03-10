@@ -9,10 +9,10 @@ export type ProgressStyle = {
 }
 
 export function initProgressStyle(base: StyleList<ProgressStyle>) {
-    if (base.frame == undefined) {
+    if (base.frame === undefined) {
         console.error(`Base progress doesn't have frame defined`)
     }
-    if (base.bar == undefined) {
+    if (base.bar === undefined) {
         console.error(`Base progress doesn't have bar defined`)
     }
     base.color ??= 'default'

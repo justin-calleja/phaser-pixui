@@ -58,6 +58,12 @@ export class Interactive extends Component {
             return
         }
 
+        if (this._interactiveSetUp) {
+            this._hitArea.setInteractive()
+            return
+        }
+
+        this._interactiveSetUp = true
         const config = {
             draggable: this._draggable,
         }
@@ -106,6 +112,7 @@ export class Interactive extends Component {
             this._hitEllipse.setSize(this.width, this.height)
         }
     }
+    private _interactiveSetUp = false
     private readonly _hitRect?: Rectangle
     private readonly _hitDiamond?: Polygon
     private readonly _hitEllipse?: Ellipse

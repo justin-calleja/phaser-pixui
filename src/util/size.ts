@@ -19,24 +19,3 @@ export type RelativeSize = {
     width?: number
     height?: number
 }
-
-/**
- * Converts a {@link RelativeSize} to a {@link Size} by resolving
- * relative values against the parent size.
- *
- * @param s - Relative size to resolve
- * @param parent - The parent's size
- * @returns Resolved size
- */
-export function calcSize(s: RelativeSize, parent: Size): Size {
-    return {
-        width: absDimension(s.width, parent.width),
-        height: absDimension(s.height, parent.height),
-    }
-}
-
-function absDimension(value: number | undefined, parent: number): number {
-    if (value === undefined) value = 0
-    if (value > 0) return value
-    return parent + value
-}

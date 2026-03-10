@@ -7,7 +7,7 @@ export type FrameStyle = {
 }
 
 export function initFrameStyle(name: string, base: StyleList<FrameStyle>) {
-    if (base.frame == undefined) {
+    if (base.frame === undefined) {
         console.error(`Base ${name} doesn't have frame defined`)
     }
     base.paddingX ??= 0

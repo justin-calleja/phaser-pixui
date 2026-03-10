@@ -41,6 +41,7 @@ export class Scrollable extends Interactive {
                 y: PMath.Clamp(pos.y, 0, this._maxScrollPosition.y),
             }
             this._dragPosition = { x: 0, y: 0 }
+            this.scene.events.off('update', this._kineticScroll, this)
             this.scene.events.on('update', this._kineticScroll, this)
         })
     }
@@ -109,6 +110,18 @@ export class Scrollable extends Interactive {
 
     private _updateContentPosition() {
         this._onScroll(this.scrollX, this.scrollY)
+    }
+
+    protected override updateVisible(visible: boolean) {
+        super.updateVisible(visible)
+        if (!visible) {
+            this._stopKineticScroll()
+        }
+    }
+
+    private _stopKineticScroll() {
+        this._dragVelocity = { x: 0, y: 0 }
+        this.scene.events.off('update', this._kineticScroll, this)
     }
 
     private _kineticScroll(_: number, delta: number) {

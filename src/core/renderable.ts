@@ -50,7 +50,7 @@ export class Renderable<
         if (!this.internal.filters) {
             this.internal.enableFilters()
         }
-        this.internal.filters?.internal.addMask(mask._internal)
+        this.internal.filters?.internal.addMask(mask.internal)
     }
 
     protected override updatePosition() {

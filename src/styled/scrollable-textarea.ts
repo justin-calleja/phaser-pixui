@@ -45,7 +45,7 @@ export class ScrollableTextArea extends TextArea {
         this._scroller.scrollToEnd()
     }
 
-    protected updatePosition() {
+    protected override updatePosition() {
         super.updatePosition()
         this._text.setWidth(this._mask.width)
         this._scroller.setContentHeight(this._text.height)
